@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:background="@drawable/gradient_background"
+    tools:context="com.halfplatepoha.jisho.AboutFragment">
+
+    <TextView android:text="@string/about_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/about"
+        android:padding="5dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView android:text="@string/email_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/query"
+        android:textSize="12sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/about"/>
+
+    <Button android:id="@+id/btnDeveloper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="i@surajsau.in"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:background="@null"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/query"/>
+
+    <TextView android:text="頑張って！"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
+
+</RelativeLayout>

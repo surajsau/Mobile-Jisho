@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "289134170786",
+    "firebase_url": "https://links-b04aa.firebaseio.com",
+    "project_id": "links-b04aa",
+    "storage_bucket": "links-b04aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289134170786:android:f6cd1cdef483565a",
+        "android_client_info": {
+          "package_name": "com.halfplatepoha.jisho"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "289134170786-2pbpmqp4j4h9jet668u7s23mm3lcg64l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH6ojt5CuOYIXFs9N6UUzR-jKjTYKWetA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
