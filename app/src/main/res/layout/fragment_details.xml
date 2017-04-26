@@ -32,6 +32,7 @@
                 android:id="@+id/tvHiragana"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:transitionName="@string/hiragana_transition"
                 android:textColor="@color/colorPrimaryLight"
                 tools:text="きをつけて" />
 

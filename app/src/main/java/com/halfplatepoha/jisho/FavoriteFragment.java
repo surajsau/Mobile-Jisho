@@ -134,9 +134,9 @@ public class FavoriteFragment extends BaseFragment implements FavoritesAdapter.O
         }
         word.setSenses(senseList);
 
-        DetailsFragment fragment = DetailsFragment.getNewInstance(word);
-        fragment.setDetailsFragmentActionListener(this);
-        fragment.show(getChildFragmentManager(), "details");
+//        DetailsFragment fragment = DetailsFragment.getNewInstance(word);
+//        fragment.setDetailsFragmentActionListener(this);
+//        fragment.show(getChildFragmentManager(), "details");
     }
 
     @Override

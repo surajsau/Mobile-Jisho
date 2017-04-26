@@ -27,7 +27,8 @@
             android:id="@+id/tvHiragana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="きをつけて"/>
+            tools:text="きをつけて"
+            android:transitionName="@string/hiragana_transition"/>
 
         <TextView
             android:id="@+id/tvJapanese"

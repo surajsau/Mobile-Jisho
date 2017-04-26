@@ -1,6 +1,8 @@
 package com.halfplatepoha.jisho.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.halfplatepoha.jisho.utils.VerbInflection;
+import com.halfplatepoha.jisho.utils.VerbInflectionUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -92,5 +94,21 @@ public class Sense implements Serializable {
 
     public void setInfo(ArrayList<String> info) {
         this.info = info;
+    }
+
+    @VerbInflection.Type
+    public String getType() {
+        if(parts_of_speech != null && !parts_of_speech.isEmpty()) {
+            String primary = parts_of_speech.get(0);
+            if(primary.contains(VerbInflection.TYPE_GODAN))
+                return VerbInflection.TYPE_GODAN;
+            else if(primary.contains(VerbInflection.TYPE_ICHIDAN))
+                return VerbInflection.TYPE_ICHIDAN;
+            else if(primary.contains(VerbInflection.TYPE_KURU_VERB))
+                return VerbInflection.TYPE_KURU_VERB;
+            else if(primary.contains(VerbInflection.TYPE_SURU_VERB))
+                return VerbInflection.TYPE_SURU_VERB;
+        }
+        return VerbInflection.TYPE_NONE;
     }
 }

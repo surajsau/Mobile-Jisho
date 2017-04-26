@@ -29,7 +29,7 @@ import io.realm.Realm;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class SearchFragment extends BaseFragment implements MainView, TextView.OnEditorActionListener,
-        TextWatcher, MainAdapter.MainAdapterActionListener, DetailsFragment.DetailsFragmentActionListener{
+        TextWatcher, SearchAdapter.MainAdapterActionListener, DetailsFragment.DetailsFragmentActionListener{
 
     private static final String EXTRA_SEARCH_STRING = "search_string";
 
@@ -52,7 +52,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     MainPresenter presenter;
 
-    MainAdapter adapter;
+    SearchAdapter adapter;
 
     Realm realm;
 
@@ -70,7 +70,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = new MainAdapter(getActivity());
+        adapter = new SearchAdapter(getActivity());
         adapter.setMainAdapterActionListener(this);
 
         rlWords.setAdapter(adapter);

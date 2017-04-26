@@ -27,7 +27,7 @@ import butterknife.OnClick;
  * Created by surjo on 21/04/17.
  */
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder>{
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHolder>{
 
     private ArrayList<Word> words;
     private Context mContext;
@@ -35,7 +35,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     private MainAdapterActionListener listener;
 
-    public MainAdapter(Context mContext) {
+    public SearchAdapter(Context mContext) {
         this.mContext = mContext;
         inflater = LayoutInflater.from(mContext);
     }
