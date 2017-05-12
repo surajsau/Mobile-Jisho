@@ -29,7 +29,7 @@ public class SearchResultSenseViewHolder extends BaseViewHolder<Sense> {
     }
 
     @Override
-    public void bind(Sense sense) {
+    public void bindView(Sense sense) {
         if(sense.getParts_of_speech() != null && !sense.getParts_of_speech().isEmpty()) {
             tvSensePoS.setVisibility(View.VISIBLE);
             tvSensePoS.setText(Utils.getCommaSeparatedString(sense.getParts_of_speech()));

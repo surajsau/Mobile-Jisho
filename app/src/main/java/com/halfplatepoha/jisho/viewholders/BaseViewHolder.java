@@ -19,19 +19,30 @@ public abstract class BaseViewHolder<Model> {
 
     private View vhView;
 
+    private Model mModel;
+
+    private boolean isBound;
+
     public BaseViewHolder(Context context, ViewGroup parent, Model model) {
         mContext = context;
+        mModel = model;
         vhView = LayoutInflater.from(mContext).inflate(getLayoutRes(), parent, false);
         ButterKnife.bind(this, vhView);
-
-        bind(model);
     }
 
-    public abstract void bind(Model model);
+    public BaseViewHolder<Model> bind() {
+        isBound = true;
+        bindView(mModel);
+        return this;
+    }
+
+    protected abstract void bindView(Model model);
 
     public abstract @NonNull @LayoutRes int getLayoutRes();
 
     public View getView() {
+        if(!isBound)
+            throw new Error("first bind() to getView(). You cannot call vh.getView() directly without calling vh.bind() first");
         return vhView;
     }
 }

@@ -29,7 +29,7 @@ import io.realm.Realm;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class SearchFragment extends BaseFragment implements MainView, TextView.OnEditorActionListener,
-        TextWatcher, SearchAdapter.MainAdapterActionListener, DetailsFragment.DetailsFragmentActionListener{
+        TextWatcher, SearchAdapter.MainAdapterActionListener {
 
     private static final String EXTRA_SEARCH_STRING = "search_string";
 
@@ -153,23 +153,8 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     @Override
     public void onSearchResultClicked(Word word) {
-        DetailsFragment dlg = DetailsFragment.getNewInstance(word);
-        dlg.setDetailsFragmentActionListener(this);
-        dlg.show(getChildFragmentManager(), "details");
-    }
-
-    @Override
-    public void onKanjiClicked(String kanji) {
-        Analytics.getInstance().recordSearch(kanji);
-        etSearch.setText(kanji);
-        presenter.search(kanji);
-    }
-
-    @Override
-    public void seeAlso(String seeAlso) {
-        Analytics.getInstance().recordSearch(seeAlso);
-        etSearch.setText(seeAlso);
-        presenter.search(seeAlso);
+        Intent intent = DetailsAcitivity.getLaunchIntent(getActivity(), word);
+        startActivity(intent);
     }
 
     @OnClick(R.id.btnClear)

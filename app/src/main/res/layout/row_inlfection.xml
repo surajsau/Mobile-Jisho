@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <TextView android:id="@+id/tvTense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        tools:text='Casual'
+        android:layout_weight="3" />
+
+    <TextView android:id="@+id/tvPositive"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        tools:text="積まれる"/>
+
+    <TextView android:id="@+id/tvNegative"
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        tools:text="積まれない"/>
+
+</LinearLayout>

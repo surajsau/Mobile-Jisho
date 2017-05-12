@@ -10,8 +10,10 @@ import android.widget.TextView;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.model.Sense;
 import com.halfplatepoha.jisho.utils.Utils;
+import com.halfplatepoha.jisho.utils.VerbInflection;
+import com.halfplatepoha.jisho.utils.VerbInflectionUtils;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,15 +42,21 @@ public class SenseViewHolder extends BaseViewHolder<Sense> {
     @BindView(R.id.tvTags)
     TextView tvTags;
 
+    @BindView(R.id.tvInflection)
+    TextView tvInflection;
+
     private SenseActionListener senseActionListener;
 
-    public SenseViewHolder(Context context, ViewGroup parent, Sense sense, SenseActionListener senseActionListener) {
+    private String primaryString;
+
+    public SenseViewHolder(String primaryString, Context context, ViewGroup parent, Sense sense, SenseActionListener senseActionListener) {
         super(context, parent, sense);
         this.senseActionListener = senseActionListener;
+        this.primaryString = primaryString;
     }
 
     @Override
-    public void bind(Sense sense) {
+    public void bindView(Sense sense) {
         if(sense.getParts_of_speech() != null && !sense.getParts_of_speech().isEmpty()) {
             tvSensePoS.setVisibility(View.VISIBLE);
             tvSensePoS.setText(Utils.getCommaSeparatedString(sense.getParts_of_speech()));
@@ -72,6 +80,11 @@ public class SenseViewHolder extends BaseViewHolder<Sense> {
         }
 
         tvSense.setText(Utils.getCommaSeparatedString(sense.getEnglish_definitions()));
+
+        if(!VerbInflection.TYPE_NONE.equalsIgnoreCase(sense.getType())) {
+            tvInflection.setVisibility(View.VISIBLE);
+            tvInflection.setTag(sense);
+        }
     }
 
     @OnClick(R.id.tvLink)
@@ -86,6 +99,12 @@ public class SenseViewHolder extends BaseViewHolder<Sense> {
             senseActionListener.seeAlso(tvSeeAlso.getTag().toString());
     }
 
+    @OnClick(R.id.tvInflection)
+    public void showInflection() {
+        if(senseActionListener != null)
+            senseActionListener.onInflectionClicked(getInflections((Sense)tvInflection.getTag()));
+    }
+
     @NonNull
     @Override
     public int getLayoutRes() {
@@ -95,5 +114,23 @@ public class SenseViewHolder extends BaseViewHolder<Sense> {
     public interface SenseActionListener {
         void onLinkClick(String link);
         void seeAlso(String seeAlso);
+        void onInflectionClicked(ArrayList<VerbInflection> inflections);
     }
+
+    private ArrayList<VerbInflection> getInflections(Sense sense) {
+        VerbInflectionUtils inflectionUtils = new VerbInflectionUtils(primaryString, sense.getType());
+        ArrayList<VerbInflection> inflections = new ArrayList<>();
+        inflections.add(inflectionUtils.getInflection(VerbInflection.NON_PAST));
+        inflections.add(inflectionUtils.getInflection(VerbInflection.NON_PAST_POLITE));
+        inflections.add(inflectionUtils.getInflection(VerbInflection.PAST));
+        inflections.add(inflectionUtils.getInflection(VerbInflection.PAST_POLITE));
+        inflections.add(inflectionUtils.getInflection(VerbInflection.TE_FORM));
+        inflections.add(inflectionUtils.getInflection(VerbInflection.POTENTIAL));
+        inflections.add(inflectionUtils.getInflection(VerbInflection.PASSIVE));
+        inflections.add(inflectionUtils.getInflection(VerbInflection.CAUSATIVE));
+        inflections.add(inflectionUtils.getInflection(VerbInflection.CAUSATIVE_PASSIVE));
+        inflections.add(inflectionUtils.getInflection(VerbInflection.IMPERATIVE));
+        return inflections;
+    }
+
 }

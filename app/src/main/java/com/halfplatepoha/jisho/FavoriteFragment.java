@@ -24,8 +24,7 @@ import butterknife.OnClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class FavoriteFragment extends BaseFragment implements FavoritesAdapter.OnFavoriteClickListner,
-        DetailsFragment.DetailsFragmentActionListener{
+public class FavoriteFragment extends BaseFragment implements FavoritesAdapter.OnFavoriteClickListner {
 
     @BindView(R.id.rlFavorites)
     RecyclerView rlFavorites;
@@ -33,8 +32,6 @@ public class FavoriteFragment extends BaseFragment implements FavoritesAdapter.O
     private FavoritesAdapter adapter;
 
     private Realm realm;
-
-    private FavoriteFragmentActionListener actionListener;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -45,10 +42,6 @@ public class FavoriteFragment extends BaseFragment implements FavoritesAdapter.O
         rlFavorites.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         refreshUI();
-    }
-
-    public void setFavoriteFragmentActionListener(FavoriteFragmentActionListener actionListener) {
-        this.actionListener = actionListener;
     }
 
     @Override
@@ -144,20 +137,4 @@ public class FavoriteFragment extends BaseFragment implements FavoritesAdapter.O
         return R.layout.fragment_favorite;
     }
 
-    @Override
-    public void onKanjiClicked(String kanji) {
-        if(actionListener != null)
-            actionListener.kanjiCLicked(kanji);
-    }
-
-    @Override
-    public void seeAlso(String seeAlso) {
-        if(actionListener != null)
-            actionListener.seeAlso(seeAlso);
-    }
-
-    public interface FavoriteFragmentActionListener {
-        void kanjiCLicked(String kanji);
-        void seeAlso(String seeAlso);
-    }
 }

@@ -1,20 +1,18 @@
 package com.halfplatepoha.jisho;
 
-import android.content.DialogInterface;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.db.FavJapanese;
 import com.halfplatepoha.jisho.db.FavLink;
@@ -25,10 +23,12 @@ import com.halfplatepoha.jisho.model.Link;
 import com.halfplatepoha.jisho.model.Sense;
 import com.halfplatepoha.jisho.model.Word;
 import com.halfplatepoha.jisho.utils.Utils;
+import com.halfplatepoha.jisho.utils.VerbInflection;
 import com.halfplatepoha.jisho.viewholders.KanjiViewHolder;
 import com.halfplatepoha.jisho.viewholders.SenseViewHolder;
 import com.thefinestartist.finestwebview.FinestWebView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,24 +37,14 @@ import butterknife.OnClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class DetailsFragment extends DialogFragment implements KanjiViewHolder.OnKanjiClickedListener,
-        SenseViewHolder.SenseActionListener{
+public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.SenseActionListener,
+        KanjiViewHolder.OnKanjiClickedListener {
 
     private static final String EXTRA_WORD = "mWord";
 
-    private Word mWord;
-
-    private Japanese mPrimary;
-
-    private String mPrimaryString;
-
-    private DetailsFragmentActionListener detailsFragmentActionListener;
-
-    private boolean isFaved, isAlreadyFaved;
-    
     @BindView(R.id.sensesContainer)
     LinearLayout sensesContainer;
-    
+
     @BindView(R.id.ivCommon)
     ImageView ivCommon;
 
@@ -79,53 +69,40 @@ public class DetailsFragment extends DialogFragment implements KanjiViewHolder.O
     @BindView(R.id.btnFav)
     ImageButton btnFav;
 
+    private Word mWord;
+
+    private Japanese mPrimary;
+
+    private String mPrimaryString;
+
+    private boolean isFaved, isAlreadyFaved;
+
     private Realm realm;
 
     private OtherFormsAdapter otherFormsAdapter;
 
     FinestWebView.Builder webBuilder;
 
-    public static DetailsFragment getNewInstance(Word mWord) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(EXTRA_WORD, mWord);
-
-        DetailsFragment fragment = new DetailsFragment();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    public void setDetailsFragmentActionListener(DetailsFragmentActionListener detailsFragmentActionListener) {
-        this.detailsFragmentActionListener = detailsFragmentActionListener;
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_details, container, false);
+    public static Intent getLaunchIntent(Context context, Word word) {
+        Intent intent = new Intent(context, DetailsAcitivity.class);
+        intent.putExtra(EXTRA_WORD, word);
+        return intent;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        refreshUI();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_details);
+        ButterKnife.bind(this);
 
         realm = Realm.getDefaultInstance();
 
-        mWord = (Word) getArguments().getSerializable(EXTRA_WORD);
+        mWord = (Word) getIntent().getSerializableExtra(EXTRA_WORD);
         mPrimary = mWord.getJapanese().get(0);
 
-        webBuilder = new FinestWebView.Builder(getActivity());
+        webBuilder = new FinestWebView.Builder(this);
+
+        refreshUI();
     }
 
     private void refreshUI() {
@@ -143,7 +120,7 @@ public class DetailsFragment extends DialogFragment implements KanjiViewHolder.O
         if(result != null && !result.isEmpty()) {
             isFaved = true;
             isAlreadyFaved = true;
-            btnFav.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.fav));
+            btnFav.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.fav));
         }
 
         ivCommon.setVisibility(mWord.is_common() ? View.VISIBLE : View.GONE);
@@ -154,9 +131,9 @@ public class DetailsFragment extends DialogFragment implements KanjiViewHolder.O
             sensesContainer.removeAllViews();
 
             for(int i=0; i < mWord.getSenses().size(); i++) {
-                SenseViewHolder vh = new SenseViewHolder(getActivity(), sensesContainer,
+                SenseViewHolder vh = new SenseViewHolder(mPrimaryString, this, sensesContainer,
                         mWord.getSenses().get(i), this);
-                sensesContainer.addView(vh.getView());
+                sensesContainer.addView(vh.bind().getView());
             }
         }
 
@@ -164,8 +141,8 @@ public class DetailsFragment extends DialogFragment implements KanjiViewHolder.O
         if(mWord.getJapanese().size() > 1) {
             tvOtherForms.setVisibility(View.VISIBLE);
             rlOtherForms.setVisibility(View.VISIBLE);
-            otherFormsAdapter = new OtherFormsAdapter(getActivity());
-            rlOtherForms.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+            otherFormsAdapter = new OtherFormsAdapter(this);
+            rlOtherForms.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             rlOtherForms.setAdapter(otherFormsAdapter);
 
             for(int i=1; i<mWord.getJapanese().size(); i++) {
@@ -179,18 +156,26 @@ public class DetailsFragment extends DialogFragment implements KanjiViewHolder.O
             tvKanjis.setVisibility(View.VISIBLE);
             kanjiContainer.setVisibility(View.VISIBLE);
             for (String kanji : kanjis) {
-                KanjiViewHolder kvh = new KanjiViewHolder(getActivity(), kanjiContainer, kanji, this);
-                kanjiContainer.addView(kvh.getView());
+                KanjiViewHolder kvh = new KanjiViewHolder(this, kanjiContainer, kanji, this);
+                kanjiContainer.addView(kvh.bind().getView());
             }
         }
     }
 
-    @OnClick(R.id.back)
-    public void back() {
-        dismiss();
+    @OnClick(R.id.btnFav)
+    public void fav() {
+        if(isFaved) {
+            isFaved = false;
+            btnFav.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.unfav));
+        } else {
+            isFaved = true;
+            btnFav.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.fav));
+        }
+
+        Analytics.getInstance().recordClick("Fav", isFaved ? "Faved" : "Unfaved");
     }
 
-//    @OnClick(R.id.btnDetails)
+    //    @OnClick(R.id.btnDetails)
 //    public void openDetails() {
 //        String word = !TextUtils.isEmpty(mPrimary.getWord()) ? mPrimary.getWord() : mPrimary.getReading();
 //        webBuilder.iconDefaultColor(ContextCompat.getColor(getActivity(), R.color.white))
@@ -202,21 +187,45 @@ public class DetailsFragment extends DialogFragment implements KanjiViewHolder.O
 //                .show(IConstants.JISHO_BASE_URL + word);
 //    }
 
-    @OnClick(R.id.btnFav)
-    public void fav() {
-        if(isFaved) {
-            isFaved = false;
-            btnFav.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.unfav));
-        } else {
-            isFaved = true;
-            btnFav.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.fav));
-        }
+    @Override
+    public void onLinkClick(String link) {
+        Analytics.getInstance().recordClick("link", link);
 
-        Analytics.getInstance().recordClick("Fav", isFaved ? "Faved" : "Unfaved");
+        webBuilder.urlColor(ContextCompat.getColor(this, R.color.colorPrimaryLight))
+                .titleColor(ContextCompat.getColor(this, R.color.white))
+                .menuColor(ContextCompat.getColor(this, R.color.white))
+                .show(link);
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void seeAlso(String seeAlso) {
+        Analytics.getInstance().recordClick("see also", seeAlso);
+        Analytics.getInstance().recordSearch(seeAlso);
+
+        openSearch(seeAlso);
+    }
+
+    @Override
+    public void onInflectionClicked(ArrayList<VerbInflection> inflections) {
+        InflectionDialogFragment.getInstance(mPrimaryString, inflections)
+                .show(getSupportFragmentManager(), "Inflections");
+    }
+
+    private void openSearch(String searchString) {
+
+    }
+
+    @Override
+    public void onKanjiClicked(String kanji) {
+        Analytics.getInstance().recordClick("kanji", kanji);
+        Analytics.getInstance().recordSearch(kanji);
+
+        openSearch(kanji);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         Analytics.getInstance().recordClick("details back", mPrimaryString);
 
         realm.beginTransaction();
@@ -265,40 +274,5 @@ public class DetailsFragment extends DialogFragment implements KanjiViewHolder.O
         realm.commitTransaction();
         realm.close();
         webBuilder = null;
-
-        super.onDismiss(dialog);
     }
-
-    @Override
-    public void onKanjiClicked(String kanji) {
-        Analytics.getInstance().recordClick("kanji", kanji);
-
-        detailsFragmentActionListener.onKanjiClicked(kanji);
-        dismiss();
-    }
-
-    @Override
-    public void onLinkClick(String link) {
-        Analytics.getInstance().recordClick("link", link);
-
-        webBuilder.urlColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryLight))
-                .titleColor(ContextCompat.getColor(getActivity(), R.color.white))
-                .menuColor(ContextCompat.getColor(getActivity(), R.color.white))
-                .show(link);
-    }
-
-    @Override
-    public void seeAlso(String seeAlso) {
-        Analytics.getInstance().recordClick("see also", seeAlso);
-
-        detailsFragmentActionListener.seeAlso(seeAlso);
-        dismiss();
-    }
-
-    public interface DetailsFragmentActionListener {
-        void onKanjiClicked(String kanji);
-
-        void seeAlso(String seeAlso);
-    }
-
 }

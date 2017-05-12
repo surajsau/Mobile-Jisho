@@ -27,7 +27,7 @@ public class KanjiViewHolder extends BaseViewHolder<String> {
     }
 
     @Override
-    public void bind(String s) {
+    public void bindView(String s) {
         tvKanji.setText(s);
     }
 

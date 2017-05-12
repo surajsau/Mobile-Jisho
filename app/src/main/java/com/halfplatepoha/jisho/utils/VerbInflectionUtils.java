@@ -2,10 +2,9 @@ package com.halfplatepoha.jisho.utils;
 
 public class VerbInflectionUtils {
 
-    private StringBuilder affirmative;
-    private StringBuilder negative;
-    private
-    @VerbInflection.Type String pos;
+    @VerbInflection.Type
+    private String pos;
+
     private String mRoot;
 
     private static final String SA = "さ";
@@ -43,67 +42,86 @@ public class VerbInflectionUtils {
         this.pos = pos;
     }
 
-    public String getAffirmative() {
-        return affirmative.toString();
+    public VerbInflection getInflection(@VerbInflection.Inflection String inflection) {
+        switch (inflection) {
+            case VerbInflection.NON_PAST:
+                return getNonPast();
+            case VerbInflection.NON_PAST_POLITE:
+                return getNonPastPolite();
+            case VerbInflection.PAST:
+                return getPast();
+            case VerbInflection.PAST_POLITE:
+                return getPastPolite();
+            case VerbInflection.TE_FORM:
+                return getTeForm();
+            case VerbInflection.PASSIVE:
+                return getPassive();
+            case VerbInflection.POTENTIAL:
+                return getPotential();
+            case VerbInflection.CAUSATIVE:
+                return getCausative();
+            case VerbInflection.CAUSATIVE_PASSIVE:
+                return getCausativePassive();
+            case VerbInflection.IMPERATIVE:
+                return getImperative();
+            default:
+                return null;
+        }
     }
 
-    public String getNegative() {
-        return negative.toString();
-    }
-
-    public VerbInflection getNonPast() {
-        return new VerbInflection(mRoot.toString(),
+    private VerbInflection getNonPast() {
+        return new VerbInflection(VerbInflection.NON_PAST, mRoot.toString(),
                 getNegativeStem(mRoot).append(NAI).toString());
     }
 
-    public VerbInflection getNonPastPolite() {
-        return new VerbInflection(getPoliteStem(mRoot).append(MASU).toString(),
+    private VerbInflection getNonPastPolite() {
+        return new VerbInflection(VerbInflection.NON_PAST_POLITE, getPoliteStem(mRoot).append(MASU).toString(),
                 getPoliteStem(mRoot).append(MASEN).toString());
     }
 
-    public VerbInflection getPast() {
+    private VerbInflection getPast() {
         StringBuilder teStem = getTeStem(mRoot);
         boolean isNEnding = "ん".equalsIgnoreCase(teStem.substring(teStem.length() - 1));
 
-        return new VerbInflection(teStem.append(isNEnding ? DA : TA).toString(),
+        return new VerbInflection(VerbInflection.PAST, teStem.append(isNEnding ? DA : TA).toString(),
                 getNegativeStem(mRoot).append(NAKATTA).toString());
     }
 
-    public VerbInflection getPastPolite() {
-        return new VerbInflection(getPoliteStem(mRoot).append(MASHITA).toString(),
+    private VerbInflection getPastPolite() {
+        return new VerbInflection(VerbInflection.PAST_POLITE, getPoliteStem(mRoot).append(MASHITA).toString(),
                 getPoliteStem(mRoot).append(MASEN).append(DESHITA).toString());
     }
 
-    public VerbInflection getTeForm() {
+    private VerbInflection getTeForm() {
         StringBuilder teStem = getTeStem(mRoot);
         boolean isNEnding = "ん".equalsIgnoreCase(teStem.substring(teStem.length() - 1));
 
-        return new VerbInflection(teStem.append(isNEnding ? DE : TE).toString(),
+        return new VerbInflection(VerbInflection.TE_FORM, teStem.append(isNEnding ? DE : TE).toString(),
                 getNegativeStem(mRoot).append(NAKUTE).toString());
     }
 
-    public VerbInflection getPotential() {
-        return new VerbInflection(getPotentialStem(mRoot).append(RU).toString(),
+    private VerbInflection getPotential() {
+        return new VerbInflection(VerbInflection.POTENTIAL, getPotentialStem(mRoot).append(RU).toString(),
                 getPotentialStem(mRoot).append(NAI).toString());
     }
 
-    public VerbInflection getPassive() {
-        return new VerbInflection(getPassiveStem(mRoot).append(RERU).toString(),
+    private VerbInflection getPassive() {
+        return new VerbInflection(VerbInflection.PASSIVE, getPassiveStem(mRoot).append(RERU).toString(),
                 getPassiveStem(mRoot).append(RENAI).toString());
     }
 
-    public VerbInflection getCausative() {
-        return new VerbInflection(getCausativeStem(mRoot).append(SERU).toString(),
+    private VerbInflection getCausative() {
+        return new VerbInflection(VerbInflection.CAUSATIVE, getCausativeStem(mRoot).append(SERU).toString(),
                 getCausativeStem(mRoot).append(SENAI).toString());
     }
 
-    public VerbInflection getCausativePassive() {
-        return new VerbInflection(getCausativeStem(mRoot).append(SERARERU).toString(),
+    private VerbInflection getCausativePassive() {
+        return new VerbInflection(VerbInflection.CAUSATIVE_PASSIVE, getCausativeStem(mRoot).append(SERARERU).toString(),
                 getCausativeStem(mRoot).append(SERARENAI).toString());
     }
 
-    public VerbInflection getImperative() {
-        return new VerbInflection(getImperativeStem(mRoot).toString(),
+    private VerbInflection getImperative() {
+        return new VerbInflection(VerbInflection.IMPERATIVE, getImperativeStem(mRoot).toString(),
                 new StringBuilder(mRoot).append(NA).toString());
     }
 

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingLeft="5dp"
@@ -22,7 +22,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="top"
         android:orientation="horizontal">
 
@@ -104,6 +104,20 @@
                 </android.support.v7.widget.CardView>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvInflection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:gravity="center_horizontal"
+                android:text="See Inflections"
+                android:layout_gravity="center_horizontal"
+                tools:visibility="visible"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimaryDark"/>
 
         </LinearLayout>
 

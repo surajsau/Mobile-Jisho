@@ -72,7 +72,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
             for(int i=0; i < word.getSenses().size() && i < 2; i++) {
                 Sense sense = word.getSenses().get(i);
                 SearchResultSenseViewHolder vh = new SearchResultSenseViewHolder(mContext, holder.sensesContainer, sense);
-                holder.sensesContainer.addView(vh.getView());
+                holder.sensesContainer.addView(vh.bind().getView());
             }
         }
     }

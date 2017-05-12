@@ -23,8 +23,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements DrawerAdapter.DrawerListener,
         HistoryFragment.HistoryFragmentActionListener,
-        SearchFragment.SearchFragmentActionListener,
-        FavoriteFragment.FavoriteFragmentActionListener{
+        SearchFragment.SearchFragmentActionListener {
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -95,7 +94,6 @@ public class MainActivity extends BaseActivity implements DrawerAdapter.DrawerLi
             case FAVORITE:
                 tvTitle.setText("Favorite");
                 FavoriteFragment favoriteFragment = new FavoriteFragment();
-                favoriteFragment.setFavoriteFragmentActionListener(this);
                 openFragment(favoriteFragment);
                 break;
         }
@@ -126,17 +124,4 @@ public class MainActivity extends BaseActivity implements DrawerAdapter.DrawerLi
         drawerItemSelected(DrawerAdapter.DrawerItem.HISTORY);
     }
 
-    @Override
-    public void kanjiCLicked(String kanji) {
-        SearchFragment searchFragment = SearchFragment.getInstance(kanji);
-        searchFragment.setSearchFragmentActionListener(this);
-        openFragment(searchFragment);
-    }
-
-    @Override
-    public void seeAlso(String seeAlso) {
-        SearchFragment searchFragment = SearchFragment.getInstance(seeAlso);
-        searchFragment.setSearchFragmentActionListener(this);
-        openFragment(searchFragment);
-    }
 }
