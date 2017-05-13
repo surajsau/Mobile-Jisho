@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,11 +24,14 @@ import com.halfplatepoha.jisho.model.Japanese;
 import com.halfplatepoha.jisho.model.Link;
 import com.halfplatepoha.jisho.model.Sense;
 import com.halfplatepoha.jisho.model.Word;
+import com.halfplatepoha.jisho.utils.UIUtils;
 import com.halfplatepoha.jisho.utils.Utils;
 import com.halfplatepoha.jisho.utils.VerbInflection;
 import com.halfplatepoha.jisho.viewholders.KanjiViewHolder;
 import com.halfplatepoha.jisho.viewholders.SenseViewHolder;
 import com.thefinestartist.finestwebview.FinestWebView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +43,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.SenseActionListener,
-        KanjiViewHolder.OnKanjiClickedListener {
+        KanjiViewHolder.OnKanjiClickedListener, NestedScrollView.OnScrollChangeListener {
 
     private static final String EXTRA_WORD = "mWord";
 
@@ -54,6 +59,12 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
     @BindView(R.id.tvJapanese)
     TextView tvJapanese;
 
+    @BindView(R.id.tvExtraJapanese)
+    TextView tvExtraJapanese;
+
+    @BindView(R.id.tvExtraHiragana)
+    TextView tvExtraHiragana;
+
     @BindView(R.id.kanjiContainer)
     LinearLayout kanjiContainer;
 
@@ -68,6 +79,12 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
 
     @BindView(R.id.btnFav)
     ImageButton btnFav;
+
+    @BindView(R.id.scroll)
+    NestedScrollView scroll;
+
+    @BindView(R.id.extraToolbar)
+    View extraToolbar;
 
     private Word mWord;
 
@@ -102,17 +119,25 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
 
         webBuilder = new FinestWebView.Builder(this);
 
+        scroll.setOnScrollChangeListener(this);
+
         refreshUI();
     }
 
     private void refreshUI() {
         if(mPrimary.getWord() != null) {
             tvJapanese.setText(mPrimary.getWord());
+            tvExtraJapanese.setText(mPrimary.getWord());
             tvHiragana.setText(mPrimary.getReading());
+            tvExtraHiragana.setText(mPrimary.getReading());
+
             mPrimaryString = mPrimary.getWord();
         } else {
             tvHiragana.setVisibility(View.GONE);
+            tvExtraHiragana.setVisibility(View.GONE);
             tvJapanese.setText(mPrimary.getReading());
+            tvExtraJapanese.setText(mPrimary.getReading());
+
             mPrimaryString = mPrimary.getReading();
         }
 
@@ -281,4 +306,14 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
         webBuilder = null;
     }
 
+    @Override
+    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        int scroll = UIUtils.convertPxToDp(this, scrollY);
+        float percentage = ((float)scroll - UIUtils.TOOLBAR_THRESHOLD_DP)/(float)UIUtils.TOOLBAR_HEIGHT_DP;
+        if(scroll >= (UIUtils.TOOLBAR_THRESHOLD_DP)) {
+            extraToolbar.setAlpha(percentage);
+        } else {
+            extraToolbar.setAlpha(0);
+        }
+    }
 }

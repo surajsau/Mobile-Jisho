@@ -126,7 +126,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
 
         @OnClick(R.id.rowCard)
         void seeMore() {
-            Analytics.getInstance().recordClick("Search_Details", "");
+            Analytics.getInstance().recordClick("Search_Details", "Fav_Detail");
             if(listener != null)
                 listener.onSearchResultClicked(words.get(getAdapterPosition()));
         }

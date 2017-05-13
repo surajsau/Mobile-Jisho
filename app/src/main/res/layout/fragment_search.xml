@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@drawable/gradient_background"
     android:paddingBottom="16dp"
+    tools:background="@drawable/gradient_background"
     tools:context="com.halfplatepoha.jisho.SearchFragment">
 
     <RelativeLayout
@@ -22,13 +22,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:alpha="0.5"
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:paddingBottom="5dp"
             android:paddingRight="5dp"
             android:paddingTop="5dp"
-            android:src="@drawable/search"
-            android:alpha="0.5"/>
+            android:src="@drawable/search" />
 
         <EditText
             android:id="@+id/etSearch"
@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@id/ivSearch"
+            android:alpha="0.5"
             android:background="@null"
             android:hint="Search jisho"
             android:imeOptions="actionSearch"
@@ -43,7 +44,6 @@
             android:maxLines="1"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:alpha="0.5"
             android:textSize="28sp"
             android:textStyle="bold" />
 
@@ -59,37 +59,56 @@
             android:padding="5dp"
             android:src="@drawable/cross"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progress"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_margin="5dp"
-            android:foregroundGravity="center"
-            app:mpb_progressTint="@color/white"
-            android:alpha="0.5"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:alpha="0.5"
+            android:foregroundGravity="center"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            app:mpb_progressTint="@color/white"
+            tools:visibility="visible" />
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rlWords"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/searchContainer"
-        tools:listitem="@layout/row_word"/>
+        android:layout_marginTop="10dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rlWords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/row_word"
+            tools:visibility="gone"/>
+
+        <TextView android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryLight"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:drawableTop="@drawable/no_internet"
+            tools:text="@string/no_internet"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:alpha="0.5"
         android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:alpha="0.5">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnHistory"
@@ -121,7 +140,7 @@
             android:padding="10dp"
             android:text="favorites"
             android:textAllCaps="false"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </RelativeLayout>

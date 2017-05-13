@@ -17,6 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.halfplatepoha.jisho.utils.IConstants;
+import com.halfplatepoha.jisho.utils.UIUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,6 +51,10 @@ public class MainActivity extends BaseActivity implements DrawerAdapter.DrawerLi
         drawer.setAdapter(adapter);
 
         drawerItemSelected(DrawerAdapter.DrawerItem.HOME);
+
+        if(!JishoPreference.getBooleanFromPref(IConstants.PREF_SHOW_NEW, false))
+            UIUtils.showNewItemsDialog(this, R.layout.dlg_new_items);
+        JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
     }
 
     @Override

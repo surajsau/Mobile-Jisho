@@ -1,5 +1,6 @@
 package com.halfplatepoha.jisho;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -127,9 +128,8 @@ public class FavoriteFragment extends BaseFragment implements FavoritesAdapter.O
         }
         word.setSenses(senseList);
 
-//        DetailsFragment fragment = DetailsFragment.getNewInstance(word);
-//        fragment.setDetailsFragmentActionListener(this);
-//        fragment.show(getChildFragmentManager(), "details");
+        Intent detailsIntent = DetailsAcitivity.getLaunchIntent(getActivity(), word);
+        startActivity(detailsIntent);
     }
 
     @Override

@@ -20,4 +20,12 @@ public interface MainView extends BaseView {
     void hideClearButton();
 
     void saveInHistory(String searchString);
+
+    void showInternetError();
+
+    void hideError();
+
+    void showEmptyResultError();
+
+    void showResults();
 }

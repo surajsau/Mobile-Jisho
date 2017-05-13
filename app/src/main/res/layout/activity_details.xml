@@ -8,93 +8,34 @@
     android:orientation="vertical"
     tools:context="com.halfplatepoha.jisho.DetailsAcitivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        android:alpha="0.0"
-        tools:alpha="0.5"
-        tools:visibility="visible">
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/extraback"
+        <TextView
+            android:id="@+id/tvJapanese"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:padding="16dp"
-            android:src="@drawable/cross" />
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:transitionName="@string/japanese_transition"
+            tools:text="気をつけて" />
 
-        <ImageButton
-            android:id="@+id/btnEextraFav"
+        <TextView
+            android:id="@+id/tvHiragana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@null"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="16dp"
-            android:src="@drawable/unfav"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/colorPrimaryLight"
+            android:transitionName="@string/hiragana_transition"
+            tools:text="きをつけて" />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvJapanese"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:transitionName="@string/japanese_transition"
-                tools:text="気をつけて" />
-
-            <TextView
-                android:id="@+id/tvHiragana"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryLight"
-                android:transitionName="@string/hiragana_transition"
-                tools:text="きをつけて" />
-
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:padding="16dp"
-            android:src="@drawable/cross" />
-
-        <ImageButton
-            android:id="@+id/btnFav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@null"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="16dp"
-            android:src="@drawable/unfav"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -106,9 +47,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Space android:clickable="false"
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="150dp"
+                android:clickable="false" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -188,11 +130,67 @@
                 </LinearLayout>
             </FrameLayout>
 
-            <Space android:clickable="false"
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:clickable="false" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout android:id="@+id/extraToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:alpha="0.0"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        tools:alpha="0.0"
+        android:gravity="center">
+
+        <TextView android:id="@+id/tvExtraJapanese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="気をつけて"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
+
+        <TextView android:id="@+id/tvExtraHiragana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="きをつけて"
+            android:textSize="11sp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:padding="16dp"
+            android:src="@drawable/back_arrow" />
+
+        <ImageButton
+            android:id="@+id/btnFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="16dp"
+            android:src="@drawable/unfav"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

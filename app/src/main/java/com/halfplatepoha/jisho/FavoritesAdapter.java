@@ -93,7 +93,7 @@ public class FavoritesAdapter  extends RecyclerView.Adapter<FavoritesAdapter.Fav
 
         @OnClick(R.id.favorite)
         public void favoritClick() {
-            Analytics.getInstance().recordClick("Fav_Detail", "");
+            Analytics.getInstance().recordClick("Fav_Detail", "Fav_Detail");
             if(listner != null)
                 listner.onFavoriteClicked(words.get(getAdapterPosition()));
         }

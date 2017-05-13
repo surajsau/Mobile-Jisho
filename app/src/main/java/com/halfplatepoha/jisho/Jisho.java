@@ -5,6 +5,7 @@ import android.app.Application;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.halfplatepoha.jisho.analytics.Analytics;
+import com.halfplatepoha.jisho.utils.UIUtils;
 
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
@@ -22,5 +23,6 @@ public class Jisho extends Application {
         Realm.init(this);
         Fabric.with(this, new Crashlytics());
         Analytics.init(this);
+        JishoPreference.init(this, "JishoPref");
     }
 }

@@ -3,6 +3,7 @@ package com.halfplatepoha.jisho;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -22,6 +23,7 @@ import com.halfplatepoha.jisho.db.RealmString;
 import com.halfplatepoha.jisho.model.NetworkModule;
 import com.halfplatepoha.jisho.model.SearchApi;
 import com.halfplatepoha.jisho.model.Word;
+import com.halfplatepoha.jisho.utils.UIUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,6 +49,9 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     @BindView(R.id.progress)
     MaterialProgressBar progress;
+
+    @BindView(R.id.tvError)
+    TextView tvError;
 
     SearchApi api;
 
@@ -152,6 +157,32 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     }
 
     @Override
+    public void showInternetError() {
+        rlWords.setVisibility(View.GONE);
+        tvError.setText(getString(R.string.no_internet));
+        tvError.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(getActivity(), R.drawable.no_internet), null, null);
+        tvError.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideError() {
+        tvError.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showEmptyResultError() {
+        tvError.setText(R.string.no_result_error);
+        tvError.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(getActivity(), R.drawable.zero_results), null, null);
+        tvError.setVisibility(View.VISIBLE);
+        rlWords.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showResults() {
+        rlWords.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void onSearchResultClicked(Word word) {
         Intent intent = DetailsAcitivity.getLaunchIntent(getActivity(), word);
         startActivity(intent);
@@ -159,7 +190,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     @OnClick(R.id.btnClear)
     public void clearText() {
-        Analytics.getInstance().recordClick("Clear", "");
+        Analytics.getInstance().recordClick("Clear", "Clear");
         etSearch.setText("");
     }
 
@@ -185,14 +216,14 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     @OnClick(R.id.btnFav)
     public void openFav() {
-        Analytics.getInstance().recordClick("Search Fav", "");
+        Analytics.getInstance().recordClick("Search Fav", "Search Fav");
         if(listener != null)
             listener.openFav();
     }
 
     @OnClick(R.id.btnHistory)
     public void openHistory() {
-        Analytics.getInstance().recordClick("Search History", "");
+        Analytics.getInstance().recordClick("Search History", "Search History");
         if(listener != null)
             listener.openHistory();
     }

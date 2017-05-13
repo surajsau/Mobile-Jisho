@@ -7,4 +7,6 @@ package com.halfplatepoha.jisho.utils;
 public interface IConstants {
     String BASE_URL = "http://jisho.org/api/v1/";
     String JISHO_BASE_URL = "http://jisho.org/word/";
+
+    String PREF_SHOW_NEW = "show_new";
 }
