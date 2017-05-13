@@ -223,6 +223,11 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
         openSearch(kanji);
     }
 
+    @OnClick(R.id.back)
+    public void back() {
+        onBackPressed();
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -275,4 +280,5 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
         realm.close();
         webBuilder = null;
     }
+
 }

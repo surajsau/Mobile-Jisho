@@ -10,6 +10,39 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:alpha="0.0"
+        tools:alpha="0.5"
+        tools:visibility="visible">
+
+        <ImageButton
+            android:id="@+id/extraback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:padding="16dp"
+            android:src="@drawable/cross" />
+
+        <ImageButton
+            android:id="@+id/btnEextraFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="16dp"
+            android:src="@drawable/unfav"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="150dp">
 
         <LinearLayout
@@ -73,7 +106,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Space
+            <Space android:clickable="false"
                 android:layout_width="match_parent"
                 android:layout_height="150dp" />
 
@@ -155,7 +188,7 @@
                 </LinearLayout>
             </FrameLayout>
 
-            <Space
+            <Space android:clickable="false"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
 

@@ -13,8 +13,6 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
 
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="about_string">Thank you for installing the app. This app uses public APIs provided by the incredible Jisho.org. Especially to all potential learners of the beautiful Japanese language, all the best!</string>
     <string name="email_me">For any queries or feature request, Contact me at</string>
 </resources>
