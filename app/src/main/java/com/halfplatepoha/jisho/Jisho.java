@@ -9,6 +9,7 @@ import com.halfplatepoha.jisho.utils.UIUtils;
 
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by surjo on 22/04/17.
@@ -21,8 +22,17 @@ public class Jisho extends Application {
         super.onCreate();
 
         Realm.init(this);
+        Realm.setDefaultConfiguration(getConfig());
         Fabric.with(this, new Crashlytics());
         Analytics.init(this);
         JishoPreference.init(this, "JishoPref");
+    }
+
+    private RealmConfiguration getConfig() {
+        RealmConfiguration configuration = new RealmConfiguration.Builder()
+                .schemaVersion(1)
+                .migration(new JishoMigration())
+                .build();
+        return configuration;
     }
 }

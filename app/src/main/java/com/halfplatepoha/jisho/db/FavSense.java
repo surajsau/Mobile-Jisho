@@ -1,7 +1,5 @@
 package com.halfplatepoha.jisho.db;
 
-import com.halfplatepoha.jisho.utils.VerbInflection;
-
 import java.util.ArrayList;
 
 import io.realm.RealmList;
@@ -19,7 +17,6 @@ public class FavSense extends RealmObject {
     private RealmList<RealmString> tags;
     private RealmList<RealmString> see_also;
     private RealmList<RealmString> info;
-    private @VerbInflection.Type String verbType;
 
     public RealmList<RealmString> getEnglish_definitions() {
         return english_definitions;
@@ -47,14 +44,6 @@ public class FavSense extends RealmObject {
                 this.english_definitions.add(rs);
             }
         }
-    }
-
-    public @VerbInflection.Type String getVerbType() {
-        return verbType;
-    }
-
-    public void setVerbType(@VerbInflection.Type String verbType) {
-        this.verbType = verbType;
     }
 
     public RealmList<FavLink> getLinks() {
