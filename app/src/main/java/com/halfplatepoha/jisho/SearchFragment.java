@@ -143,7 +143,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     @Override
     public void saveInHistory(String searchString) {
-        if(!realm.isClosed()) {
+        if(realm != null && !realm.isClosed()) {
             realm.beginTransaction();
 
             History history = realm.where(History.class).findFirst();

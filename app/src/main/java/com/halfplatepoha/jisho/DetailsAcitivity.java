@@ -258,7 +258,7 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
         super.onStop();
         Analytics.getInstance().recordClick("details back", mPrimaryString);
 
-        if(!realm.isClosed()) {
+        if(realm != null && !realm.isClosed()) {
             realm.beginTransaction();
             if (isFaved) {
                 if (!isAlreadyFaved) {
