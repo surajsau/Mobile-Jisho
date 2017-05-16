@@ -143,17 +143,19 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     @Override
     public void saveInHistory(String searchString) {
-        realm.beginTransaction();
+        if(!realm.isClosed()) {
+            realm.beginTransaction();
 
-        History history = realm.where(History.class).findFirst();
-        if(history == null)
-            history = realm.createObject(History.class);
+            History history = realm.where(History.class).findFirst();
+            if (history == null)
+                history = realm.createObject(History.class);
 
-        RealmString rs = new RealmString();
-        rs.setValue(searchString);
-        history.getHistory().add(rs);
+            RealmString rs = new RealmString();
+            rs.setValue(searchString);
+            history.getHistory().add(rs);
 
-        realm.commitTransaction();
+            realm.commitTransaction();
+        }
     }
 
     @Override
@@ -229,8 +231,8 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         realm.close();
     }
 
