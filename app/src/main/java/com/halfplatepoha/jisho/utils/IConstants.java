@@ -9,4 +9,5 @@ public interface IConstants {
     String JISHO_BASE_URL = "http://jisho.org/word/";
 
     String PREF_SHOW_NEW = "show_new";
+    String EXTRA_SEARCH_TERM = "search_term";
 }

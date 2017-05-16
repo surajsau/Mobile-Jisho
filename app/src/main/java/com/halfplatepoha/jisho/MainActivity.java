@@ -1,5 +1,6 @@
 package com.halfplatepoha.jisho;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -50,11 +51,19 @@ public class MainActivity extends BaseActivity implements DrawerAdapter.DrawerLi
         drawer.setLayoutManager(new LinearLayoutManager(this));
         drawer.setAdapter(adapter);
 
-        drawerItemSelected(DrawerAdapter.DrawerItem.HOME);
+        if(getIntent() != null) {
+            String searchTerm = getIntent().getStringExtra(IConstants.EXTRA_SEARCH_TERM);
+            openSearchFragment(searchTerm);
+        }
 
         if(!JishoPreference.getBooleanFromPref(IConstants.PREF_SHOW_NEW, false))
             UIUtils.showNewItemsDialog(this, R.layout.dlg_new_items);
         JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
+    }
+
+    private void openSearchFragment(String searchTerm) {
+        SearchFragment searchFragment = SearchFragment.getInstance(searchTerm);
+        openFragment(searchFragment);
     }
 
     @Override
@@ -63,6 +72,15 @@ public class MainActivity extends BaseActivity implements DrawerAdapter.DrawerLi
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(intent != null) {
+            String searchString = intent.getStringExtra(IConstants.EXTRA_SEARCH_TERM);
+            openSearchFragment(searchString);
         }
     }
 

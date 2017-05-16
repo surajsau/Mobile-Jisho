@@ -24,6 +24,7 @@ import com.halfplatepoha.jisho.model.Japanese;
 import com.halfplatepoha.jisho.model.Link;
 import com.halfplatepoha.jisho.model.Sense;
 import com.halfplatepoha.jisho.model.Word;
+import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.UIUtils;
 import com.halfplatepoha.jisho.utils.Utils;
 import com.halfplatepoha.jisho.utils.VerbInflection;
@@ -237,7 +238,11 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
     }
 
     private void openSearch(String searchString) {
-
+        Intent searchIntent = new Intent(this, MainActivity.class);
+        searchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        searchIntent.putExtra(IConstants.EXTRA_SEARCH_TERM, searchString);
+        startActivity(searchIntent);
+        finish();
     }
 
     @Override
