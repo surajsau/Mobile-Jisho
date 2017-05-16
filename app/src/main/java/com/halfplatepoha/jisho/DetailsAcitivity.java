@@ -258,52 +258,54 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
         super.onStop();
         Analytics.getInstance().recordClick("details back", mPrimaryString);
 
-        realm.beginTransaction();
-        if(isFaved) {
-            if(!isAlreadyFaved) {
-                FavouriteWord word = realm.createObject(FavouriteWord.class);
-                word.setPrimary(mPrimaryString);
+        if(!realm.isClosed()) {
+            realm.beginTransaction();
+            if (isFaved) {
+                if (!isAlreadyFaved) {
+                    FavouriteWord word = realm.createObject(FavouriteWord.class);
+                    word.setPrimary(mPrimaryString);
 
-                for (Sense sense : mWord.getSenses()) {
-                    FavSense favSense = realm.createObject(FavSense.class);
-                    favSense.setEnglish_definitions(sense.getEnglish_definitions());
-                    favSense.setInfo(sense.getInfo());
-                    favSense.setParts_of_speech(sense.getParts_of_speech());
-                    favSense.setTags(sense.getTags());
-                    favSense.setSee_also(sense.getSee_also());
+                    for (Sense sense : mWord.getSenses()) {
+                        FavSense favSense = realm.createObject(FavSense.class);
+                        favSense.setEnglish_definitions(sense.getEnglish_definitions());
+                        favSense.setInfo(sense.getInfo());
+                        favSense.setParts_of_speech(sense.getParts_of_speech());
+                        favSense.setTags(sense.getTags());
+                        favSense.setSee_also(sense.getSee_also());
 
-                    if (sense.getLinks() != null && !sense.getLinks().isEmpty()) {
-                        for (Link link : sense.getLinks()) {
-                            FavLink favLink = realm.createObject(FavLink.class);
-                            favLink.setText(link.getText());
-                            favLink.setUrl(link.getUrl());
-                            favSense.getLinks().add(favLink);
+                        if (sense.getLinks() != null && !sense.getLinks().isEmpty()) {
+                            for (Link link : sense.getLinks()) {
+                                FavLink favLink = realm.createObject(FavLink.class);
+                                favLink.setText(link.getText());
+                                favLink.setUrl(link.getUrl());
+                                favSense.getLinks().add(favLink);
+                            }
+                        }
+
+                        word.getSenses().add(favSense);
+                    }
+
+                    if (mWord.getJapanese() != null && !mWord.getJapanese().isEmpty()) {
+                        for (Japanese japanese : mWord.getJapanese()) {
+                            FavJapanese favJapanese = realm.createObject(FavJapanese.class);
+                            favJapanese.setReading(japanese.getReading());
+                            favJapanese.setWord(japanese.getWord());
+
+                            word.getJapanese().add(favJapanese);
                         }
                     }
 
-                    word.getSenses().add(favSense);
+                    word.setIs_common(mWord.is_common());
                 }
 
-                if (mWord.getJapanese() != null && !mWord.getJapanese().isEmpty()) {
-                    for (Japanese japanese : mWord.getJapanese()) {
-                        FavJapanese favJapanese = realm.createObject(FavJapanese.class);
-                        favJapanese.setReading(japanese.getReading());
-                        favJapanese.setWord(japanese.getWord());
-
-                        word.getJapanese().add(favJapanese);
-                    }
-                }
-
-                word.setIs_common(mWord.is_common());
+            } else {
+                realm.where(FavouriteWord.class).equalTo("primary", mPrimaryString).findAll().deleteAllFromRealm();
             }
 
-        } else {
-            realm.where(FavouriteWord.class).equalTo("primary", mPrimaryString).findAll().deleteAllFromRealm();
+            realm.commitTransaction();
+            realm.close();
+            webBuilder = null;
         }
-
-        realm.commitTransaction();
-        realm.close();
-        webBuilder = null;
     }
 
     @Override
