@@ -99,7 +99,7 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
 
     private OtherFormsAdapter otherFormsAdapter;
 
-    FinestWebView.Builder webBuilder;
+    private FinestWebView.Builder webBuilder;
 
     public static Intent getLaunchIntent(Context context, Word word) {
         Intent intent = new Intent(context, DetailsAcitivity.class);
@@ -216,6 +216,9 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
     @Override
     public void onLinkClick(String link) {
         Analytics.getInstance().recordClick("link", link);
+
+        if(webBuilder == null)
+            webBuilder = new FinestWebView.Builder(this);
 
         webBuilder.urlColor(ContextCompat.getColor(this, R.color.colorPrimaryLight))
                 .titleColor(ContextCompat.getColor(this, R.color.white))

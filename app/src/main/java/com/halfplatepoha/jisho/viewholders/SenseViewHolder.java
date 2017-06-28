@@ -57,33 +57,35 @@ public class SenseViewHolder extends BaseViewHolder<Sense> {
 
     @Override
     public void bindView(Sense sense) {
-        if(sense.getParts_of_speech() != null && !sense.getParts_of_speech().isEmpty()) {
-            tvSensePoS.setVisibility(View.VISIBLE);
-            tvSensePoS.setText(Utils.getCommaSeparatedString(sense.getParts_of_speech()));
-        }
+        if(sense != null && sense.getEnglish_definitions() != null && !sense.getEnglish_definitions().isEmpty()) {
+            if (sense.getParts_of_speech() != null && !sense.getParts_of_speech().isEmpty()) {
+                tvSensePoS.setVisibility(View.VISIBLE);
+                tvSensePoS.setText(Utils.getCommaSeparatedString(sense.getParts_of_speech()));
+            }
 
-        if(sense.getLinks() != null && !sense.getLinks().isEmpty()) {
-            tvLink.setVisibility(View.VISIBLE);
-            tvLink.setText(sense.getLinks().get(0).getText());
-            tvLink.setTag(sense.getLinks().get(0).getUrl());
-        }
+            if (sense.getLinks() != null && !sense.getLinks().isEmpty()) {
+                tvLink.setVisibility(View.VISIBLE);
+                tvLink.setText(sense.getLinks().get(0).getText());
+                tvLink.setTag(sense.getLinks().get(0).getUrl());
+            }
 
-        if(sense.getSee_also() != null && !sense.getSee_also().isEmpty()) {
-            tvSeeAlso.setVisibility(View.VISIBLE);
-            tvSeeAlso.setText(String.format("See also %s", sense.getSee_also().get(0)));
-            tvSeeAlso.setTag(sense.getSee_also().get(0));
-        }
+            if (sense.getSee_also() != null && !sense.getSee_also().isEmpty()) {
+                tvSeeAlso.setVisibility(View.VISIBLE);
+                tvSeeAlso.setText(String.format("See also %s", sense.getSee_also().get(0)));
+                tvSeeAlso.setTag(sense.getSee_also().get(0));
+            }
 
-        if(sense.getTags() != null && !sense.getTags().isEmpty()) {
-            tvTags.setVisibility(View.VISIBLE);
-            tvTags.setText(Utils.getCommaSeparatedString(sense.getTags()));
-        }
+            if (sense.getTags() != null && !sense.getTags().isEmpty()) {
+                tvTags.setVisibility(View.VISIBLE);
+                tvTags.setText(Utils.getCommaSeparatedString(sense.getTags()));
+            }
 
-        tvSense.setText(Utils.getCommaSeparatedString(sense.getEnglish_definitions()));
+            tvSense.setText(Utils.getCommaSeparatedString(sense.getEnglish_definitions()));
 
-        if(!VerbInflection.TYPE_NONE.equalsIgnoreCase(sense.getType())) {
-            tvInflection.setVisibility(View.VISIBLE);
-            tvInflection.setTag(sense);
+            if (!VerbInflection.TYPE_NONE.equalsIgnoreCase(sense.getType())) {
+                tvInflection.setVisibility(View.VISIBLE);
+                tvInflection.setTag(sense);
+            }
         }
     }
 
