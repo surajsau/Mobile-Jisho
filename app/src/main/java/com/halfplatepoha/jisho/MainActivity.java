@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity implements DrawerAdapter.DrawerLi
 
     private void openSearchFragment(String searchTerm) {
         SearchFragment searchFragment = SearchFragment.getInstance(searchTerm);
+        searchFragment.setSearchFragmentActionListener(this);
         openFragment(searchFragment);
     }
 
