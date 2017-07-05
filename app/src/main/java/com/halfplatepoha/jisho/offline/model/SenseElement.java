@@ -6,7 +6,7 @@ import java.util.List;
  * Created by surjo on 23/05/17.
  */
 
-public class Sense {
+public class SenseElement {
     private int senseId;
     private List<String> partsOfSpeech;
     private List<String> fieldOfApplication;

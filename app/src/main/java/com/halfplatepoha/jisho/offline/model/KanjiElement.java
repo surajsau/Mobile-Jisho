@@ -4,7 +4,7 @@ package com.halfplatepoha.jisho.offline.model;
  * Created by surjo on 23/05/17.
  */
 
-public class Kanji {
+public class KanjiElement {
     private int kanjiId;
     private String value;
 

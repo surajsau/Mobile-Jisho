@@ -122,6 +122,11 @@ public class MainActivity extends BaseActivity implements DrawerAdapter.DrawerLi
                 FavoriteFragment favoriteFragment = new FavoriteFragment();
                 openFragment(favoriteFragment);
                 break;
+
+            case OFFLINE_TEST:
+                tvTitle.setText("Offline");
+                openFragment(new OfflineFragment());
+                break;
         }
 
 

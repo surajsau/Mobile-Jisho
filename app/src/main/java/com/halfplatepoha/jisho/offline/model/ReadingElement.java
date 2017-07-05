@@ -6,7 +6,7 @@ import java.util.List;
  * Created by surjo on 23/05/17.
  */
 
-public class Reading {
+public class ReadingElement {
     private int readingId;
     private String value;
     private boolean isTrueReading;
