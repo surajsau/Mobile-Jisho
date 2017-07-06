@@ -40,13 +40,18 @@ public class OfflineDbHelper extends SQLiteAssetHelper {
 
         switch (searchType) {
             case DbSchema.TYPE_KANA:
+                query = DbQueryUtil.getKanaSearchQuery(true);
                 break;
             case DbSchema.TYPE_ENGLISH:
                 query = DbQueryUtil.getEnglishSearchQuery(true);
                 break;
             case DbSchema.TYPE_KANJI:
+                query = DbQueryUtil.getKanjiSearchQuery(true);
                 break;
             case DbSchema.TYPE_ROMAJI:
+                WanaKanaJava wanaKanaJava = new WanaKanaJava(false);
+                searchTerm = wanaKanaJava.toKana(searchTerm);
+                query = DbQueryUtil.getKanaSearchQuery(true);
                 break;
         }
 
