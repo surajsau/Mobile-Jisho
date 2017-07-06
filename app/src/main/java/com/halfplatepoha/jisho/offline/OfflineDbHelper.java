@@ -61,8 +61,27 @@ public class OfflineDbHelper extends SQLiteAssetHelper {
             while (c.moveToNext()) {
                 ListEntry result = new ListEntry();
                 result.setEntryId(c.getInt(c.getColumnIndexOrThrow(DbSchema.ReadingTable.Cols.ENTRY_ID)));
-                result.setKanji(c.getString(c.getColumnIndexOrThrow("kanji_value")));
-                result.setReading(c.getString(c.getColumnIndexOrThrow("read_value")));
+
+                String kanji = c.getString(c.getColumnIndexOrThrow("kanji_value"));
+                List<String> kanjis = DbQueryUtil.formatString(kanji);
+
+                if(kanjis != null && !kanjis.isEmpty()) {
+                    result.setKanji(kanjis.get(0));
+                } else {
+                    result.setKanji("");
+                }
+
+                String reading = c.getString(c.getColumnIndexOrThrow("read_value"));
+                List<String> readings = DbQueryUtil.formatString(reading);
+
+                if(readings != null && !readings.isEmpty()) {
+                    result.setReading(readings.get(0));
+                } else {
+                    result.setReading("");
+                }
+
+                String gloss = c.getString(c.getColumnIndexOrThrow("gloss_value"));
+                result.setGloss(DbQueryUtil.formatString(gloss));
 
                 results.add(result);
             }
