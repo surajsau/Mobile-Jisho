@@ -222,20 +222,6 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
         btnClear.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.btnFav)
-    public void openFav() {
-        Analytics.getInstance().recordClick("Search Fav", "Search Fav");
-        if(listener != null)
-            listener.openFav();
-    }
-
-    @OnClick(R.id.btnHistory)
-    public void openHistory() {
-        Analytics.getInstance().recordClick("Search History", "Search History");
-        if(listener != null)
-            listener.openHistory();
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

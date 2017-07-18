@@ -102,45 +102,4 @@
             tools:text="@string/no_internet"/>
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:alpha="0.5"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="10dp"
-            android:text="history"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="\u2022"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/btnFav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="10dp"
-            android:text="favorites"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
 </RelativeLayout>

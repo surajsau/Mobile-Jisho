@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_search"
+        icon="@drawable/search"
+        title="Search" />
+    <tab
+        id="@+id/tab_favorites"
+        icon="@drawable/unfav"
+        title="Favorites" />
+    <tab
+        id="@+id/tab_history"
+        icon="@drawable/history"
+        title="History" />
+    <tab
+        id="@+id/tab_options"
+        icon="@drawable/options"
+        title="Options"
+        barColorWhenSelected="@color/white"/>
+</tabs>

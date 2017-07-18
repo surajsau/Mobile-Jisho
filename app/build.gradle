@@ -62,6 +62,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.google.firebase:firebase-core:10.2.1'
+    compile 'com.roughike:bottom-bar:2.3.1'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
