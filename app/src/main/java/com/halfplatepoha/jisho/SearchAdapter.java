@@ -35,9 +35,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
 
     private MainAdapterActionListener listener;
 
+    private boolean isOffline;
+
     public SearchAdapter(Context mContext) {
         this.mContext = mContext;
         inflater = LayoutInflater.from(mContext);
+    }
+
+    public void setOffline(boolean offline) {
+        isOffline = offline;
     }
 
     public void setMainAdapterActionListener(MainAdapterActionListener listener) {
@@ -127,12 +133,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
         @OnClick(R.id.rowCard)
         void seeMore() {
             Analytics.getInstance().recordClick("Search_Details", "Fav_Detail");
-            if(listener != null)
-                listener.onSearchResultClicked(words.get(getAdapterPosition()));
+            if(listener != null) {
+                if(isOffline)
+                    listener.onOfflineSearchResultClicked(words.get(getAdapterPosition()).getOfflineEntryId());
+                else
+                    listener.onSearchResultClicked(words.get(getAdapterPosition()));
+            }
         }
     }
 
     public interface MainAdapterActionListener {
         void onSearchResultClicked(Word word);
+        void onOfflineSearchResultClicked(int entryId);
     }
 }

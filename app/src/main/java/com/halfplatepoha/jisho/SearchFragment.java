@@ -190,6 +190,12 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
         startActivity(intent);
     }
 
+    @Override
+    public void onOfflineSearchResultClicked(int entryId) {
+        Intent intent = DetailsAcitivity.getOfflineLaunchIntent(getActivity(), entryId);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.btnClear)
     public void clearText() {
         Analytics.getInstance().recordClick("Clear", "Clear");

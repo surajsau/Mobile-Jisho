@@ -3,6 +3,7 @@ package com.halfplatepoha.jisho.model;
 import android.text.TextUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.halfplatepoha.jisho.offline.model.SenseElement;
 import com.halfplatepoha.jisho.utils.VerbInflection;
 import com.halfplatepoha.jisho.utils.VerbInflectionUtils;
 
@@ -114,5 +115,14 @@ public class Sense implements Serializable {
             }
         }
         return VerbInflection.TYPE_NONE;
+    }
+
+    public static Sense fromOfflineSenseElement(SenseElement element) {
+        Sense sense = new Sense();
+
+        sense.setEnglish_definitions(new ArrayList<>(element.getGlosses()));
+        sense.setParts_of_speech(new ArrayList<>(element.getPartsOfSpeech()));
+
+        return sense;
     }
 }

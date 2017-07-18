@@ -1,6 +1,8 @@
-package com.halfplatepoha.jisho.offline;
+package com.halfplatepoha.jisho.offline.utils;
 
 import android.text.TextUtils;
+
+import com.halfplatepoha.jisho.offline.DbSchema;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,6 +86,50 @@ public class DbQueryUtil {
         String groupBy = "GROUP BY re." + DbSchema.ReadingTable.Cols.ENTRY_ID;
 
         return select + from + join + where + whereSubQuery + groupBy;
+    }
+
+    public static String getSenseElementsQuery() {
+        String select = "SELECT se." + DbSchema.SenseTable.Cols._ID + ", group_concat(pos."
+                + DbSchema.SensePosTable.Cols.VALUE + ", '§') AS pos_value, group_concat(foa."
+                + DbSchema.SenseFieldTable.Cols.VALUE + ", '§') AS foa_value, group_concat(dial."
+                + DbSchema.SenseDialectTable.Cols.VALUE + ", '§') AS dial_value, group_concat(gloss."
+                + DbSchema.GlossTable.Cols.VALUE + ", '§') AS gloss_value ";
+
+        String from = "FROM " + DbSchema.SenseTable.NAME + " AS se ";
+
+        String join = "LEFT JOIN " + DbSchema.SensePosTable.NAME + " AS pos ON pos."
+                + DbSchema.SensePosTable.Cols.SENSE_ID + " = se." + DbSchema.SenseTable.Cols._ID
+                + " LEFT JOIN " + DbSchema.SenseFieldTable.NAME + " AS foa ON foa."
+                + DbSchema.SenseFieldTable.Cols.SENSE_ID + " = se." + DbSchema.SenseTable.Cols._ID
+                + " LEFT JOIN " + DbSchema.SenseDialectTable.NAME + " AS dial ON dial."
+                + DbSchema.SenseDialectTable.Cols.SENSE_ID + " = se." + DbSchema.SenseTable.Cols._ID
+                + " LEFT JOIN " + DbSchema.GlossTable.NAME + " AS gloss ON gloss."
+                + DbSchema.GlossTable.Cols.SENSE_ID + " = se." + DbSchema.SenseTable.Cols._ID + " ";
+
+        String where = "WHERE se." + DbSchema.SenseTable.Cols.ENTRY_ID + " = ? ";
+
+        String groupBy = "GROUP BY se." + DbSchema.SenseTable.Cols._ID;
+
+        return select + from + join + where + groupBy;
+    }
+
+    public static String getReadingElementsQuery() {
+        String select = "SELECT r." + DbSchema.ReadingTable.Cols._ID + ", r."
+                + DbSchema.ReadingTable.Cols.VALUE + " AS read_value" + ", r."
+                + DbSchema.ReadingTable.Cols.IS_TRUE_READING + ", group_concat(rel."
+                + DbSchema.ReadingTable.Cols.VALUE + ", '§') AS rel_value ";
+
+        String from = "FROM " + DbSchema.ReadingTable.NAME + " AS r ";
+
+        String join = "LEFT JOIN " + DbSchema.ReadingRelationTable.NAME + " AS rel ON rel."
+                + DbSchema.ReadingRelationTable.Cols.READING_ELEMENT_ID + " = r."
+                + DbSchema.ReadingTable.Cols._ID + " ";
+
+        String where = "WHERE r." + DbSchema.ReadingTable.Cols.ENTRY_ID + " = ? ";
+
+        String groupBy = "GROUP BY r." + DbSchema.ReadingTable.Cols._ID;
+
+        return select + from + join + where + groupBy;
     }
 
     public static List<String> formatString(String stringToFormat) {

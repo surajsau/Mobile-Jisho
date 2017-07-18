@@ -24,6 +24,9 @@ import com.halfplatepoha.jisho.model.Japanese;
 import com.halfplatepoha.jisho.model.Link;
 import com.halfplatepoha.jisho.model.Sense;
 import com.halfplatepoha.jisho.model.Word;
+import com.halfplatepoha.jisho.offline.OfflineDbHelper;
+import com.halfplatepoha.jisho.offline.model.Entry;
+import com.halfplatepoha.jisho.offline.utils.GetEntryDetailsTask;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.UIUtils;
 import com.halfplatepoha.jisho.utils.Utils;
@@ -44,9 +47,11 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.SenseActionListener,
-        KanjiViewHolder.OnKanjiClickedListener, NestedScrollView.OnScrollChangeListener {
+        KanjiViewHolder.OnKanjiClickedListener, NestedScrollView.OnScrollChangeListener, GetEntryDetailsTask.EntryDetailsTaskListener {
 
     private static final String EXTRA_WORD = "mWord";
+    private static final String EXTRA_IS_OFFLINE = "isOffline";
+    private static final String EXTRA_OFFLINE_ENTRY_ID = "mOfflineEntryId";
 
     @BindView(R.id.sensesContainer)
     LinearLayout sensesContainer;
@@ -101,9 +106,19 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
 
     private FinestWebView.Builder webBuilder;
 
+    private boolean isOffline;
+
     public static Intent getLaunchIntent(Context context, Word word) {
         Intent intent = new Intent(context, DetailsAcitivity.class);
         intent.putExtra(EXTRA_WORD, word);
+        intent.putExtra(EXTRA_IS_OFFLINE, false);
+        return intent;
+    }
+
+    public static Intent getOfflineLaunchIntent(Context context, int entryId) {
+        Intent intent = new Intent(context, DetailsAcitivity.class);
+        intent.putExtra(EXTRA_IS_OFFLINE, true);
+        intent.putExtra(EXTRA_OFFLINE_ENTRY_ID, entryId);
         return intent;
     }
 
@@ -115,14 +130,24 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
 
         realm = Realm.getDefaultInstance();
 
-        mWord = (Word) getIntent().getSerializableExtra(EXTRA_WORD);
-        mPrimary = mWord.getJapanese().get(0);
+        isOffline = getIntent().getBooleanExtra(EXTRA_IS_OFFLINE, false);
+
+        if(!isOffline) {
+
+            mWord = (Word) getIntent().getSerializableExtra(EXTRA_WORD);
+            mPrimary = mWord.getJapanese().get(0);
+            refreshUI();
+
+        } else {
+
+            int entryId = getIntent().getIntExtra(EXTRA_OFFLINE_ENTRY_ID, 0);
+            new GetEntryDetailsTask(this, OfflineDbHelper.getInstance(), entryId).execute();
+
+        }
 
         webBuilder = new FinestWebView.Builder(this);
 
         scroll.setOnScrollChangeListener(this);
-
-        refreshUI();
     }
 
     private void refreshUI() {
@@ -325,5 +350,13 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
         } else {
             extraToolbar.setAlpha(0);
         }
+    }
+
+    @Override
+    public void onResult(Entry entry) {
+        mWord = Word.fromOfflineEntry(entry);
+        mPrimary = mWord.getJapanese().get(0);
+
+        refreshUI();
     }
 }

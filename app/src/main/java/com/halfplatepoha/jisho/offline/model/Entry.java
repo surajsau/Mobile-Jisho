@@ -33,7 +33,7 @@ public class Entry {
         return kanjiElementElements;
     }
 
-    public void setKanjiElementElements(List<KanjiElement> kanjiElementElements) {
+    public void setKanjiElements(List<KanjiElement> kanjiElementElements) {
         this.kanjiElementElements = kanjiElementElements;
     }
 
@@ -41,7 +41,7 @@ public class Entry {
         return readingElementElements;
     }
 
-    public void setReadingElementElements(List<ReadingElement> readingElementElements) {
+    public void setReadingElements(List<ReadingElement> readingElementElements) {
         this.readingElementElements = readingElementElements;
     }
 

@@ -2,9 +2,15 @@ package com.halfplatepoha.jisho.offline;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.halfplatepoha.jisho.offline.model.Entry;
+import com.halfplatepoha.jisho.offline.model.KanjiElement;
 import com.halfplatepoha.jisho.offline.model.ListEntry;
+import com.halfplatepoha.jisho.offline.model.ReadingElement;
+import com.halfplatepoha.jisho.offline.model.SenseElement;
+import com.halfplatepoha.jisho.offline.utils.DbQueryUtil;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
@@ -91,6 +97,129 @@ public class OfflineDbHelper extends SQLiteAssetHelper {
                 results.add(result);
             }
             return results;
+        } finally {
+            if(c != null)
+                c.close();
+        }
+    }
+
+    public Entry getEntry(int id) {
+        Entry entry = new Entry();
+
+        try {
+            entry.setEntryId(id);
+            entry.setKanjiElements(getKanjiElements(id));
+            entry.setReadingElements(getReadingElements(id));
+            entry.setSenseElementElements(getSenseElements(id));
+
+            return entry;
+        } catch (SQLException e) {
+            return new Entry();
+        }
+    }
+
+    private List<SenseElement> getSenseElements(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<SenseElement> senseElements = new ArrayList<>();
+
+        String[] args = new String[]{Integer.toString(id)};
+
+        Cursor c = null;
+
+        try {
+            c = db.rawQuery(DbQueryUtil.getSenseElementsQuery(), args);
+
+            while (c.moveToNext()) {
+                SenseElement senseElement = new SenseElement();
+                int elementId = c.getInt(c.getColumnIndexOrThrow(DbSchema.SenseTable.Cols._ID));
+                String posValue = c.getString(c.getColumnIndexOrThrow("pos_value"));
+                String foaValue = c.getString(c.getColumnIndexOrThrow("foa_value"));
+                String dialValue = c.getString(c.getColumnIndexOrThrow("dial_value"));
+                String glossValue = c.getString(c.getColumnIndexOrThrow("gloss_value"));
+
+                senseElement.setSenseId(elementId);
+                senseElement.setPartsOfSpeech(DbQueryUtil.formatString(posValue));
+                senseElement.setFieldOfApplication(DbQueryUtil.formatString(foaValue));
+                senseElement.setDialect(DbQueryUtil.formatString(dialValue));
+                senseElement.setGlosses(DbQueryUtil.formatString(glossValue));
+
+                senseElements.add(senseElement);
+            }
+
+            return senseElements;
+        } finally {
+            if(c != null)
+                c.close();
+        }
+    }
+
+    private List<ReadingElement> getReadingElements(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<ReadingElement> readingElements = new ArrayList<>();
+
+        String[] args = new String[]{Integer.toString(id)};
+
+        Cursor c = null;
+
+        try{
+            c = db.rawQuery(DbQueryUtil.getReadingElementsQuery(), args);
+
+            while(c.moveToNext()) {
+                ReadingElement readingElement = new ReadingElement();
+                int elementId = c.getInt(c.getColumnIndexOrThrow(DbSchema.ReadingTable.Cols._ID));
+                String value = c.getString(c.getColumnIndexOrThrow("read_value"));
+                int isTrueReading = c.getInt(c.getColumnIndexOrThrow(DbSchema.ReadingTable.Cols.IS_TRUE_READING));
+                String relationValue = c.getString(c.getColumnIndexOrThrow("rel_value"));
+
+                readingElement.setReadingId(elementId);
+                readingElement.setValue(value);
+                readingElement.setTrueReading(!(isTrueReading == 1)); // Inverse the result
+                readingElement.setReadingRelation(DbQueryUtil.formatString(relationValue));
+
+                readingElements.add(readingElement);
+            }
+
+            return readingElements;
+        } finally {
+            if(c != null)
+                c.close();
+        }
+    }
+
+    private List<KanjiElement> getKanjiElements(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<KanjiElement> kanjiElements = new ArrayList<>();
+
+        String[] projection = {
+                DbSchema.KanjiTable.Cols._ID,
+                DbSchema.KanjiTable.Cols.VALUE
+        };
+
+        String selection = DbSchema.KanjiTable.Cols.ENTRY_ID + " = ?";
+        String[] args = new String[]{Integer.toString(id)};
+
+        Cursor c = null;
+
+        try {
+            c = db.query(DbSchema.KanjiTable.NAME,
+                    projection,
+                    selection,
+                    args,
+                    null,
+                    null,
+                    null);
+
+            while(c.moveToNext()) {
+                KanjiElement kanjiElement = new KanjiElement();
+                int elementId = c.getInt(c.getColumnIndexOrThrow(DbSchema.KanjiTable.Cols._ID));
+                String value = c.getString(c.getColumnIndexOrThrow(DbSchema.KanjiTable.Cols.VALUE));
+
+                kanjiElement.setKanjiId(elementId);
+                kanjiElement.setValue(value);
+
+                kanjiElements.add(kanjiElement);
+            }
+            return kanjiElements;
         } finally {
             if(c != null)
                 c.close();

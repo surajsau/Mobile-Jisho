@@ -11,10 +11,10 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.halfplatepoha.jisho"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 25
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
