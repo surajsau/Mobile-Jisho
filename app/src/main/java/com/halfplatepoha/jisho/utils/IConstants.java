@@ -10,4 +10,5 @@ public interface IConstants {
 
     String PREF_SHOW_NEW = "show_new";
     String EXTRA_SEARCH_TERM = "search_term";
+    String PREF_OFFLINE_MODE = "offline_mode";
 }

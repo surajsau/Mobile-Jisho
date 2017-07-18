@@ -99,12 +99,14 @@ public class MainActivity extends BaseActivity implements
     public void onTabSelected(@IdRes int tabId) {
         switch (tabId) {
             case R.id.tab_search:
+                settings.collapse();
                 tvTitle.setText("");
                 SearchFragment searchFragment = new SearchFragment();
                 openFragment(searchFragment);
                 break;
 
             case R.id.tab_history:
+                settings.collapse();
                 tvTitle.setText("History");
                 HistoryFragment historyFragment = new HistoryFragment();
                 historyFragment.setHistoryFragmentActionListener(this);
@@ -112,6 +114,7 @@ public class MainActivity extends BaseActivity implements
                 break;
 
             case R.id.tab_favorites:
+                settings.collapse();
                 tvTitle.setText("Favorite");
                 FavoriteFragment favoriteFragment = new FavoriteFragment();
                 openFragment(favoriteFragment);
@@ -121,5 +124,29 @@ public class MainActivity extends BaseActivity implements
                 settings.expand();
                 break;
         }
+    }
+
+    @Override
+    public void onCheckedChange(boolean isChecked) {
+        JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, isChecked);
+    }
+
+    @Override
+    public void onTabReselected(@IdRes int tabId) {
+        switch (tabId) {
+            case R.id.tab_options:
+                settings.expand();
+                break;
+        }
+    }
+
+    @Override
+    public void openAbout() {
+
+    }
+
+    @Override
+    public void openLicense() {
+
     }
 }

@@ -10,4 +10,6 @@
     <color name="common">#A1D634</color>
     <color name="colorSecondary">#17605b</color>
     <color name="colorSecondaryLight">#5c8f8c</color>
+    <color name="colorOff">#D32F2F</color>
+    <color name="colorOn">#43A047</color>
 </resources>

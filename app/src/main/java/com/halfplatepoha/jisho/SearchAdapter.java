@@ -14,6 +14,7 @@ import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.model.Japanese;
 import com.halfplatepoha.jisho.model.Sense;
 import com.halfplatepoha.jisho.model.Word;
+import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.viewholders.SearchResultSenseViewHolder;
 import com.halfplatepoha.jisho.viewholders.SenseViewHolder;
 
@@ -40,6 +41,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
     public SearchAdapter(Context mContext) {
         this.mContext = mContext;
         inflater = LayoutInflater.from(mContext);
+
+        isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
     }
 
     public void setOffline(boolean offline) {
