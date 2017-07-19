@@ -7,6 +7,13 @@ import com.crashlytics.android.Crashlytics;
 import com.halfplatepoha.jisho.model.SearchApi;
 import com.halfplatepoha.jisho.model.SearchResponse;
 import com.halfplatepoha.jisho.model.Word;
+import com.halfplatepoha.jisho.offline.OfflineDbHelper;
+import com.halfplatepoha.jisho.offline.OfflineTask;
+import com.halfplatepoha.jisho.offline.model.ListEntry;
+import com.halfplatepoha.jisho.offline.utils.SearchTask;
+import com.halfplatepoha.jisho.utils.IConstants;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -23,9 +30,12 @@ public class MainPresenter extends BasePresenter {
 
     SearchApi api;
 
-    public MainPresenter(MainView view, SearchApi api) {
+    OfflineTask offlineTask;
+
+    public MainPresenter(MainView view, SearchApi api, OfflineTask offlineTask) {
         this.view = view;
         this.api = api;
+        this.offlineTask = offlineTask;
     }
 
     public void search(String searchString) {
@@ -37,35 +47,57 @@ public class MainPresenter extends BasePresenter {
             view.hideClearButton();
             view.saveInHistory(searchString);
 
-            api.search(searchString)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.newThread())
-                    .subscribe(new Consumer<SearchResponse>() {
-                        @Override
-                        public void accept(@NonNull SearchResponse searchResponse) throws Exception {
-                            if (searchResponse != null && searchResponse.getData() != null && !searchResponse.getData().isEmpty()) {
-                                view.showResults();
-                                for (Word word : searchResponse.getData())
-                                    view.addWordToAdapter(word);
+            boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
 
-                            } else {
-                                view.showEmptyResultError();
+            if(isOffline) {
+
+                offlineTask.search(searchString, new SearchTask.SearchResultListener() {
+                    @Override
+                    public void onResult(List<ListEntry> entries) {
+                        if(entries != null && !entries.isEmpty()) {
+                            for(ListEntry entry : entries) {
+                                Word word = Word.fromOfflineListEntry(entry);
+                                view.addWordToAdapter(word);
+                            }
+                        } else {
+                            view.showEmptyResultError();
+                        }
+
+                        view.hideLoader();
+                        view.showClearButton();
+                    }
+                });
+
+            } else {
+                api.search(searchString)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.newThread())
+                        .subscribe(new Consumer<SearchResponse>() {
+                            @Override
+                            public void accept(@NonNull SearchResponse searchResponse) throws Exception {
+                                if (searchResponse != null && searchResponse.getData() != null && !searchResponse.getData().isEmpty()) {
+                                    view.showResults();
+                                    for (Word word : searchResponse.getData())
+                                        view.addWordToAdapter(word);
+
+                                } else {
+                                    view.showEmptyResultError();
+                                    view.showClearButton();
+                                }
+
                                 view.hideLoader();
                                 view.showClearButton();
                             }
-
-                            view.hideLoader();
-                            view.showClearButton();
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(@NonNull Throwable throwable) throws Exception {
-                            view.showInternetError();
-                            view.hideLoader();
-                            view.showClearButton();
-                            Crashlytics.logException(throwable);
-                        }
-                    });
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(@NonNull Throwable throwable) throws Exception {
+                                view.showInternetError();
+                                view.hideLoader();
+                                view.showClearButton();
+                                Crashlytics.logException(throwable);
+                            }
+                        });
+            }
         }
     }
 }

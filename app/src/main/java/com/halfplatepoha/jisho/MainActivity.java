@@ -131,6 +131,12 @@ public class MainActivity extends BaseActivity implements
         JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, isChecked);
     }
 
+    //--collapse settings on clicking anywhere outside the settings
+    @OnClick(R.id.container)
+    public void onContainerClicked() {
+        settings.collapse();
+    }
+
     @Override
     public void onTabReselected(@IdRes int tabId) {
         switch (tabId) {
@@ -142,11 +148,12 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void openAbout() {
-
+        startService(new Intent(this, OfflineDbDownloadService.class));
+//        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_ABOUT, "About"));
     }
 
     @Override
     public void openLicense() {
-
+        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_LICENSE, "License Information"));
     }
 }

@@ -16,33 +16,25 @@ public class SearchTask extends AsyncTask<Void, Void, List<ListEntry>> {
     private SearchResultListener listener;
     private OfflineDbHelper db;
     private String query;
-    private int searchType;
 
-    public SearchTask(SearchResultListener listener, OfflineDbHelper db, String query, int searchType) {
+    public SearchTask(SearchResultListener listener, OfflineDbHelper db, String query) {
         this.listener = listener;
         this.db = db;
         this.query = query;
-        this.searchType = searchType;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        listener.toggleProgressBar(true);
     }
 
     @Override
     protected List<ListEntry> doInBackground(Void... params) {
+        int searchType = SearchUtil.getSearchType(query);
         return db.searchDictionary(query, searchType);
     }
 
     @Override
     protected void onPostExecute(List<ListEntry> entries) {
         listener.onResult(entries);
-        listener.toggleProgressBar(false);
     }
 
     public interface SearchResultListener {
         void onResult(List<ListEntry> entries);
-        void toggleProgressBar(boolean show);
     }
 }

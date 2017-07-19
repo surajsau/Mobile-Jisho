@@ -7,12 +7,10 @@ public class JishoPreference {
 
     private static SharedPreferences sharedpreferences;
 
-
-    public static SharedPreferences init(Context appCtx, String file) {
-        sharedpreferences = appCtx.getSharedPreferences(file,
+    public static void init(Context appCtx, String file) {
+        if(sharedpreferences == null)
+            sharedpreferences = appCtx.getSharedPreferences(file,
                 Context.MODE_PRIVATE);
-
-        return sharedpreferences;
     }
 
     public static void setInPref(SharedPreferences sharedpreferences, String key, String value) {

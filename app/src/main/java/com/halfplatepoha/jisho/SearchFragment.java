@@ -23,6 +23,8 @@ import com.halfplatepoha.jisho.db.RealmString;
 import com.halfplatepoha.jisho.model.NetworkModule;
 import com.halfplatepoha.jisho.model.SearchApi;
 import com.halfplatepoha.jisho.model.Word;
+import com.halfplatepoha.jisho.offline.OfflineDbHelper;
+import com.halfplatepoha.jisho.offline.OfflineTask;
 import com.halfplatepoha.jisho.utils.UIUtils;
 
 import butterknife.BindView;
@@ -53,15 +55,11 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     @BindView(R.id.tvError)
     TextView tvError;
 
-    SearchApi api;
-
     MainPresenter presenter;
 
     SearchAdapter adapter;
 
     Realm realm;
-
-    SearchFragmentActionListener listener;
 
     public static SearchFragment getInstance(String searchString) {
         SearchFragment fragment = new SearchFragment();
@@ -97,13 +95,10 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
         realm = Realm.getDefaultInstance();
 
-        api = NetworkModule.provideRetrofit().create(SearchApi.class);
+        SearchApi api = NetworkModule.provideRetrofit().create(SearchApi.class);
+        OfflineTask offlineTask = OfflineTask.getInstance(OfflineDbHelper.getInstance());
 
-        presenter = new MainPresenter(this, api);
-    }
-
-    public void setSearchFragmentActionListener(SearchFragmentActionListener listener) {
-        this.listener = listener;
+        presenter = new MainPresenter(this, api, offlineTask);
     }
 
     @Override
@@ -233,8 +228,4 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
         return R.layout.fragment_search;
     }
 
-    public interface SearchFragmentActionListener {
-        void openFav();
-        void openHistory();
-    }
 }

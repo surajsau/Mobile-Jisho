@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.halfplatepoha.jisho.LicenseFragment"
+    tools:background="@color/colorPrimary"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/license_text"
+        android:textColor="@color/white"
+        android:gravity="center"/>
+
+    <Button android:id="@+id/btnJmDict"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle_primary"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:padding="5dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:text="JMDict"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+    <Button android:id="@+id/btnKanjiDic2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle_primary"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:padding="5dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:text="KanjiDic2"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+    <Button android:id="@+id/btnJmneDict"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle_primary"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:padding="5dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:text="JMnedict"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+    <Button android:id="@+id/btnRadkfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle_primary"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:padding="5dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:text="Radkfile"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+    <Button android:id="@+id/btnEDict"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle_primary"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:padding="5dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:text="EDRDG"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+    <Button android:id="@+id/btnEDictLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle_primary"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:padding="5dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:text="EDRDG License"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>

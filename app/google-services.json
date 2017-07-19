@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "289134170786-u6ghpo0ancr53psua5oq17ulvkfu00ck.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.halfplatepoha.jisho",
+            "certificate_hash": "bcee403efeaf4be4e4bf8c001a8f487f8043a5eb"
+          }
+        },
+        {
           "client_id": "289134170786-2pbpmqp4j4h9jet668u7s23mm3lcg64l.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "289134170786-2pbpmqp4j4h9jet668u7s23mm3lcg64l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
