@@ -37,7 +37,6 @@ import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.realm.Realm;
-import io.realm.internal.Util;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class SearchFragment extends BaseFragment implements MainView, TextView.OnEditorActionListener,
@@ -69,7 +68,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     @BindView(R.id.offlineView)
     View offlineView;
 
-    MainPresenter presenter;
+    SearchPresenter presenter;
 
     SearchAdapter adapter;
 
@@ -120,7 +119,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
         SearchApi api = NetworkModule.provideRetrofit().create(SearchApi.class);
         OfflineTask offlineTask = OfflineTask.getInstance(OfflineDbHelper.getInstance());
 
-        presenter = new MainPresenter(this, api, offlineTask);
+        presenter = new SearchPresenter(this, api, offlineTask);
     }
 
     @Override
@@ -135,11 +134,15 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
             public void onReceive(Context context, Intent intent) {
                 if(intent != null) {
                     boolean isOffline = intent.getBooleanExtra(IConstants.EXTRA_OFFLINE_STATUS, false);
+                    boolean isDownloaded = intent.getBooleanExtra(IConstants.EXTRA_IS_FILE_DOWNLOADED, false);
 
                     adapter.setOffline(isOffline);
 
-                    swtchOffline.setChecked(isOffline);
-                    swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
+                    if(isDownloaded) {
+                        offlineView.setVisibility(View.VISIBLE);
+                        swtchOffline.setChecked(isOffline);
+                        swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
+                    }
                 }
             }
         };
@@ -224,10 +227,12 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     @Override
     public void showEmptyResultError() {
-        tvError.setText(R.string.no_result_error);
-        tvError.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(getActivity(), R.drawable.zero_results), null, null);
-        tvError.setVisibility(View.VISIBLE);
-        rlWords.setVisibility(View.GONE);
+        if(getActivity() != null) {
+            tvError.setText(getString(R.string.no_result_error));
+            tvError.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(getActivity(), R.drawable.zero_results), null, null);
+            tvError.setVisibility(View.VISIBLE);
+            rlWords.setVisibility(View.GONE);
+        }
     }
 
     @Override

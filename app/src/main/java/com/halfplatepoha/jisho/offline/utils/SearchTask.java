@@ -2,9 +2,11 @@ package com.halfplatepoha.jisho.offline.utils;
 
 import android.os.AsyncTask;
 
+import com.halfplatepoha.jisho.offline.DbSchema;
 import com.halfplatepoha.jisho.offline.OfflineDbHelper;
 import com.halfplatepoha.jisho.offline.model.ListEntry;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +28,17 @@ public class SearchTask extends AsyncTask<Void, Void, List<ListEntry>> {
     @Override
     protected List<ListEntry> doInBackground(Void... params) {
         int searchType = SearchUtil.getSearchType(query);
-        return db.searchDictionary(query, searchType);
+
+        List<ListEntry> results = db.searchDictionary(query, searchType);
+
+        if(searchType == DbSchema.TYPE_ROMAJI) {
+            List<ListEntry> englishResults = db.searchDictionary(query, DbSchema.TYPE_ENGLISH);
+            if(results == null)
+                results = new ArrayList<>();
+            results.addAll(englishResults);
+        }
+
+        return results;
     }
 
     @Override

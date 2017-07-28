@@ -37,7 +37,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
     private MainAdapterActionListener listener;
 
     private boolean isOffline;
-    private boolean darkTheme;
 
     public SearchAdapter(Context mContext) {
         this.mContext = mContext;
@@ -110,10 +109,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
         if(words != null)
             return words.size();
         return 0;
-    }
-
-    public void setDarkTheme(boolean darkTheme) {
-        this.darkTheme = darkTheme;
     }
 
     public class MainViewHolder extends RecyclerView.ViewHolder {

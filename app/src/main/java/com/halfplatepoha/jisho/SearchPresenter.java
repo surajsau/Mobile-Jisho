@@ -24,7 +24,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by surjo on 21/04/17.
  */
 
-public class MainPresenter extends BasePresenter {
+public class SearchPresenter extends BasePresenter {
 
     MainView view;
 
@@ -32,7 +32,7 @@ public class MainPresenter extends BasePresenter {
 
     OfflineTask offlineTask;
 
-    public MainPresenter(MainView view, SearchApi api, OfflineTask offlineTask) {
+    public SearchPresenter(MainView view, SearchApi api, OfflineTask offlineTask) {
         this.view = view;
         this.api = api;
         this.offlineTask = offlineTask;

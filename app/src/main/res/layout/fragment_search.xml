@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryLight"
             android:layout_gravity="center_vertical"
-            android:textSize="16sp"
             android:layout_marginRight="10dp"/>
 
         <com.halfplatepoha.jisho.SwitchButton
@@ -32,12 +31,13 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             app:backColor="@color/colorOn"
-            app:backRadius="15dp"
+            app:backRadius="12dp"
             app:textOff="OFF"
+            android:textSize="12sp"
             app:textOn="ON"
             android:textColor="@color/white"
             app:thumbColor="@color/white"
-            app:thumbRadius="12dp" />
+            app:thumbRadius="10dp" />
 
     </LinearLayout>
 

@@ -1,33 +1,27 @@
 package com.halfplatepoha.jisho;
 
-import android.*;
 import android.Manifest;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
 
-import java.io.File;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import io.realm.internal.Util;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -48,6 +42,12 @@ public class SettingsActivity extends BaseActivity {
 
     @BindView(R.id.offlineWarning)
     View offlineWarning;
+
+    @BindView(R.id.tvDownloading)
+    View tvDownloading;
+
+    @BindView(R.id.btnStartDownload)
+    View downloadButton;
 
     private Snackbar downloadSnackbar;
 
@@ -140,7 +140,12 @@ public class SettingsActivity extends BaseActivity {
 
     @OnClick(R.id.back)
     public void back() {
-        onBackPressed();
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(IConstants.EXTRA_IS_FILE_DOWNLOADED, Utils.isFileDowloaded());
+        resultIntent.putExtra(IConstants.EXTRA_OFFLINE_STATUS, swtchOffline.isChecked());
+        setResult(RESULT_OK, resultIntent);
+
+        finish();
     }
 
     @OnClick(R.id.tvAbout)
@@ -174,14 +179,19 @@ public class SettingsActivity extends BaseActivity {
 
                 if(download.getProgress() == 100){
                     downloadSnackbar.dismiss();
+                    downloadView.setVisibility(View.GONE);
+                    offlineView.setVisibility(View.VISIBLE);
 
                     Snackbar.make(background, getString(R.string.download_completed), Snackbar.LENGTH_SHORT);
                 } else {
                     downloadSnackbar.setText(String.format(getString(R.string.download_progress), download.getProgress()));
                 }
 
-                if(!downloadSnackbar.isShown())
+                if(!downloadSnackbar.isShown()) {
+                    downloadButton.setVisibility(View.GONE);
+                    tvDownloading.setVisibility(View.VISIBLE);
                     downloadSnackbar.show();
+                }
             }
         }
     };

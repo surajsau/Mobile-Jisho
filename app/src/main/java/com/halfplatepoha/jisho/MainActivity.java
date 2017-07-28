@@ -14,6 +14,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.UIUtils;
+import com.halfplatepoha.jisho.utils.Utils;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -27,6 +28,8 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     BottomBar bottomBar;
 
     private Snackbar downloadSnackbar;
+
+    private static final int REQ_SETTINGS = 102;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +91,33 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQ_SETTINGS:
+                if(data != null && resultCode == RESULT_OK) {
+                    boolean isOffline = data.getBooleanExtra(IConstants.EXTRA_OFFLINE_STATUS, false);
+                    boolean isDownloaded = data.getBooleanExtra(IConstants.EXTRA_IS_FILE_DOWNLOADED, false);
+
+                    Intent offlineStatusIntent = new Intent(IConstants.OFFLINE_STATUS_BROADCAST_FILTER);
+                    offlineStatusIntent.putExtra(IConstants.EXTRA_OFFLINE_STATUS, isOffline);
+                    offlineStatusIntent.putExtra(IConstants.EXTRA_IS_FILE_DOWNLOADED, isDownloaded);
+                    LocalBroadcastManager.getInstance(this).sendBroadcast(offlineStatusIntent);
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
+        boolean isDownloaded = Utils.isFileDowloaded();
 
         Intent offlineStatusIntent = new Intent(IConstants.OFFLINE_STATUS_BROADCAST_FILTER);
         offlineStatusIntent.putExtra(IConstants.EXTRA_OFFLINE_STATUS, isOffline);
-        sendBroadcast(offlineStatusIntent);
+        offlineStatusIntent.putExtra(IConstants.EXTRA_IS_FILE_DOWNLOADED, isDownloaded);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(offlineStatusIntent);
     }
 
     private void openFragment(BaseFragment fragment) {
