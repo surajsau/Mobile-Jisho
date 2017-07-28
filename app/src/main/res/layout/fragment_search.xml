@@ -8,19 +8,22 @@
     tools:background="@drawable/dark_background"
     tools:context="com.halfplatepoha.jisho.SearchFragment">
 
-    <LinearLayout
+    <LinearLayout android:id="@+id/offlineView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="16dp">
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_alignParentRight="true">
 
-        <TextView android:id="@+id/tvOfflineStatus"
+        <TextView android:text="Offline Search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Offline search"
-            android:textColor="@color/white"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="center_vertical"/>
+            android:textColor="@color/colorPrimaryLight"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"
+            android:layout_marginRight="10dp"/>
 
         <com.halfplatepoha.jisho.SwitchButton
             android:id="@+id/swtchOffline"
@@ -30,6 +33,9 @@
             android:layout_centerVertical="true"
             app:backColor="@color/colorOn"
             app:backRadius="15dp"
+            app:textOff="OFF"
+            app:textOn="ON"
+            android:textColor="@color/white"
             app:thumbColor="@color/white"
             app:thumbRadius="12dp" />
 
@@ -39,6 +45,7 @@
         android:id="@+id/searchContainer"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginTop="?android:actionBarSize"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"

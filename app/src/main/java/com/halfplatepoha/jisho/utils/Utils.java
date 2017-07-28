@@ -2,6 +2,7 @@ package com.halfplatepoha.jisho.utils;
 
 import android.text.TextUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -61,5 +62,13 @@ public class Utils {
         }
 
         return kanjis;
+    }
+
+
+    public static boolean isFileDowloaded() {
+        File externalDirectory = new File(IConstants.STORAGE_DIRECTORY);
+        File dbFile = new File(externalDirectory, IConstants.DICTIONARY_FILE_NAME);
+
+        return externalDirectory.exists() && dbFile.exists();
     }
 }

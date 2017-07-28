@@ -1,5 +1,7 @@
 package com.halfplatepoha.jisho;
 
+import android.*;
+import android.Manifest;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.halfplatepoha.jisho.utils.IConstants;
+import com.halfplatepoha.jisho.utils.Utils;
 
 import java.io.File;
 
@@ -25,14 +28,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class SettingsActivity extends BaseActivity {
 
+    private static final int REQ_PERM_STORAGE = 101;
+    private static final String[] STORAGE_PERMS = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                                            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
     @BindView(R.id.swtchOffline)
     SwitchButton swtchOffline;
-
-    @BindView(R.id.offlineStatus)
-    TextView offlineStatus;
 
     @BindView(R.id.offlineView)
     View offlineView;
@@ -54,9 +60,7 @@ public class SettingsActivity extends BaseActivity {
         swtchOffline.setChecked(isOffline);
         swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
 
-        offlineStatus.setText(isOffline ? "On" : "Off");
-
-        if(isFileDowloaded()) {
+        if(Utils.isFileDowloaded()) {
             downloadView.setVisibility(View.GONE);
             offlineView.setVisibility(View.VISIBLE);
             offlineWarning.setVisibility(View.VISIBLE);
@@ -88,10 +92,28 @@ public class SettingsActivity extends BaseActivity {
             case R.id.swtchOffline:
                 JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, isChecked);
 
-                offlineStatus.setText(isChecked ? "On" : "Off");
                 swtchOffline.setBackColorRes(isChecked ? R.color.colorOn : R.color.colorOff);
                 break;
         }
+    }
+
+    @AfterPermissionGranted(REQ_PERM_STORAGE)
+    private void checkStoragePersmissionAndStartDownload() {
+        if(EasyPermissions.hasPermissions(this, STORAGE_PERMS)) {
+            Intent downloadIntent = new Intent(getApplicationContext(), DownloadService.class);
+            startService(downloadIntent);
+        } else {
+            EasyPermissions.requestPermissions(this,
+                    "Storage permission required to download Jisho for offline mode",
+                    REQ_PERM_STORAGE,
+                    STORAGE_PERMS);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     private void showDownloadFileDialog() {
@@ -104,9 +126,7 @@ public class SettingsActivity extends BaseActivity {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Intent downloadIntent = new Intent(getApplicationContext(), DownloadService.class);
-                        startService(downloadIntent);
-                        dialog.dismiss();
+                        checkStoragePersmissionAndStartDownload();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -141,13 +161,6 @@ public class SettingsActivity extends BaseActivity {
     @Override
     public int getLayoutRes() {
         return R.layout.activity_settings;
-    }
-
-    private boolean isFileDowloaded() {
-        File externalDirectory = new File(IConstants.STORAGE_DIRECTORY);
-        File dbFile = new File(externalDirectory, IConstants.DICTIONARY_FILE_NAME);
-
-        return externalDirectory.exists() && dbFile.exists();
     }
 
     private BroadcastReceiver downloadBroadcastReceiver = new BroadcastReceiver() {

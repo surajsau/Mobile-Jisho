@@ -98,17 +98,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 app:backColor="@color/colorOn"
-                app:backRadius="20dp"
+                app:backRadius="15dp"
+                app:textOff="OFF"
+                app:textOn="ON"
+                android:textColor="@color/white"
                 app:thumbColor="@color/white"
-                app:thumbRadius="16dp" />
+                app:thumbRadius="12dp" />
 
-            <TextView android:id="@+id/offlineStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/swtchOffline"
-                android:layout_marginRight="10dp"
-                android:textAllCaps="true"
-                android:text="Off" />
         </RelativeLayout>
 
         <TextView android:text="Since this is the initial offline version, detailed information similar to online mode may not be available for all searches."

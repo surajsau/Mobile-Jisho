@@ -12,12 +12,13 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.UIUtils;
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements HistoryFragment.HistoryFragmentActionListener,
-        OnTabSelectListener {
+        OnTabSelectListener, OnTabReselectListener {
 
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
@@ -38,6 +39,7 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
         JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
 
         bottomBar.setOnTabSelectListener(this);
+        bottomBar.setOnTabReselectListener(this);
 
         downloadSnackbar = Snackbar.make(background, "Beginning download...", Snackbar.LENGTH_INDEFINITE);
     }
@@ -114,6 +116,15 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
                 openFragment(favoriteFragment);
                 break;
 
+            case R.id.tab_options:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
+        }
+    }
+
+    @Override
+    public void onTabReSelected(@IdRes int tabId) {
+        switch (tabId) {
             case R.id.tab_options:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;

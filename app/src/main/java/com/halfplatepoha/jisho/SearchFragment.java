@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -30,10 +31,13 @@ import com.halfplatepoha.jisho.model.Word;
 import com.halfplatepoha.jisho.offline.OfflineDbHelper;
 import com.halfplatepoha.jisho.offline.OfflineTask;
 import com.halfplatepoha.jisho.utils.IConstants;
+import com.halfplatepoha.jisho.utils.Utils;
 
 import butterknife.BindView;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.realm.Realm;
+import io.realm.internal.Util;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class SearchFragment extends BaseFragment implements MainView, TextView.OnEditorActionListener,
@@ -59,11 +63,11 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     @BindView(R.id.tvError)
     TextView tvError;
 
-    @BindView(R.id.tvOfflineStatus)
-    TextView tvOfflineStatus;
-
     @BindView(R.id.swtchOffline)
     SwitchButton swtchOffline;
+
+    @BindView(R.id.offlineView)
+    View offlineView;
 
     MainPresenter presenter;
 
@@ -95,6 +99,14 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
             String searchString = getArguments().getString(EXTRA_SEARCH_STRING);
             presenter.search(searchString);
             etSearch.setText(searchString);
+        }
+
+        if(Utils.isFileDowloaded()) {
+            offlineView.setVisibility(View.VISIBLE);
+
+            boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
+            swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
+            adapter.setOffline(isOffline);
         }
     }
 
@@ -238,6 +250,18 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     public void clearText() {
         Analytics.getInstance().recordClick("Clear", "Clear");
         etSearch.setText("");
+    }
+
+    @OnCheckedChanged({R.id.swtchOffline})
+    public void offlineStatusChange(CompoundButton button, boolean isChecked) {
+        switch (button.getId()) {
+            case R.id.swtchOffline:
+                JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, isChecked);
+
+                adapter.setOffline(isChecked);
+                swtchOffline.setBackColorRes(isChecked ? R.color.colorOn : R.color.colorOff);
+                break;
+        }
     }
 
     @Override
