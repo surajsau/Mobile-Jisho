@@ -3,9 +3,11 @@ package com.halfplatepoha.jisho;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.util.Log;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.UIUtils;
@@ -17,12 +19,10 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity implements HistoryFragment.HistoryFragmentActionListener,
         OnTabSelectListener {
 
-    public static final String MESSAGE_PROGRESS = "download_progress";
-
-    private static final int REQ_SETTINGS = 1001;
-
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
+
+    private Snackbar downloadSnackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,8 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
         JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
 
         bottomBar.setOnTabSelectListener(this);
+
+        downloadSnackbar = Snackbar.make(background, "Beginning download...", Snackbar.LENGTH_INDEFINITE);
     }
 
     @Override
@@ -48,6 +50,18 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     private void openSearchFragment(String searchTerm) {
         SearchFragment searchFragment = SearchFragment.getInstance(searchTerm);
         openFragment(searchFragment);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this).registerReceiver(downloadBroadcastReceiver, new IntentFilter(IConstants.DOWNLOAD_BROADCAST_FILTER));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(downloadBroadcastReceiver);
     }
 
     @Override
@@ -106,22 +120,24 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
         }
     }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver downloadBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            if(intent.getAction().equals(MESSAGE_PROGRESS)){
+            if(intent != null){
 
-                Download download = intent.getParcelableExtra("download");
+                Download download = intent.getParcelableExtra(DownloadService.EXTRA_DOWNLOAD);
+
                 if(download.getProgress() == 100){
+                    downloadSnackbar.dismiss();
 
-                    Log.e("Progress", "File Download Complete");
-
+                    Snackbar.make(background, getString(R.string.download_completed), Snackbar.LENGTH_SHORT);
                 } else {
-
-                    Log.e("Progress", String.format("Downloaded (%d/%d) MB",download.getCurrentFileSize(),download.getTotalFileSize()));
-
+                    downloadSnackbar.setText(String.format(getString(R.string.download_progress), download.getProgress()));
                 }
+
+                if(!downloadSnackbar.isShown())
+                    downloadSnackbar.show();
             }
         }
     };

@@ -11,7 +11,7 @@
     <ImageButton android:id="@+id/back"
         android:layout_width="?android:actionBarSize"
         android:layout_height="?android:actionBarSize"
-        android:src="@drawable/back_arrow"
+        app:srcCompat="@drawable/back_arrow"
         android:background="@null"/>
 
     <TextView android:id="@+id/tvTitle"

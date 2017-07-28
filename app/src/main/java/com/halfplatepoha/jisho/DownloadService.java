@@ -9,6 +9,8 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
+import com.halfplatepoha.jisho.utils.IConstants;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -75,7 +77,11 @@ public class DownloadService extends IntentService {
         byte data[] = new byte[1024 * 4];
         long fileSize = body.contentLength();
         InputStream bis = new BufferedInputStream(body.byteStream(), 1024 * 8);
-        File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "dictionary.db");
+        File externalFolder = new File(IConstants.STORAGE_DIRECTORY);
+        if(!externalFolder.exists())
+            externalFolder.mkdir();
+
+        File outputFile = new File(externalFolder, IConstants.DICTIONARY_FILE_NAME);
         OutputStream output = new FileOutputStream(outputFile);
         long total = 0;
         long startTime = System.currentTimeMillis();
@@ -119,10 +125,9 @@ public class DownloadService extends IntentService {
     }
 
     private void sendIntent(Download download){
-
-        Intent intent = new Intent(MainActivity.MESSAGE_PROGRESS);
+        Intent intent = new Intent(IConstants.DOWNLOAD_BROADCAST_FILTER);
         intent.putExtra(EXTRA_DOWNLOAD,download);
-        LocalBroadcastManager.getInstance(DownloadService.this).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
     }
 
     private void onDownloadComplete(){

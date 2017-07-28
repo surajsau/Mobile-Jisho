@@ -45,4 +45,9 @@ public abstract class BaseViewHolder<Model> {
             throw new Error("first bind() to getView(). You cannot call vh.getView() directly without calling vh.bind() first");
         return vhView;
     }
+
+    public void notifyDataSetChange(Model model) {
+        mModel = model;
+        bind();
+    }
 }

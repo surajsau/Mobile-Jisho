@@ -12,6 +12,7 @@ import com.halfplatepoha.jisho.offline.model.ListEntry;
 import com.halfplatepoha.jisho.offline.model.ReadingElement;
 import com.halfplatepoha.jisho.offline.model.SenseElement;
 import com.halfplatepoha.jisho.offline.utils.DbQueryUtil;
+import com.halfplatepoha.jisho.utils.IConstants;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ import java.util.List;
 
 public class OfflineDbHelper extends SQLiteAssetHelper {
 
-    private static final String DB_NAME = "dictionary.db";
     private static final int DB_VERSION = 1;
 
     private static OfflineDbHelper mInstance;
@@ -38,7 +38,7 @@ public class OfflineDbHelper extends SQLiteAssetHelper {
     }
 
     private OfflineDbHelper(Context context) {
-        super(context, DB_NAME, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), null, DB_VERSION);
+        super(context, IConstants.DICTIONARY_FILE_NAME, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), null, DB_VERSION);
     }
 
     public List<ListEntry> searchDictionary (String searchTerm, @DbSchema.SearchType int searchType) {

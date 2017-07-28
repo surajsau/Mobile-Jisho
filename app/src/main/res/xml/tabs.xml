@@ -15,6 +15,6 @@
     <tab
         id="@+id/tab_options"
         icon="@drawable/options"
-        title="Options"
+        title="Others"
         barColorWhenSelected="@color/white"/>
 </tabs>

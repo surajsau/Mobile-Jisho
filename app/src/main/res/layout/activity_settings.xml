@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:id="@+id/background"
     tools:context="com.halfplatepoha.jisho.SettingsActivity">
 
     <TextView android:id="@+id/toolbar"
@@ -33,18 +34,61 @@
             android:alpha="0.5"
             android:background="@color/colorPrimaryLight" />
 
-        <RelativeLayout
+        <RelativeLayout android:id="@+id/downloadView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:background="@color/colorPrimaryVeryLight">
 
-            <TextView
+            <TextView android:id="@+id/offlineEnableLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:text="Offline Jisho" />
+
+            <TextView android:text="Now you can use Jisho even without internet connection. However, since this is the initial offline version, detailed information similar to online mode may not be available for all words."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_below="@id/offlineEnableLabel"
+                android:id="@+id/tvDownloadCaution"/>
+
+            <Button android:id="@+id/btnStartDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enable offline mode"
+                android:background="@drawable/rounded_rectangle_primary_light"
+                android:textColor="@color/white"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/tvDownloadCaution"
+                android:textAllCaps="false"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout android:id="@+id/offlineView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView android:id="@+id/offlineLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:text="Offline" />
 
@@ -53,7 +97,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 app:backColor="@color/colorOn"
                 app:backRadius="20dp"
                 app:thumbColor="@color/white"
@@ -64,10 +107,23 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/swtchOffline"
                 android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
                 android:textAllCaps="true"
                 android:text="Off" />
         </RelativeLayout>
+
+        <TextView android:text="Since this is the initial offline version, detailed information similar to online mode may not be available for all searches."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:padding="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/offlineWarning"
+            android:background="@color/colorPrimaryVeryLight"
+            android:layout_below="@id/offlineLabel"/>
 
         <TextView
             android:id="@+id/tvAbout"
