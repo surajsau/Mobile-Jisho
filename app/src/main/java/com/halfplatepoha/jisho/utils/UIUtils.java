@@ -22,11 +22,13 @@ public class UIUtils {
         return dp;
     }
 
-    public static void showNewItemsDialog(Context context, @LayoutRes int layoutRes) {
+    public static void showNewItemsDialog(Context context, String title, @LayoutRes int layoutRes, String buttonString, MaterialDialog.SingleButtonCallback buttonAction) {
         new MaterialDialog.Builder(context)
-                .title("Verb Inflections!")
+                .title(title)
                 .customView(layoutRes, true)
                 .positiveText(R.string.ok)
+                .positiveText(buttonString)
+                .onPositive(buttonAction)
                 .build()
                 .show();
     }

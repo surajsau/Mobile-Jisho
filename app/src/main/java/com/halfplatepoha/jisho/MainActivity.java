@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.UIUtils;
 import com.roughike.bottombar.BottomBar;
@@ -35,7 +38,16 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
         }
 
         if(!JishoPreference.getBooleanFromPref(IConstants.PREF_SHOW_NEW, false))
-            UIUtils.showNewItemsDialog(this, R.layout.dlg_new_items);
+            UIUtils.showNewItemsDialog(this,
+                    "Offline mode!",
+                    R.layout.dlg_new_items,
+                    "Go to settings",
+                    new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                           startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                        }
+                    });
         JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
 
         bottomBar.setOnTabSelectListener(this);

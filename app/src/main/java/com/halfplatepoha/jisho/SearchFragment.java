@@ -106,6 +106,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
             boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
             swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
+            swtchOffline.setChecked(isOffline);
             adapter.setOffline(isOffline);
         }
     }

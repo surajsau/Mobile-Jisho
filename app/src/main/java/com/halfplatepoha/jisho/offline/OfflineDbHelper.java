@@ -38,7 +38,7 @@ public class OfflineDbHelper extends SQLiteAssetHelper {
     }
 
     private OfflineDbHelper(Context context) {
-        super(context, IConstants.DICTIONARY_FILE_NAME, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), null, DB_VERSION);
+        super(context, IConstants.DICTIONARY_FILE_NAME, IConstants.STORAGE_DIRECTORY, null, DB_VERSION);
     }
 
     public List<ListEntry> searchDictionary (String searchTerm, @DbSchema.SearchType int searchType) {
