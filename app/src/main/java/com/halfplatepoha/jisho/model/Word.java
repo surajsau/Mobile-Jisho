@@ -92,7 +92,8 @@ public class Word implements Serializable {
         if(offlineEntry.getKanjiElementElements() != null && !offlineEntry.getKanjiElementElements().isEmpty())
             jap.setWord(offlineEntry.getKanjiElementElements().get(0).getValue());
 
-        jap.setReading(offlineEntry.getReadingElementElements().get(0).getValue());
+        if(offlineEntry.getReadingElementElements() != null && !offlineEntry.getReadingElementElements().isEmpty())
+            jap.setReading(offlineEntry.getReadingElementElements().get(0).getValue());
 
         ArrayList<Japanese> japs = new ArrayList<>();
         japs.add(jap);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 
 import com.halfplatepoha.jisho.offline.model.Entry;
 import com.halfplatepoha.jisho.offline.model.KanjiElement;
@@ -37,7 +38,7 @@ public class OfflineDbHelper extends SQLiteAssetHelper {
     }
 
     private OfflineDbHelper(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
+        super(context, DB_NAME, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), null, DB_VERSION);
     }
 
     public List<ListEntry> searchDictionary (String searchTerm, @DbSchema.SearchType int searchType) {

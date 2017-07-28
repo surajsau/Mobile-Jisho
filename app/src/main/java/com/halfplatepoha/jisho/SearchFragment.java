@@ -1,9 +1,13 @@
 package com.halfplatepoha.jisho;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -25,7 +29,7 @@ import com.halfplatepoha.jisho.model.SearchApi;
 import com.halfplatepoha.jisho.model.Word;
 import com.halfplatepoha.jisho.offline.OfflineDbHelper;
 import com.halfplatepoha.jisho.offline.OfflineTask;
-import com.halfplatepoha.jisho.utils.UIUtils;
+import com.halfplatepoha.jisho.utils.IConstants;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,11 +59,19 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     @BindView(R.id.tvError)
     TextView tvError;
 
+    @BindView(R.id.tvOfflineStatus)
+    TextView tvOfflineStatus;
+
+    @BindView(R.id.swtchOffline)
+    SwitchButton swtchOffline;
+
     MainPresenter presenter;
 
     SearchAdapter adapter;
 
     Realm realm;
+
+    private BroadcastReceiver offlineStatusReceiver;
 
     public static SearchFragment getInstance(String searchString) {
         SearchFragment fragment = new SearchFragment();
@@ -75,9 +87,6 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
         adapter = new SearchAdapter(getActivity());
         adapter.setMainAdapterActionListener(this);
-
-        rlWords.setAdapter(adapter);
-        rlWords.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         etSearch.setOnEditorActionListener(this);
         etSearch.addTextChangedListener(this);
@@ -99,6 +108,40 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
         OfflineTask offlineTask = OfflineTask.getInstance(OfflineDbHelper.getInstance());
 
         presenter = new MainPresenter(this, api, offlineTask);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        rlWords.setAdapter(adapter);
+        rlWords.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+
+        offlineStatusReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if(intent != null) {
+                    boolean isOffline = intent.getBooleanExtra(IConstants.EXTRA_OFFLINE_STATUS, false);
+
+                    adapter.setOffline(isOffline);
+
+                    swtchOffline.setChecked(isOffline);
+                    swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(offlineStatusReceiver, new IntentFilter(IConstants.OFFLINE_STATUS_BROADCAST_FILTER));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(offlineStatusReceiver);
     }
 
     @Override

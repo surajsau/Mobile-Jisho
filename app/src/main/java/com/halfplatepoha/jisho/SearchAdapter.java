@@ -37,6 +37,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
     private MainAdapterActionListener listener;
 
     private boolean isOffline;
+    private boolean darkTheme;
 
     public SearchAdapter(Context mContext) {
         this.mContext = mContext;
@@ -111,6 +112,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
         return 0;
     }
 
+    public void setDarkTheme(boolean darkTheme) {
+        this.darkTheme = darkTheme;
+    }
+
     public class MainViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvJapanese)
@@ -136,6 +141,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
         @OnClick(R.id.rowCard)
         void seeMore() {
             Analytics.getInstance().recordClick("Search_Details", "Fav_Detail");
+
             if(listener != null) {
                 if(isOffline)
                     listener.onOfflineSearchResultClicked(words.get(getAdapterPosition()).getOfflineEntryId());

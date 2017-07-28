@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.halfplatepoha.jisho.SettingsActivity">
+
+    <TextView android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:text="Options"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageButton android:id="@+id/back"
+        android:layout_width="?android:actionBarSize"
+        android:layout_height="?android:actionBarSize"
+        app:srcCompat="@drawable/back"
+        android:background="@null"/>
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:alpha="0.5"
+            android:background="@color/colorPrimaryLight" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:text="Offline" />
+
+            <com.halfplatepoha.jisho.SwitchButton
+                android:id="@+id/swtchOffline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:backColor="@color/colorOn"
+                app:backRadius="20dp"
+                app:thumbColor="@color/white"
+                app:thumbRadius="16dp" />
+
+            <TextView android:id="@+id/offlineStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/swtchOffline"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:textAllCaps="true"
+                android:text="Off" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:textSize="16sp"
+            android:paddingTop="10dp"
+            android:text="About" />
+
+        <TextView
+            android:id="@+id/tvLicense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:textSize="16sp"
+            android:paddingTop="10dp"
+            android:text="License information" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="v2.0"
+            android:layout_gravity="center_horizontal"
+            android:padding="16dp"
+            android:textSize="10sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

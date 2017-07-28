@@ -50,3 +50,9 @@
 -keep class butterknife.*
 -keepclasseswithmembernames class * { @butterknife.* <methods>; }
 -keepclasseswithmembernames class * { @butterknife.* <fields>; }
+
+-dontwarn okio.**
+-dontwarn okhttp3.**
+-dontwarn com.squareup.okhttp.**
+-dontwarn com.google.appengine.**
+-dontwarn javax.servlet.**

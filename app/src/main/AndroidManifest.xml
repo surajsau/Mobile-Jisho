@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.halfplatepoha.jisho">
+    package="com.halfplatepoha.jisho"
+    android:installLocation="auto">
+
+    <!-- TODO remove the installLocation PLEASE!! -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".Jisho"
@@ -31,9 +36,11 @@
             android:value="73c1a606b8ec6031c5b79954bcc0ca282bc666aa" />
 
         <activity android:name=".DetailsAcitivity" />
-        <activity android:name=".SingleFragmentActivity"/>
+        <activity android:name=".SingleFragmentActivity" />
 
-        <service android:name=".OfflineDbDownloadService"/>
+        <service android:name=".DownloadService" />
+
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

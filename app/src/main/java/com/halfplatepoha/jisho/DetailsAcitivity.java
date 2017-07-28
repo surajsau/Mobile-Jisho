@@ -7,14 +7,12 @@ import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.db.FavJapanese;
 import com.halfplatepoha.jisho.db.FavLink;
@@ -35,16 +33,14 @@ import com.halfplatepoha.jisho.viewholders.KanjiViewHolder;
 import com.halfplatepoha.jisho.viewholders.SenseViewHolder;
 import com.thefinestartist.finestwebview.FinestWebView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.SenseActionListener,
         KanjiViewHolder.OnKanjiClickedListener, NestedScrollView.OnScrollChangeListener, GetEntryDetailsTask.EntryDetailsTaskListener {
@@ -92,6 +88,12 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
     @BindView(R.id.extraToolbar)
     View extraToolbar;
 
+    @BindView(R.id.progress)
+    MaterialProgressBar progress;
+
+    @BindView(R.id.header)
+    View header;
+
     private Word mWord;
 
     private Japanese mPrimary;
@@ -105,8 +107,6 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
     private OtherFormsAdapter otherFormsAdapter;
 
     private FinestWebView.Builder webBuilder;
-
-    private boolean isOffline;
 
     public static Intent getLaunchIntent(Context context, Word word) {
         Intent intent = new Intent(context, DetailsAcitivity.class);
@@ -125,12 +125,10 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
-        ButterKnife.bind(this);
 
         realm = Realm.getDefaultInstance();
 
-        isOffline = getIntent().getBooleanExtra(EXTRA_IS_OFFLINE, false);
+        boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
 
         if(!isOffline) {
 
@@ -150,7 +148,17 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
         scroll.setOnScrollChangeListener(this);
     }
 
+    @Override
+    public int getLayoutRes() {
+        return R.layout.activity_details;
+    }
+
     private void refreshUI() {
+        progress.setVisibility(View.GONE);
+
+        header.setVisibility(View.VISIBLE);
+        scroll.setVisibility(View.VISIBLE);
+
         if(mPrimary.getWord() != null) {
             tvJapanese.setText(mPrimary.getWord());
             tvExtraJapanese.setText(mPrimary.getWord());

@@ -4,15 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_backgroun_30"
+    android:background="@drawable/dark_background_details"
     android:orientation="vertical"
+    android:id="@+id/background"
     tools:context="com.halfplatepoha.jisho.DetailsAcitivity">
 
-    <LinearLayout
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/progress"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="5dp"
+        android:alpha="0.5"
+        android:foregroundGravity="center"
+        android:visibility="visible"
+        app:mpb_progressTint="@color/white"
+        tools:visibility="gone" />
+
+    <LinearLayout android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:orientation="vertical">
 
         <TextView
@@ -40,6 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -138,20 +155,20 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <LinearLayout android:id="@+id/extraToolbar"
+    <RelativeLayout android:id="@+id/extraToolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:alpha="0.0"
         android:background="@color/colorPrimary"
-        android:orientation="vertical"
-        tools:alpha="0.0"
-        android:gravity="center">
+        tools:alpha="1.0">
 
         <TextView android:id="@+id/tvExtraJapanese"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="気をつけて"
             android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
             android:textColor="@color/white"/>
 
         <TextView android:id="@+id/tvExtraHiragana"
@@ -159,9 +176,11 @@
             android:layout_height="wrap_content"
             tools:text="きをつけて"
             android:textSize="11sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tvExtraJapanese"
             android:textColor="@color/white"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -172,22 +191,18 @@
 
         <ImageButton
             android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="?android:actionBarSize"
+            android:layout_height="?android:actionBarSize"
             android:background="@null"
-            android:padding="16dp"
-            android:src="@drawable/back_arrow" />
+            app:srcCompat="@drawable/back_arrow" />
 
         <ImageButton
             android:id="@+id/btnFav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="?android:actionBarSize"
+            android:layout_height="?android:actionBarSize"
             android:layout_alignParentRight="true"
             android:background="@null"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="16dp"
-            android:src="@drawable/unfav"
+            app:srcCompat="@drawable/unfav"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 

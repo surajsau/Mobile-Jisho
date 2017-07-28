@@ -5,8 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="16dp"
-    tools:background="@drawable/gradient_background"
+    tools:background="@drawable/dark_background"
     tools:context="com.halfplatepoha.jisho.SearchFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="16dp">
+
+        <TextView android:id="@+id/tvOfflineStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Offline search"
+            android:textColor="@color/white"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"/>
+
+        <com.halfplatepoha.jisho.SwitchButton
+            android:id="@+id/swtchOffline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            app:backColor="@color/colorOn"
+            app:backRadius="15dp"
+            app:thumbColor="@color/white"
+            app:thumbRadius="12dp" />
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/searchContainer"
@@ -28,7 +55,7 @@
             android:paddingBottom="5dp"
             android:paddingRight="5dp"
             android:paddingTop="5dp"
-            android:src="@drawable/search" />
+            app:srcCompat="@drawable/search" />
 
         <EditText
             android:id="@+id/etSearch"
@@ -57,7 +84,7 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:padding="5dp"
-            android:src="@drawable/cross"
+            app:srcCompat="@drawable/cross"
             android:visibility="gone"
             tools:visibility="visible" />
 

@@ -1,53 +1,32 @@
 package com.halfplatepoha.jisho;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
+import android.util.Log;
 
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.UIUtils;
-import com.halfplatepoha.jisho.viewholders.SettingsViewHolder;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements
-        HistoryFragment.HistoryFragmentActionListener,
-        OnTabSelectListener, SettingsViewHolder.SettingsActionListener {
+public class MainActivity extends BaseActivity implements HistoryFragment.HistoryFragmentActionListener,
+        OnTabSelectListener {
 
-    @BindView(R.id.tvTitle)
-    TextView tvTitle;
+    public static final String MESSAGE_PROGRESS = "download_progress";
 
-    @BindView(R.id.bottomSheet)
-    View bottomSheet;
+    private static final int REQ_SETTINGS = 1001;
 
-    private SettingsViewHolder settings;
+    @BindView(R.id.bottomBar)
+    BottomBar bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
         if(getIntent() != null) {
             String searchTerm = getIntent().getStringExtra(IConstants.EXTRA_SEARCH_TERM);
@@ -58,15 +37,12 @@ public class MainActivity extends BaseActivity implements
             UIUtils.showNewItemsDialog(this, R.layout.dlg_new_items);
         JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
 
-        settings = new SettingsViewHolder(bottomSheet);
-        settings.setListener(this);
+        bottomBar.setOnTabSelectListener(this);
+    }
 
-        TypedValue tv = new TypedValue();
-        if(getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            settings.setPeekHeight(TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics()));
-        } else {
-            settings.setPeekHeight(300);
-        }
+    @Override
+    public int getLayoutRes() {
+        return R.layout.activity_main;
     }
 
     private void openSearchFragment(String searchTerm) {
@@ -81,6 +57,16 @@ public class MainActivity extends BaseActivity implements
             String searchString = intent.getStringExtra(IConstants.EXTRA_SEARCH_TERM);
             openSearchFragment(searchString);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
+
+        Intent offlineStatusIntent = new Intent(IConstants.OFFLINE_STATUS_BROADCAST_FILTER);
+        offlineStatusIntent.putExtra(IConstants.EXTRA_OFFLINE_STATUS, isOffline);
+        sendBroadcast(offlineStatusIntent);
     }
 
     private void openFragment(BaseFragment fragment) {
@@ -99,61 +85,45 @@ public class MainActivity extends BaseActivity implements
     public void onTabSelected(@IdRes int tabId) {
         switch (tabId) {
             case R.id.tab_search:
-                settings.collapse();
-                tvTitle.setText("");
                 SearchFragment searchFragment = new SearchFragment();
                 openFragment(searchFragment);
                 break;
 
             case R.id.tab_history:
-                settings.collapse();
-                tvTitle.setText("History");
                 HistoryFragment historyFragment = new HistoryFragment();
                 historyFragment.setHistoryFragmentActionListener(this);
                 openFragment(historyFragment);
                 break;
 
             case R.id.tab_favorites:
-                settings.collapse();
-                tvTitle.setText("Favorite");
                 FavoriteFragment favoriteFragment = new FavoriteFragment();
                 openFragment(favoriteFragment);
                 break;
 
             case R.id.tab_options:
-                settings.expand();
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
         }
     }
 
-    @Override
-    public void onCheckedChange(boolean isChecked) {
-        JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, isChecked);
-    }
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
 
-    //--collapse settings on clicking anywhere outside the settings
-    @OnClick(R.id.container)
-    public void onContainerClicked() {
-        settings.collapse();
-    }
+            if(intent.getAction().equals(MESSAGE_PROGRESS)){
 
-    @Override
-    public void onTabReselected(@IdRes int tabId) {
-        switch (tabId) {
-            case R.id.tab_options:
-                settings.expand();
-                break;
+                Download download = intent.getParcelableExtra("download");
+                if(download.getProgress() == 100){
+
+                    Log.e("Progress", "File Download Complete");
+
+                } else {
+
+                    Log.e("Progress", String.format("Downloaded (%d/%d) MB",download.getCurrentFileSize(),download.getTotalFileSize()));
+
+                }
+            }
         }
-    }
+    };
 
-    @Override
-    public void openAbout() {
-        startService(new Intent(this, OfflineDbDownloadService.class));
-//        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_ABOUT, "About"));
-    }
-
-    @Override
-    public void openLicense() {
-        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_LICENSE, "License Information"));
-    }
 }

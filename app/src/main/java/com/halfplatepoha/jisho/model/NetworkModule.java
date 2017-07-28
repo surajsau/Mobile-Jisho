@@ -46,4 +46,17 @@ public class NetworkModule {
         return retrofit;
     }
 
+    public static Retrofit provideDownloadRetrofit() {
+        buildOkHttpClient();
+
+//        if(retrofit == null) {
+            return new Retrofit.Builder()
+                    .baseUrl(IConstants.DROP_URL)
+                    .callFactory(okHttpClient)
+                    .build();
+//        }
+
+//        return retrofit;
+    }
+
 }
