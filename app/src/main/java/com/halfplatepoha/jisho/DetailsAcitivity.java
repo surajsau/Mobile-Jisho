@@ -128,7 +128,7 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
 
         realm = Realm.getDefaultInstance();
 
-        boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
+        boolean isOffline = getIntent().getBooleanExtra(EXTRA_IS_OFFLINE, false);
 
         if(!isOffline) {
 

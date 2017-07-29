@@ -14,7 +14,6 @@ public interface IConstants {
     String PREF_OFFLINE_MODE = "offline_mode";
 
     String EXTRA_OFFLINE_STATUS = "offline_status";
-    String EXTRA_IS_FILE_DOWNLOADED = "is_file_downloaded";
     String OFFLINE_STATUS_BROADCAST_FILTER = "offline_status_broadcast_filter";
     String DOWNLOAD_BROADCAST_FILTER = "download_broadcast_filter";
 

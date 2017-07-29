@@ -1,12 +1,14 @@
 package com.halfplatepoha.jisho;
 
-import android.app.IntentService;
 import android.app.NotificationManager;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.halfplatepoha.jisho.utils.IConstants;
@@ -20,22 +22,35 @@ import java.io.OutputStream;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class DownloadService extends IntentService {
+public class DownloadService extends Service {
 
     public static final String EXTRA_DOWNLOAD = "download";
 
-    public DownloadService() {
-        super("Download Service");
-    }
+    private DownloadDbClient downloadDbClient;
 
     private NotificationCompat.Builder notificationBuilder;
     private NotificationManager notificationManager;
     private int totalFileSize;
 
+    @Nullable
     @Override
-    protected void onHandleIntent(Intent intent) {
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://firebasestorage.googleapis.com/")
+                .build();
+
+        downloadDbClient = retrofit.create(DownloadDbClient.class);
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -45,30 +60,36 @@ public class DownloadService extends IntentService {
                 .setContentText("Downloading File")
                 .setAutoCancel(true);
         notificationManager.notify(0, notificationBuilder.build());
+    }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         initDownload();
-
+        return START_STICKY;
     }
 
     private void initDownload(){
+        Call<ResponseBody> request = downloadDbClient.downloadFile();
+        request.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://firebasestorage.googleapis.com/")
-                .build();
+                    downloadFile(response.body());
 
-        RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+                } catch (IOException e) {
 
-        Call<ResponseBody> request = retrofitInterface.downloadFile();
-        try {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
 
-            downloadFile(request.execute().body());
+                }
+            }
 
-        } catch (IOException e) {
-
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
-
-        }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Error", "Download couldn't be completed " + t.getMessage());
+            }
+        });
     }
 
     private void downloadFile(ResponseBody body) throws IOException {
@@ -127,7 +148,7 @@ public class DownloadService extends IntentService {
     private void sendIntent(Download download){
         Intent intent = new Intent(IConstants.DOWNLOAD_BROADCAST_FILTER);
         intent.putExtra(EXTRA_DOWNLOAD,download);
-        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+        sendBroadcast(intent);
     }
 
     private void onDownloadComplete(){
@@ -140,6 +161,8 @@ public class DownloadService extends IntentService {
         notificationBuilder.setProgress(0,0,false);
         notificationBuilder.setContentText("Successfully downloaded");
         notificationManager.notify(0, notificationBuilder.build());
+
+        stopSelf();
 
     }
 

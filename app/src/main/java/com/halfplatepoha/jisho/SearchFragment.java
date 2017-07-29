@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -22,6 +23,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.db.History;
 import com.halfplatepoha.jisho.db.RealmString;
@@ -94,13 +97,13 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
         etSearch.setOnEditorActionListener(this);
         etSearch.addTextChangedListener(this);
 
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             String searchString = getArguments().getString(EXTRA_SEARCH_STRING);
             presenter.search(searchString);
             etSearch.setText(searchString);
         }
 
-        if(Utils.isFileDowloaded()) {
+        if (Utils.isFileDowloaded()) {
             offlineView.setVisibility(View.VISIBLE);
 
             boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
@@ -132,13 +135,12 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
         offlineStatusReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if(intent != null) {
+                if (intent != null) {
                     boolean isOffline = intent.getBooleanExtra(IConstants.EXTRA_OFFLINE_STATUS, false);
-                    boolean isDownloaded = intent.getBooleanExtra(IConstants.EXTRA_IS_FILE_DOWNLOADED, false);
 
                     adapter.setOffline(isOffline);
 
-                    if(isDownloaded) {
+                    if (Utils.isFileDowloaded()) {
                         offlineView.setVisibility(View.VISIBLE);
                         swtchOffline.setChecked(isOffline);
                         swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
@@ -162,7 +164,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             Analytics.getInstance().recordSearch(etSearch.getText().toString());
             presenter.search(etSearch.getText().toString());
             return true;
@@ -176,7 +178,8 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -187,17 +190,18 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     }
 
     @Override
-    public void afterTextChanged(Editable s) {}
+    public void afterTextChanged(Editable s) {
+    }
 
     @Override
     public void clearData() {
-        if(adapter != null)
+        if (adapter != null)
             adapter.clearWords();
     }
 
     @Override
     public void saveInHistory(String searchString) {
-        if(realm != null && !realm.isClosed()) {
+        if (realm != null && !realm.isClosed()) {
             realm.beginTransaction();
 
             History history = realm.where(History.class).findFirst();
@@ -227,7 +231,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     @Override
     public void showEmptyResultError() {
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             tvError.setText(getString(R.string.no_result_error));
             tvError.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(getActivity(), R.drawable.zero_results), null, null);
             tvError.setVisibility(View.VISIBLE);
@@ -258,16 +262,42 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
         etSearch.setText("");
     }
 
-    @OnCheckedChanged({R.id.swtchOffline})
-    public void offlineStatusChange(CompoundButton button, boolean isChecked) {
-        switch (button.getId()) {
-            case R.id.swtchOffline:
-                JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, isChecked);
+    @OnCheckedChanged(R.id.swtchOffline)
+    public void offlineStatusChange(CompoundButton button, boolean checked) {
+        if(checked && !Utils.isFileDowloaded()) {
 
-                adapter.setOffline(isChecked);
-                swtchOffline.setBackColorRes(isChecked ? R.color.colorOn : R.color.colorOff);
-                break;
+            showFileDeletedNeedsTobeDownloadedDialog();
+            swtchOffline.setCheckedNoEvent(false);
+
+        } else {
+            JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, checked);
+
+            adapter.setOffline(checked);
+            swtchOffline.setBackColorRes(checked ? R.color.colorOn : R.color.colorOff);
         }
+    }
+
+    private void showFileDeletedNeedsTobeDownloadedDialog() {
+        new MaterialDialog.Builder(getActivity())
+                .title("Offline Jisho missing")
+                .content("The offline Jisho required for using the offline mode seems to be missing from your phone storage. Don't worry you can always download it again! Just go to settings and enable Offline Mode.")
+                .positiveText("Go to settings")
+                .negativeText("Cancel")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                        startActivity(new Intent(dialog.getContext(), SettingsActivity.class));
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .build()
+                .show();
     }
 
     @Override

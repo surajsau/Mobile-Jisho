@@ -141,7 +141,6 @@ public class SettingsActivity extends BaseActivity {
     @OnClick(R.id.back)
     public void back() {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(IConstants.EXTRA_IS_FILE_DOWNLOADED, Utils.isFileDowloaded());
         resultIntent.putExtra(IConstants.EXTRA_OFFLINE_STATUS, swtchOffline.isChecked());
         setResult(RESULT_OK, resultIntent);
 

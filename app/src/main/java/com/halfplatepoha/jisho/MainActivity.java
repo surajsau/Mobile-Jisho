@@ -9,6 +9,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -18,6 +19,8 @@ import com.halfplatepoha.jisho.utils.Utils;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import java.io.File;
 
 import butterknife.BindView;
 
@@ -34,11 +37,6 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if(getIntent() != null) {
-            String searchTerm = getIntent().getStringExtra(IConstants.EXTRA_SEARCH_TERM);
-            openSearchFragment(searchTerm);
-        }
 
         if(!JishoPreference.getBooleanFromPref(IConstants.PREF_SHOW_NEW, false))
             UIUtils.showNewItemsDialog(this,
@@ -96,11 +94,9 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
             case REQ_SETTINGS:
                 if(data != null && resultCode == RESULT_OK) {
                     boolean isOffline = data.getBooleanExtra(IConstants.EXTRA_OFFLINE_STATUS, false);
-                    boolean isDownloaded = data.getBooleanExtra(IConstants.EXTRA_IS_FILE_DOWNLOADED, false);
 
                     Intent offlineStatusIntent = new Intent(IConstants.OFFLINE_STATUS_BROADCAST_FILTER);
                     offlineStatusIntent.putExtra(IConstants.EXTRA_OFFLINE_STATUS, isOffline);
-                    offlineStatusIntent.putExtra(IConstants.EXTRA_IS_FILE_DOWNLOADED, isDownloaded);
                     LocalBroadcastManager.getInstance(this).sendBroadcast(offlineStatusIntent);
                 }
                 break;
@@ -112,11 +108,9 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     protected void onResume() {
         super.onResume();
         boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
-        boolean isDownloaded = Utils.isFileDowloaded();
 
         Intent offlineStatusIntent = new Intent(IConstants.OFFLINE_STATUS_BROADCAST_FILTER);
         offlineStatusIntent.putExtra(IConstants.EXTRA_OFFLINE_STATUS, isOffline);
-        offlineStatusIntent.putExtra(IConstants.EXTRA_IS_FILE_DOWNLOADED, isDownloaded);
         LocalBroadcastManager.getInstance(this).sendBroadcast(offlineStatusIntent);
     }
 

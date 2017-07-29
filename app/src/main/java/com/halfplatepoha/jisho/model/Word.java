@@ -1,6 +1,11 @@
 package com.halfplatepoha.jisho.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.halfplatepoha.jisho.db.FavJapanese;
+import com.halfplatepoha.jisho.db.FavLink;
+import com.halfplatepoha.jisho.db.FavSense;
+import com.halfplatepoha.jisho.db.FavouriteWord;
+import com.halfplatepoha.jisho.db.RealmString;
 import com.halfplatepoha.jisho.offline.model.Entry;
 import com.halfplatepoha.jisho.offline.model.ListEntry;
 import com.halfplatepoha.jisho.offline.model.SenseElement;
@@ -106,6 +111,78 @@ public class Word implements Serializable {
             }
             word.setSenses(senses);
         }
+
+        return word;
+    }
+
+    public static Word fromFavoriteWord(FavouriteWord favWord) {
+        Word word = new Word();
+        word.setIs_common(favWord.is_common());
+
+        ArrayList<Japanese> japList = new ArrayList<>();
+        for(FavJapanese favJapanese : favWord.getJapanese()) {
+            Japanese japanese = new Japanese();
+            japanese.setReading(favJapanese.getReading());
+            japanese.setWord(favJapanese.getWord());
+
+            japList.add(japanese);
+        }
+        word.setJapanese(japList);
+
+        ArrayList<Sense> senseList = new ArrayList<>();
+        for(FavSense favSense : favWord.getSenses()) {
+            Sense sense = new Sense();
+
+            if(favSense.getEnglish_definitions() != null) {
+                ArrayList<String> list = new ArrayList<>();
+                for (RealmString defs : favSense.getEnglish_definitions())
+                    list.add(defs.getValue());
+                sense.setEnglish_definitions(list);
+            }
+
+            if(favSense.getInfo() != null) {
+                ArrayList<String> list = new ArrayList<>();
+                for (RealmString defs : favSense.getInfo())
+                    list.add(defs.getValue());
+                sense.setInfo(list);
+            }
+
+            if(favSense.getParts_of_speech() != null) {
+                ArrayList<String> list = new ArrayList<>();
+                for (RealmString defs : favSense.getParts_of_speech())
+                    list.add(defs.getValue());
+                sense.setParts_of_speech(list);
+            }
+
+            if(favSense.getTags() != null) {
+                ArrayList<String> list = new ArrayList<>();
+                for (RealmString defs : favSense.getTags())
+                    list.add(defs.getValue());
+                sense.setTags(list);
+            }
+
+            if(favSense.getSee_also() != null) {
+                ArrayList<String> list = new ArrayList<>();
+                for (RealmString defs : favSense.getSee_also())
+                    list.add(defs.getValue());
+                sense.setSee_also(list);
+            }
+
+            if(favSense.getLinks() != null) {
+                ArrayList<Link> list = new ArrayList<>();
+                for(FavLink favLink : favSense.getLinks()) {
+                    Link link = new Link();
+                    link.setText(favLink.getText());
+                    link.setUrl(favLink.getUrl());
+
+                    list.add(link);
+                }
+                sense.setLinks(list);
+            }
+
+            senseList.add(sense);
+        }
+        word.setSenses(senseList);
 
         return word;
     }
