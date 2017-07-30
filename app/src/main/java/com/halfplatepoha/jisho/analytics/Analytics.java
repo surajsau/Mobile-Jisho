@@ -3,6 +3,10 @@ package com.halfplatepoha.jisho.analytics;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
+import com.crashlytics.android.answers.CustomEvent;
+import com.crashlytics.android.answers.SearchEvent;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.halfplatepoha.jisho.Jisho;
 
@@ -27,29 +31,53 @@ public class Analytics {
 
     public void recordClick(String view, String param) {
         Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, view);
-        bundle.putString(FirebaseAnalytics.Param.CONTENT, param);
-        analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        bundle.putString(FirebaseAnalytics.Param.VALUE, param);
+        analytics.logEvent(view, bundle);
+
+        CustomEvent event = new CustomEvent(view);
+        event.putCustomAttribute(FirebaseAnalytics.Param.VALUE, param);
+        Answers.getInstance().logCustom(event);
     }
 
     public void recordDownload() {
         Bundle bundle = new Bundle();
-        bundle.putString("to_download", "to_download");
         analytics.logEvent("track_download", bundle);
+
+        Answers.getInstance().logCustom(new CustomEvent("track_download"));
+    }
+
+    public void viewDetails(String value) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.VALUE, value);
+        analytics.logEvent("details", bundle);
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName(value));
     }
 
     public void recordOfflineSwitch(boolean isOffline) {
         Bundle bundle = new Bundle();
-        if(isOffline)
-            bundle.putString("to_offline", "to_offline");
-        else
-            bundle.putString("to_online", "to_online");
+        bundle.putInt(FirebaseAnalytics.Param.VALUE, isOffline ? 1 : -1);
         analytics.logEvent("track_offline", bundle);
+
+        CustomEvent event = new CustomEvent("track_offline");
+        event.putCustomAttribute(FirebaseAnalytics.Param.VALUE, isOffline ? "on" : "off");
+        Answers.getInstance().logCustom(event);
     }
 
     public void recordSearch(String text) {
         Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.CONTENT, text);
+        bundle.putString(FirebaseAnalytics.Param.VALUE, text);
+        bundle.putString(FirebaseAnalytics.Param.SEARCH_TERM, text);
         analytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
+
+        Answers.getInstance().logSearch(new SearchEvent().putQuery(text));
+    }
+
+    public void recordDownloadFailure() {
+        Bundle bundle = new Bundle();
+        analytics.logEvent("track_download", bundle);
+
+        Answers.getInstance().logCustom(new CustomEvent("track_download_failed"));
     }
 }

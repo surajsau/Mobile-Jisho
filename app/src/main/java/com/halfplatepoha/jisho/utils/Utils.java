@@ -1,5 +1,7 @@
 package com.halfplatepoha.jisho.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -70,5 +72,26 @@ public class Utils {
         File dbFile = new File(externalDirectory, IConstants.DICTIONARY_FILE_NAME);
 
         return externalDirectory.exists() && dbFile.exists();
+    }
+
+    public static void deleteFile() {
+        File externalDirectory = new File(IConstants.STORAGE_DIRECTORY);
+        File dbFile = new File(externalDirectory, IConstants.DICTIONARY_FILE_NAME);
+
+        if(externalDirectory.exists()) {
+            String[] children = externalDirectory.list();
+
+            for (int i = 0; i < children.length; i++) {
+                File child = new File(externalDirectory, children[i]);
+                if (child.exists())
+                    child.delete();
+            }
+            externalDirectory.delete();
+        }
+    }
+
+    public static boolean checkInternetConnection(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 }

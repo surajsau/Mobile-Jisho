@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.halfplatepoha.jisho.utils.IConstants;
 import com.thefinestartist.finestwebview.FinestWebView;
 
 import butterknife.OnClick;
@@ -39,32 +40,32 @@ public class LicenseFragment extends BaseFragment {
 
     @OnClick(R.id.btnJmDict)
     public void jmDict() {
-        webBuilder.show("http://www.csse.monash.edu.au/~jwb/edict_doc.html");
+        webBuilder.show(IConstants.JMDICT);
     }
 
     @OnClick(R.id.btnJmneDict)
     public void jmenDict() {
-        webBuilder.show("http://www.csse.monash.edu.au/~jwb/enamdict_doc.html");
+        webBuilder.show(IConstants.JMEDICT);
     }
 
     @OnClick(R.id.btnKanjiDic2)
     public void kanjiDic2() {
-        webBuilder.show("http://www.csse.monash.edu.au/~jwb/kanjidic2/index.html");
+        webBuilder.show(IConstants.KANJIDIC2);
     }
 
     @OnClick(R.id.btnRadkfile)
     public void radkfile() {
-        webBuilder.show("http://www.csse.monash.edu.au/~jwb/kradinf.html");
+        webBuilder.show(IConstants.RADKFILE);
     }
 
     @OnClick(R.id.btnEDict)
     public void edrdg() {
-        webBuilder.show("http://www.edrdg.org/");
+        webBuilder.show(IConstants.EDRDG);
     }
 
     @OnClick(R.id.btnEDictLicense)
     public void edrdgLicense() {
-        webBuilder.show("http://www.edrdg.org/edrdg/licence.html");
+        webBuilder.show(IConstants.EDRDG_LICENSE);
     }
 
 }

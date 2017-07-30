@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="@drawable/dark_background"
+<LinearLayout android:background="@drawable/dark_background"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:id="@+id/background"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
         android:id="@+id/container"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="?android:actionBarSize"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"/>
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
-        android:layout_alignParentBottom="true"
         app:bb_activeTabColor="@color/colorSecondary"
         app:bb_inActiveTabAlpha="0.5"
         app:bb_showShadow="false"
+        android:layout_alignParentBottom="true"
         app:bb_tabXmlResource="@xml/tabs" />
 
-</RelativeLayout>
+    <TextView android:id="@+id/tvDownloadProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Downloading 25%"
+        android:textColor="@color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:background="@color/colorSnackbar"
+        android:layout_alignParentBottom="true"/>
+
+</LinearLayout>

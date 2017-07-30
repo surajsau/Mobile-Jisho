@@ -78,13 +78,13 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        LocalBroadcastManager.getInstance(this).registerReceiver(downloadBroadcastReceiver, new IntentFilter(IConstants.DOWNLOAD_BROADCAST_FILTER));
+        registerReceiver(downloadBroadcastReceiver, new IntentFilter(IConstants.DOWNLOAD_BROADCAST_FILTER));
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(downloadBroadcastReceiver);
+        unregisterReceiver(downloadBroadcastReceiver);
     }
 
     @OnCheckedChanged({R.id.swtchOffline})
@@ -131,7 +131,12 @@ public class SettingsActivity extends BaseActivity {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         Analytics.getInstance().recordDownload();
 
-                        checkStoragePersmissionAndStartDownload();
+                        if(!Utils.checkInternetConnection(dialog.getContext()))
+                            showNoInternetDialog();
+                        else
+                            checkStoragePersmissionAndStartDownload();
+
+                        dialog.dismiss();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -140,6 +145,21 @@ public class SettingsActivity extends BaseActivity {
                         dialog.dismiss();
                     }
                 })
+                .show();
+    }
+
+    private void showNoInternetDialog() {
+        new MaterialDialog.Builder(this)
+                .title("Check internet connection")
+                .content("There seems to be some issue with the internet connection. Can you please check it once?")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .positiveText("OK")
+                .build()
                 .show();
     }
 
@@ -154,7 +174,8 @@ public class SettingsActivity extends BaseActivity {
 
     @OnClick(R.id.tvAbout)
     public void openAbout() {
-        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_ABOUT, "About"));
+        showDownloadFileDialog();
+//        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_ABOUT, "About"));
     }
 
     @OnClick(R.id.tvLicense)

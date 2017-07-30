@@ -12,6 +12,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -37,6 +39,9 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
 
+    @BindView(R.id.tvDownloadProgress)
+    TextView tvDownloadProgress;
+
     private Snackbar downloadSnackbar;
 
     @Override
@@ -45,18 +50,19 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
 
         if(Utils.isFileDowloaded()) {
             checkForStorageReadWritePermissions();
-        } else if(!JishoPreference.getBooleanFromPref(IConstants.PREF_SHOW_NEW, false))
+        } else if(!JishoPreference.getBooleanFromPref(IConstants.PREF_SHOW_NEW, false)) {
             UIUtils.showNewItemsDialog(this,
-                    "Offline mode!",
+                    "Offline mode is here!",
                     R.layout.dlg_new_items,
                     "Go to settings",
                     new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                           startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                         }
                     });
-        JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
+            JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
+        }
 
         bottomBar.setOnTabSelectListener(this);
         bottomBar.setOnTabReselectListener(this);
@@ -96,7 +102,7 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     @Override
     protected void onStart() {
         super.onStart();
-        LocalBroadcastManager.getInstance(this).registerReceiver(downloadBroadcastReceiver, new IntentFilter(IConstants.DOWNLOAD_BROADCAST_FILTER));
+        registerReceiver(downloadBroadcastReceiver, new IntentFilter(IConstants.DOWNLOAD_BROADCAST_FILTER));
     }
 
     @Override
@@ -205,15 +211,14 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
                 Download download = intent.getParcelableExtra(DownloadService.EXTRA_DOWNLOAD);
 
                 if(download.getProgress() == 100){
-                    downloadSnackbar.dismiss();
+                    tvDownloadProgress.setVisibility(View.GONE);
 
-                    Snackbar.make(background, getString(R.string.download_completed), Snackbar.LENGTH_SHORT);
                 } else {
-                    downloadSnackbar.setText(String.format(getString(R.string.download_progress), download.getProgress()));
-                }
+                    if(tvDownloadProgress.getVisibility() != View.VISIBLE)
+                        tvDownloadProgress.setVisibility(View.VISIBLE);
 
-                if(!downloadSnackbar.isShown())
-                    downloadSnackbar.show();
+                    tvDownloadProgress.setText(String.format(getString(R.string.download_progress), download.getProgress()));
+                }
             }
         }
     };

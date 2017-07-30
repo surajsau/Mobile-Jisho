@@ -113,12 +113,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 app:backColor="@color/colorOn"
-                app:backRadius="15dp"
+                app:backRadius="12dp"
+                android:textSize="12sp"
                 app:textOff="OFF"
                 app:textOn="ON"
                 android:textColor="@color/white"
                 app:thumbColor="@color/white"
-                app:thumbRadius="12dp" />
+                app:thumbRadius="10dp" />
 
         </RelativeLayout>
 

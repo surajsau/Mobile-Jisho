@@ -3,8 +3,10 @@ package com.halfplatepoha.jisho;
 import android.app.Application;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.offline.OfflineDbHelper;
 import com.halfplatepoha.jisho.utils.IConstants;
@@ -30,6 +32,7 @@ public class Jisho extends Application {
         Realm.init(this);
         Realm.setDefaultConfiguration(getConfig());
         Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Answers());
         Analytics.init(this);
         JishoPreference.init(this, "JishoPref");
         OfflineDbHelper.init(this);
@@ -39,6 +42,18 @@ public class Jisho extends Application {
             JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, false);
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
+        checkAppUpdate();
+    }
+
+    private void checkAppUpdate() {
+        int version = BuildConfig.VERSION_CODE;
+        int prevVersion = JishoPreference.getIntFromPref(IConstants.PREF_VERSION_CODE, -1);
+
+        if(version > prevVersion) {
+            JishoPreference.setInPref(IConstants.PREF_VERSION_CODE, version);
+            JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, false);
+        }
     }
 
     private RealmConfiguration getConfig() {

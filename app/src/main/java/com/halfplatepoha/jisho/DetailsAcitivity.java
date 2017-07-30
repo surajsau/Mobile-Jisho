@@ -175,6 +175,8 @@ public class DetailsAcitivity extends BaseActivity implements SenseViewHolder.Se
             mPrimaryString = mPrimary.getReading();
         }
 
+        Analytics.getInstance().viewDetails(mPrimaryString);
+
         RealmResults<FavouriteWord> result = realm.where(FavouriteWord.class).equalTo("primary", mPrimaryString).findAll();
         if(result != null && !result.isEmpty()) {
             isFaved = true;
