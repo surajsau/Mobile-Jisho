@@ -32,6 +32,21 @@ public class Analytics {
         analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
+    public void recordDownload() {
+        Bundle bundle = new Bundle();
+        bundle.putString("to_download", "to_download");
+        analytics.logEvent("track_download", bundle);
+    }
+
+    public void recordOfflineSwitch(boolean isOffline) {
+        Bundle bundle = new Bundle();
+        if(isOffline)
+            bundle.putString("to_offline", "to_offline");
+        else
+            bundle.putString("to_online", "to_online");
+        analytics.logEvent("track_offline", bundle);
+    }
+
     public void recordSearch(String text) {
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.CONTENT, text);

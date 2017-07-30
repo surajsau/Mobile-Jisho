@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
 
@@ -90,6 +91,8 @@ public class SettingsActivity extends BaseActivity {
     public void offlineCheckedChange(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.swtchOffline:
+                Analytics.getInstance().recordOfflineSwitch(isChecked);
+
                 JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, isChecked);
 
                 swtchOffline.setBackColorRes(isChecked ? R.color.colorOn : R.color.colorOff);
@@ -126,6 +129,8 @@ public class SettingsActivity extends BaseActivity {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Analytics.getInstance().recordDownload();
+
                         checkStoragePersmissionAndStartDownload();
                     }
                 })
@@ -174,7 +179,6 @@ public class SettingsActivity extends BaseActivity {
             if(intent != null){
 
                 Download download = intent.getParcelableExtra(DownloadService.EXTRA_DOWNLOAD);
-                Log.e("Progress", download.getProgress() + "%");
 
                 if(download.getProgress() == 100){
                     downloadSnackbar.dismiss();

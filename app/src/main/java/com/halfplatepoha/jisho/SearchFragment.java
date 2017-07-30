@@ -45,7 +45,11 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 public class SearchFragment extends BaseFragment implements MainView, TextView.OnEditorActionListener,
         TextWatcher, SearchAdapter.MainAdapterActionListener {
 
-    private static final String EXTRA_SEARCH_STRING = "search_string";
+    private static final String EXTRA_SEARCH_STRING = "extra_search_string";
+    private static final String EXTRA_SOURCE = "extra_source";
+
+    public static final String SOURCE_HISTORY = "source_history";
+    public static final String SOURCE_BOTTOM_BAR = "source_bottom_bar";
 
     @BindView(R.id.etSearch)
     EditText etSearch;
@@ -79,9 +83,10 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     private BroadcastReceiver offlineStatusReceiver;
 
-    public static SearchFragment getInstance(String searchString) {
+    public static SearchFragment getInstance(String searchString, String source) {
         SearchFragment fragment = new SearchFragment();
         Bundle bundle = new Bundle();
+        bundle.putString(EXTRA_SOURCE, source);
         bundle.putString(EXTRA_SEARCH_STRING, searchString);
         fragment.setArguments(bundle);
         return fragment;
@@ -99,8 +104,11 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
         if (getArguments() != null) {
             String searchString = getArguments().getString(EXTRA_SEARCH_STRING);
-            presenter.search(searchString);
+            String source = getArguments().getString(EXTRA_SOURCE);
+
+            presenter.setSource(source);
             etSearch.setText(searchString);
+            presenter.search(searchString);
         }
 
         if (Utils.isFileDowloaded()) {
@@ -264,6 +272,8 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
 
     @OnCheckedChanged(R.id.swtchOffline)
     public void offlineStatusChange(CompoundButton button, boolean checked) {
+        Analytics.getInstance().recordOfflineSwitch(checked);
+
         if(checked && !Utils.isFileDowloaded()) {
 
             showFileDeletedNeedsTobeDownloadedDialog();

@@ -3,6 +3,7 @@ package com.halfplatepoha.jisho;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
 
         holder.ivCommon.setVisibility(word.is_common() ? View.VISIBLE : View.GONE);
 
-        if(primary.getWord() != null) {
+        if(!TextUtils.isEmpty(primary.getWord())) {
             holder.tvHiragana.setText(primary.getReading());
             holder.tvJapanese.setText(primary.getWord());
         } else {

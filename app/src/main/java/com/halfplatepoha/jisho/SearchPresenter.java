@@ -32,6 +32,8 @@ public class SearchPresenter extends BasePresenter {
 
     OfflineTask offlineTask;
 
+    private String source;
+
     public SearchPresenter(MainView view, SearchApi api, OfflineTask offlineTask) {
         this.view = view;
         this.api = api;
@@ -45,7 +47,9 @@ public class SearchPresenter extends BasePresenter {
             view.clearData();
             view.showLoader();
             view.hideClearButton();
-            view.saveInHistory(searchString);
+
+            if(!SearchFragment.SOURCE_HISTORY.equalsIgnoreCase(source))
+                view.saveInHistory(searchString);
 
             boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
 
@@ -99,5 +103,9 @@ public class SearchPresenter extends BasePresenter {
                         });
             }
         }
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

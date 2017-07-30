@@ -1,5 +1,7 @@
 package com.halfplatepoha.jisho;
 
+import android.*;
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,22 +25,27 @@ import com.roughike.bottombar.OnTabSelectListener;
 import java.io.File;
 
 import butterknife.BindView;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends BaseActivity implements HistoryFragment.HistoryFragmentActionListener,
         OnTabSelectListener, OnTabReselectListener {
+
+    private static final String[] STORAGE_PERMS = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private static final int REQ_PERM_STORAGE = 103;
+    private static final int REQ_SETTINGS = 102;
 
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
 
     private Snackbar downloadSnackbar;
 
-    private static final int REQ_SETTINGS = 102;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(!JishoPreference.getBooleanFromPref(IConstants.PREF_SHOW_NEW, false))
+        if(Utils.isFileDowloaded()) {
+            checkForStorageReadWritePermissions();
+        } else if(!JishoPreference.getBooleanFromPref(IConstants.PREF_SHOW_NEW, false))
             UIUtils.showNewItemsDialog(this,
                     "Offline mode!",
                     R.layout.dlg_new_items,
@@ -57,13 +64,32 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
         downloadSnackbar = Snackbar.make(background, "Beginning download...", Snackbar.LENGTH_INDEFINITE);
     }
 
+    private void checkForStorageReadWritePermissions() {
+        if(!EasyPermissions.hasPermissions(this, STORAGE_PERMS)) {
+            new MaterialDialog.Builder(this)
+                    .content("Awesome! You already seem to be having the Offline Jisho with you. For proper functioning of the offline mode, the app would require permissions to read Jisho from that file.")
+                    .positiveText("OK")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            EasyPermissions.requestPermissions(MainActivity.this,
+                                    "Storage permission required to download Jisho for offline mode",
+                                    REQ_PERM_STORAGE,
+                                    STORAGE_PERMS);
+                        }
+                    })
+                    .build()
+                    .show();
+        }
+    }
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_main;
     }
 
     private void openSearchFragment(String searchTerm) {
-        SearchFragment searchFragment = SearchFragment.getInstance(searchTerm);
+        SearchFragment searchFragment = SearchFragment.getInstance(searchTerm, SearchFragment.SOURCE_BOTTOM_BAR);
         openFragment(searchFragment);
     }
 
@@ -77,6 +103,12 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     protected void onStop() {
         super.onStop();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(downloadBroadcastReceiver);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     @Override
@@ -122,7 +154,11 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
 
     @Override
     public void onSearchHistoryStringSelected(String searchString) {
-        SearchFragment searchFragment = SearchFragment.getInstance(searchString);
+        bottomBar.removeOnTabSelectListener();
+        bottomBar.selectTabAtPosition(0);
+        bottomBar.setOnTabSelectListener(this);
+
+        SearchFragment searchFragment = SearchFragment.getInstance(searchString, SearchFragment.SOURCE_HISTORY);
         openFragment(searchFragment);
     }
 

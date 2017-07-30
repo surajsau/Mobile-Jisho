@@ -41,7 +41,7 @@ public class OfflineDbHelper extends SQLiteAssetHelper {
         super(context, IConstants.DICTIONARY_FILE_NAME, IConstants.STORAGE_DIRECTORY, null, DB_VERSION);
     }
 
-    public List<ListEntry> searchDictionary (String searchTerm, @DbSchema.SearchType int searchType) {
+    public List<ListEntry> searchDictionary (String searchTerm, @DbSchema.SearchType int searchType) throws SQLException {
         SQLiteDatabase db = getReadableDatabase();
         String query = null;
 
@@ -119,7 +119,7 @@ public class OfflineDbHelper extends SQLiteAssetHelper {
         }
     }
 
-    private List<SenseElement> getSenseElements(int id) {
+    private List<SenseElement> getSenseElements(int id) throws SQLException {
         SQLiteDatabase db = getReadableDatabase();
         List<SenseElement> senseElements = new ArrayList<>();
 
@@ -154,7 +154,7 @@ public class OfflineDbHelper extends SQLiteAssetHelper {
         }
     }
 
-    private List<ReadingElement> getReadingElements(int id) {
+    private List<ReadingElement> getReadingElements(int id) throws SQLException {
         SQLiteDatabase db = getReadableDatabase();
         List<ReadingElement> readingElements = new ArrayList<>();
 
@@ -187,7 +187,7 @@ public class OfflineDbHelper extends SQLiteAssetHelper {
         }
     }
 
-    private List<KanjiElement> getKanjiElements(int id) {
+    private List<KanjiElement> getKanjiElements(int id) throws SQLException {
         SQLiteDatabase db = getReadableDatabase();
         List<KanjiElement> kanjiElements = new ArrayList<>();
 

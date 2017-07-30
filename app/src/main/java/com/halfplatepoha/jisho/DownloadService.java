@@ -87,7 +87,6 @@ public class DownloadService extends Service {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("Error", "Download couldn't be completed " + t.getMessage());
             }
         });
     }

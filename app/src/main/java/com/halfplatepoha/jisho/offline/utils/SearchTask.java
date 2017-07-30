@@ -29,16 +29,20 @@ public class SearchTask extends AsyncTask<Void, Void, List<ListEntry>> {
     protected List<ListEntry> doInBackground(Void... params) {
         int searchType = SearchUtil.getSearchType(query);
 
-        List<ListEntry> results = db.searchDictionary(query, searchType);
+        try {
+            List<ListEntry> results = db.searchDictionary(query, searchType);
 
-        if(searchType == DbSchema.TYPE_ROMAJI) {
-            List<ListEntry> englishResults = db.searchDictionary(query, DbSchema.TYPE_ENGLISH);
-            if(results == null)
-                results = new ArrayList<>();
-            results.addAll(englishResults);
+            if (searchType == DbSchema.TYPE_ROMAJI) {
+                List<ListEntry> englishResults = db.searchDictionary(query, DbSchema.TYPE_ENGLISH);
+                if (results == null)
+                    results = new ArrayList<>();
+                results.addAll(englishResults);
+            }
+
+            return results;
+        } catch (Exception e) {
+            return null;
         }
-
-        return results;
     }
 
     @Override

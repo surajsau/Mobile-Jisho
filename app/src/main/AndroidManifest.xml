@@ -23,7 +23,8 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustNothing">
+            android:windowSoftInputMode="adjustNothing"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,12 +36,16 @@
             android:name="io.fabric.ApiKey"
             android:value="73c1a606b8ec6031c5b79954bcc0ca282bc666aa" />
 
-        <activity android:name=".DetailsAcitivity" />
-        <activity android:name=".SingleFragmentActivity" />
+        <activity android:name=".DetailsAcitivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".SingleFragmentActivity"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".DownloadService" />
 
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
