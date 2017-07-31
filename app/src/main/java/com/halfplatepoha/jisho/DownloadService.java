@@ -74,9 +74,7 @@ public class DownloadService extends Service {
     }
 
     private void initDownload(){
-        if(Utils.isFileDowloaded()) {
-            Utils.deleteFile();
-        }
+        Utils.deleteFile();
 
         Call<ResponseBody> request = downloadDbClient.downloadFile();
         request.enqueue(new Callback<ResponseBody>() {

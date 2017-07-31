@@ -71,12 +71,16 @@ public class Utils {
         File externalDirectory = new File(IConstants.STORAGE_DIRECTORY);
         File dbFile = new File(externalDirectory, IConstants.DICTIONARY_FILE_NAME);
 
-        return externalDirectory.exists() && dbFile.exists();
+        if(externalDirectory.exists() && dbFile.exists()) {
+            int totalFileSize = (int) (dbFile.length() / (Math.pow(1024, 2)));
+            return (totalFileSize == IConstants.FILE_SIZE);
+        }
+
+        return false;
     }
 
     public static void deleteFile() {
         File externalDirectory = new File(IConstants.STORAGE_DIRECTORY);
-        File dbFile = new File(externalDirectory, IConstants.DICTIONARY_FILE_NAME);
 
         if(externalDirectory.exists()) {
             String[] children = externalDirectory.list();

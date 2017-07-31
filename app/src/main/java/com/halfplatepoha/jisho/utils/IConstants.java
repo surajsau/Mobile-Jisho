@@ -14,6 +14,8 @@ public interface IConstants {
     String PREF_OFFLINE_MODE = "offline_mode";
     String PREF_VERSION_CODE = "version_code";
 
+    int FILE_SIZE = 77;
+
     String EXTRA_OFFLINE_STATUS = "offline_status";
     String OFFLINE_STATUS_BROADCAST_FILTER = "offline_status_broadcast_filter";
     String DOWNLOAD_BROADCAST_FILTER = "download_broadcast_filter";

@@ -32,4 +32,5 @@
     <string name="online">online</string>
     <string name="download_completed">Successfully downloaded</string>
     <string name="download_progress">Downloading offline dictionary (%d%%) ...</string>
+    <string name="offline_search">Offline Search</string>
 </resources>
