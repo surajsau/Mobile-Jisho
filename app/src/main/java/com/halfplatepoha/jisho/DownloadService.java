@@ -8,9 +8,6 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.utils.IConstants;

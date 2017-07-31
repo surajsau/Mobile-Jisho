@@ -2,8 +2,6 @@ package com.halfplatepoha.jisho;
 
 import android.app.Application;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -12,8 +10,6 @@ import com.halfplatepoha.jisho.offline.OfflineDbHelper;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
 import com.thefinestartist.Base;
-
-import java.io.File;
 
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;

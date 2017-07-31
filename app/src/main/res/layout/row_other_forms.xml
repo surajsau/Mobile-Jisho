@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:elevation="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:elevation="15dp"
     android:layout_margin="5dp">
 
     <LinearLayout android:id="@+id/otherForm"
@@ -24,7 +25,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:transitionName="@string/japanese_transition"
             tools:text="気をつけて" />
     </LinearLayout>
 

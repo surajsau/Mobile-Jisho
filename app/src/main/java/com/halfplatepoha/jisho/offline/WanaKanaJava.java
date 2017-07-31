@@ -21,12 +21,12 @@ public class WanaKanaJava {
     static final int KATAKANA_START = 0x30A1;
     static final int KATAKANA_END = 0x30FA;
 
-    HashMap<String, Boolean> mOptions = new HashMap<String, Boolean>();
+    HashMap<String, Boolean> mOptions = new HashMap<>();
     static final String OPTION_USE_OBSOLETE_KANA = "useObsoleteKana";
     static final String OPTION_IME_MODE = "IMEMode";
 
-    HashMap<String, String> mRtoJ = new HashMap<String, String>();
-    HashMap<String, String> mJtoR = new HashMap<String, String>();
+    HashMap<String, String> mRtoJ = new HashMap<>();
+    HashMap<String, String> mJtoR = new HashMap<>();
 
     private interface Command
     {

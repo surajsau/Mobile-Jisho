@@ -38,7 +38,7 @@ public abstract class BaseViewHolder<Model> {
 
     protected abstract void bindView(Model model);
 
-    public abstract @NonNull @LayoutRes int getLayoutRes();
+    public abstract @LayoutRes int getLayoutRes();
 
     public View getView() {
         if(!isBound)

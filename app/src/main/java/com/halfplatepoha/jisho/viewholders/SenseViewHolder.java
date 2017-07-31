@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
@@ -107,7 +106,6 @@ public class SenseViewHolder extends BaseViewHolder<Sense> {
             senseActionListener.onInflectionClicked(getInflections((Sense)tvInflection.getTag()));
     }
 
-    @NonNull
     @Override
     public int getLayoutRes() {
         return R.layout.row_sense;

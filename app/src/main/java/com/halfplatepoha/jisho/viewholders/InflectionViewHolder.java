@@ -36,7 +36,6 @@ public class InflectionViewHolder extends BaseViewHolder<VerbInflection> {
         tvTense.setText(verbInflection.getTense());
     }
 
-    @NonNull
     @Override
     public int getLayoutRes() {
         return R.layout.row_inlfection;

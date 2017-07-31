@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -47,9 +45,5 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         ButterKnife.bind(this);
     }
 
-    public void setBackground(@DrawableRes int drawableRes) {
-        background.setBackground(ContextCompat.getDrawable(this, drawableRes));
-    }
-
-    public abstract @LayoutRes int getLayoutRes();
+    protected abstract @LayoutRes int getLayoutRes();
 }

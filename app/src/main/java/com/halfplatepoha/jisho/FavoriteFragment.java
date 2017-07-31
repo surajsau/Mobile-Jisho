@@ -7,21 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.halfplatepoha.jisho.db.FavJapanese;
-import com.halfplatepoha.jisho.db.FavLink;
-import com.halfplatepoha.jisho.db.FavSense;
 import com.halfplatepoha.jisho.db.FavouriteWord;
-import com.halfplatepoha.jisho.db.RealmString;
-import com.halfplatepoha.jisho.model.Japanese;
-import com.halfplatepoha.jisho.model.Link;
-import com.halfplatepoha.jisho.model.Sense;
 import com.halfplatepoha.jisho.model.Word;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
 

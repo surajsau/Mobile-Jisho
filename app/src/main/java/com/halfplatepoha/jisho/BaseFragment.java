@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.halfplatepoha.jisho.utils.Utils;
-
 import butterknife.ButterKnife;
 
 /**
@@ -48,6 +45,6 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         }
     }
 
-    public abstract @LayoutRes int getLayoutRes();
+    protected abstract @LayoutRes int getLayoutRes();
 
 }

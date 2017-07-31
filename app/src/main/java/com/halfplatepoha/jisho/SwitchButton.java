@@ -600,11 +600,6 @@ public class SwitchButton extends CompoundButton {
         invalidate();
     }
 
-    @Override
-    public boolean performClick() {
-        return super.performClick();
-    }
-
     /**
      * processing animation
      *

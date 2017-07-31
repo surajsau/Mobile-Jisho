@@ -42,7 +42,7 @@
         <service android:name=".DownloadService" />
 
         <activity android:name=".SettingsActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

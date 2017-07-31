@@ -70,7 +70,7 @@ public class VerbInflectionUtils {
     }
 
     private VerbInflection getNonPast() {
-        return new VerbInflection(VerbInflection.NON_PAST, mRoot.toString(),
+        return new VerbInflection(VerbInflection.NON_PAST, mRoot,
                 getNegativeStem(mRoot).append(NAI).toString());
     }
 

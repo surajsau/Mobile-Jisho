@@ -6,7 +6,7 @@
     android:layout_width="256dp"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:elevation="15dp"
+    app:elevation="15dp"
     app:cardCornerRadius="5dp">
 
     <ImageView android:id="@+id/ivCommon"
@@ -27,16 +27,14 @@
             android:id="@+id/tvHiragana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="きをつけて"
-            android:transitionName="@string/hiragana_transition"/>
+            tools:text="きをつけて"/>
 
         <TextView
             android:id="@+id/tvJapanese"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="24sp"
-            tools:text="気をつけて"
-            android:transitionName="@string/japanese_transition"/>
+            tools:text="気をつけて"/>
 
         <LinearLayout
             android:id="@+id/sensesContainer"

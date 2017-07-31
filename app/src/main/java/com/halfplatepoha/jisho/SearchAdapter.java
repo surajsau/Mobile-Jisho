@@ -1,7 +1,6 @@
 package com.halfplatepoha.jisho;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import com.halfplatepoha.jisho.model.Sense;
 import com.halfplatepoha.jisho.model.Word;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.viewholders.SearchResultSenseViewHolder;
-import com.halfplatepoha.jisho.viewholders.SenseViewHolder;
 
 import java.util.ArrayList;
 

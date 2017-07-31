@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.analytics.Analytics;
@@ -14,7 +13,6 @@ import com.halfplatepoha.jisho.db.FavJapanese;
 import com.halfplatepoha.jisho.db.FavouriteWord;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

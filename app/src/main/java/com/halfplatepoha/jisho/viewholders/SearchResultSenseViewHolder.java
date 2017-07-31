@@ -38,7 +38,6 @@ public class SearchResultSenseViewHolder extends BaseViewHolder<Sense> {
         tvSense.setText(Utils.getCommaSeparatedString(sense.getEnglish_definitions()));
     }
 
-    @NonNull
     @Override
     public int getLayoutRes() {
         return R.layout.row_sense;

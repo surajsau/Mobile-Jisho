@@ -1,6 +1,5 @@
 package com.halfplatepoha.jisho;
 
-import android.*;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,7 +10,6 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -24,7 +22,6 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import java.io.File;
 
 import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -41,8 +38,6 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
 
     @BindView(R.id.tvDownloadProgress)
     TextView tvDownloadProgress;
-
-    private Snackbar downloadSnackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +61,6 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
 
         bottomBar.setOnTabSelectListener(this);
         bottomBar.setOnTabReselectListener(this);
-
-        downloadSnackbar = Snackbar.make(background, "Beginning download...", Snackbar.LENGTH_INDEFINITE);
     }
 
     private void checkForStorageReadWritePermissions() {

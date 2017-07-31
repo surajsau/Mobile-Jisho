@@ -8,7 +8,6 @@ import com.crashlytics.android.answers.ContentViewEvent;
 import com.crashlytics.android.answers.CustomEvent;
 import com.crashlytics.android.answers.SearchEvent;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.halfplatepoha.jisho.Jisho;
 
 /**
  * Created by surjo on 22/04/17.

@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.halfplatepoha.jisho.offline.model.SenseElement;
 import com.halfplatepoha.jisho.utils.VerbInflection;
-import com.halfplatepoha.jisho.utils.VerbInflectionUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;

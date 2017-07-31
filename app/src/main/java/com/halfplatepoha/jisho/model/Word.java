@@ -104,13 +104,11 @@ public class Word implements Serializable {
         japs.add(jap);
         word.setJapanese(japs);
 
-        if(offlineEntry != null) {
-            ArrayList<Sense> senses = new ArrayList<>();
-            for(SenseElement senseElement :  offlineEntry.getSenseElementElements()) {
-                senses.add(Sense.fromOfflineSenseElement(senseElement));
-            }
-            word.setSenses(senses);
+        ArrayList<Sense> senses = new ArrayList<>();
+        for(SenseElement senseElement :  offlineEntry.getSenseElementElements()) {
+            senses.add(Sense.fromOfflineSenseElement(senseElement));
         }
+        word.setSenses(senses);
 
         return word;
     }

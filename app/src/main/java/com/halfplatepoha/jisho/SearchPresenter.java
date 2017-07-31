@@ -1,13 +1,11 @@
 package com.halfplatepoha.jisho;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.halfplatepoha.jisho.model.SearchApi;
 import com.halfplatepoha.jisho.model.SearchResponse;
 import com.halfplatepoha.jisho.model.Word;
-import com.halfplatepoha.jisho.offline.OfflineDbHelper;
 import com.halfplatepoha.jisho.offline.OfflineTask;
 import com.halfplatepoha.jisho.offline.model.ListEntry;
 import com.halfplatepoha.jisho.offline.utils.SearchTask;

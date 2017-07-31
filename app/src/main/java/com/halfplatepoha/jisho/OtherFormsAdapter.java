@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.halfplatepoha.jisho.model.Japanese;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

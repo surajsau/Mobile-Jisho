@@ -1,8 +1,6 @@
 package com.halfplatepoha.jisho;
 
-import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +10,6 @@ import com.halfplatepoha.jisho.db.History;
 import com.halfplatepoha.jisho.db.RealmString;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.realm.Realm;
 
 public class HistoryFragment extends BaseFragment implements HistoryAdapter.OnSearchClickedListener{

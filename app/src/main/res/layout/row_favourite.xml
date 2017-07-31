@@ -26,8 +26,7 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             tools:text="気をつけて"
-            android:textColor="@color/white"
-            android:transitionName="@string/japanese_transition"/>
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <!--<ImageView android:id="@+id/ivCommon"-->

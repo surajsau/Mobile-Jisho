@@ -1,7 +1,5 @@
 package com.halfplatepoha.jisho.db;
 
-import java.util.ArrayList;
-
 import io.realm.RealmList;
 import io.realm.RealmObject;
 

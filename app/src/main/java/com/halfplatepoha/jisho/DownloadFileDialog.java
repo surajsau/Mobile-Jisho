@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by surjo on 28/07/17.

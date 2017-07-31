@@ -31,7 +31,6 @@ public class KanjiViewHolder extends BaseViewHolder<String> {
         tvKanji.setText(s);
     }
 
-    @NonNull
     @Override
     public int getLayoutRes() {
         return R.layout.row_kanji;
