@@ -112,48 +112,57 @@ public class DownloadService extends Service {
 
         private void downloadFile(ResponseBody body) throws IOException {
 
-            int count;
-            byte data[] = new byte[1024 * 4];
-            long fileSize = body.contentLength();
-            InputStream bis = new BufferedInputStream(body.byteStream(), 1024 * 8);
-            File externalFolder = new File(IConstants.STORAGE_DIRECTORY);
-            if(!externalFolder.exists())
-                externalFolder.mkdir();
+            if(body != null) {
+                int count;
+                byte data[] = new byte[1024 * 4];
+                long fileSize = body.contentLength();
+                InputStream bis = new BufferedInputStream(body.byteStream(), 1024 * 8);
+                File externalFolder = new File(IConstants.STORAGE_DIRECTORY);
+                if (!externalFolder.exists())
+                    externalFolder.mkdir();
 
-            File outputFile = new File(externalFolder, IConstants.DICTIONARY_FILE_NAME);
-            OutputStream output = new FileOutputStream(outputFile);
-            long total = 0;
-            long startTime = System.currentTimeMillis();
-            int timeCount = 1;
-            while ((count = bis.read(data)) != -1) {
+                File outputFile = new File(externalFolder, IConstants.DICTIONARY_FILE_NAME);
+                OutputStream output = new FileOutputStream(outputFile);
+                long total = 0;
+                long startTime = System.currentTimeMillis();
+                int timeCount = 1;
+                while ((count = bis.read(data)) != -1) {
 
-                total += count;
-                totalFileSize = (int) (fileSize / (Math.pow(1024, 2)));
-                double current = Math.round(total / (Math.pow(1024, 2)));
+                    total += count;
+                    totalFileSize = (int) (fileSize / (Math.pow(1024, 2)));
+                    double current = Math.round(total / (Math.pow(1024, 2)));
 
-                int progress = (int) ((total * 100) / fileSize);
+                    int progress = (int) ((total * 100) / fileSize);
 
-                long currentTime = System.currentTimeMillis() - startTime;
+                    long currentTime = System.currentTimeMillis() - startTime;
 
-                Download download = new Download();
-                download.setTotalFileSize(totalFileSize);
+                    Download download = new Download();
+                    download.setTotalFileSize(totalFileSize);
 
-                if (currentTime > 500 * timeCount) {
+                    if (currentTime > 500 * timeCount) {
 
-                    download.setCurrentFileSize((int) current);
-                    download.setProgress(progress);
-                    publishProgress(download);
-                    timeCount++;
+                        download.setCurrentFileSize((int) current);
+                        download.setProgress(progress);
+                        publishProgress(download);
+                        timeCount++;
+                    }
+
+                    output.write(data, 0, count);
                 }
-
-                output.write(data, 0, count);
+                onDownloadComplete();
+                output.flush();
+                output.close();
+                bis.close();
+            } else {
+                publishError();
             }
-            onDownloadComplete();
-            output.flush();
-            output.close();
-            bis.close();
 
         }
+    }
+
+    private void publishError() {
+        notificationBuilder.setContentText("Downlod failed. Servers seem to be overloaded so please try again later. Very, sorry for the problem.");
+        notificationManager.notify(0, notificationBuilder.build());
     }
 
     private void sendNotification(Download download){
