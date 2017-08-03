@@ -3,6 +3,7 @@
     package="com.halfplatepoha.jisho">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -33,6 +34,13 @@
             android:name="io.fabric.ApiKey"
             android:value="73c1a606b8ec6031c5b79954bcc0ca282bc666aa" />
 
+        <meta-data
+            android:name="CLEVERTAP_ACCOUNT_ID"
+            android:value="R9K-9K7-ZW5Z"/>
+        <meta-data
+            android:name="CLEVERTAP_TOKEN"
+            android:value="a3c-3c2"/>
+
         <activity android:name=".DetailsAcitivity"
             android:screenOrientation="portrait"/>
 
@@ -43,6 +51,13 @@
 
         <activity android:name=".SettingsActivity"
             android:screenOrientation="portrait"/>
+
+        <service
+            android:name="com.clevertap.android.sdk.FcmTokenListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

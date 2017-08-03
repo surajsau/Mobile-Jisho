@@ -56,3 +56,6 @@
 -dontwarn com.squareup.okhttp.**
 -dontwarn com.google.appengine.**
 -dontwarn javax.servlet.**
+
+# For CleverTap SDK
+-dontwarn com.clevertap.android.sdk.**

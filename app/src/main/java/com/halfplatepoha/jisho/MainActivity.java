@@ -15,6 +15,10 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
+import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.UIUtils;
 import com.halfplatepoha.jisho.utils.Utils;
@@ -42,6 +46,17 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String fcmRegId = FirebaseInstanceId.getInstance().getToken();
+        CleverTapAPI cleverTap;
+        try {
+            cleverTap = CleverTapAPI.getInstance(this);
+            cleverTap.data.pushFcmRegistrationId(fcmRegId, true);
+        } catch (CleverTapMetaDataNotFoundException e) {
+            // thrown if you haven't specified your CleverTap Account ID or Token in your AndroidManifest.xml
+        } catch (CleverTapPermissionsNotSatisfied e) {
+            // thrown if you haven’t requested the required permissions in your AndroidManifest.xml
+        }
 
         if(Utils.isFileDowloaded()) {
             checkForStorageReadWritePermissions();

@@ -13,14 +13,14 @@ android {
         applicationId "com.halfplatepoha.jisho"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 7
-        versionName "2.0.1"
+        versionCode 8
+        versionName "2.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -63,6 +63,7 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     compile 'com.google.firebase:firebase-core:11.0.2'
+    compile 'com.google.firebase:firebase-messaging:11.0.2'
 
     compile 'com.afollestad.material-dialogs:core:0.9.4.4'
     compile 'com.thefinestartist:finestwebview:1.2.7'
@@ -73,6 +74,8 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    compile 'com.clevertap.android:clevertap-android-sdk:3.1.4'
 
     testCompile 'junit:junit:4.12'
 }
