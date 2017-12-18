@@ -171,7 +171,8 @@ public class SettingsActivity extends BaseActivity {
 
     @OnClick(R.id.tvAbout)
     public void openAbout() {
-        showDownloadFileDialog();
+//        showDownloadFileDialog();
+        startActivity(new Intent(this, KanjiDetailActivity.class));
 //        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_ABOUT, "About"));
     }
 

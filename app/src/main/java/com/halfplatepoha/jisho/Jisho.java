@@ -3,8 +3,6 @@ package com.halfplatepoha.jisho;
 import android.app.Application;
 import android.support.v7.app.AppCompatDelegate;
 
-import com.clevertap.android.sdk.ActivityLifecycleCallback;
-import com.clevertap.android.sdk.CleverTapAPI;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.halfplatepoha.jisho.analytics.Analytics;
@@ -25,7 +23,6 @@ public class Jisho extends Application {
 
     @Override
     public void onCreate() {
-        ActivityLifecycleCallback.register(this);
         super.onCreate();
 
         Realm.init(this);
@@ -36,8 +33,6 @@ public class Jisho extends Application {
         JishoPreference.init(this, "JishoPref");
         OfflineDbHelper.init(this);
         Base.initialize(this);
-
-        CleverTapAPI.setDebugLevel(1);
 
         if(!Utils.isFileDowloaded())
             JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, false);

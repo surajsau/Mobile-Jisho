@@ -14,4 +14,15 @@
     <color name="colorOff">#D32F2F</color>
     <color name="colorOn">#43A047</color>
     <color name="colorSnackbar">#323232</color>
+
+    <color name="google_red">#EA4335</color>
+    <color name="google_yellow">#FBBC05</color>
+    <color name="google_blue">#4285F4</color>
+    <color name="google_green">#34A853</color>
+
+    <integer-array name="google_glyph_colors">
+        <item>@color/google_blue</item>
+        <item>@color/google_red</item>
+        <item>@color/google_yellow</item>
+    </integer-array>
 </resources>
