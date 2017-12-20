@@ -5,7 +5,6 @@ import com.halfplatepoha.jisho.db.FavJapanese;
 import com.halfplatepoha.jisho.db.FavLink;
 import com.halfplatepoha.jisho.db.FavSense;
 import com.halfplatepoha.jisho.db.FavouriteWord;
-import com.halfplatepoha.jisho.db.RealmString;
 import com.halfplatepoha.jisho.offline.model.Entry;
 import com.halfplatepoha.jisho.offline.model.ListEntry;
 import com.halfplatepoha.jisho.offline.model.SenseElement;
@@ -133,36 +132,36 @@ public class Word implements Serializable {
 
             if(favSense.getEnglish_definitions() != null) {
                 ArrayList<String> list = new ArrayList<>();
-                for (RealmString defs : favSense.getEnglish_definitions())
-                    list.add(defs.getValue());
+                for (String defs : favSense.getEnglish_definitions())
+                    list.add(defs);
                 sense.setEnglish_definitions(list);
             }
 
             if(favSense.getInfo() != null) {
                 ArrayList<String> list = new ArrayList<>();
-                for (RealmString defs : favSense.getInfo())
-                    list.add(defs.getValue());
+                for (String defs : favSense.getInfo())
+                    list.add(defs);
                 sense.setInfo(list);
             }
 
             if(favSense.getParts_of_speech() != null) {
                 ArrayList<String> list = new ArrayList<>();
-                for (RealmString defs : favSense.getParts_of_speech())
-                    list.add(defs.getValue());
+                for (String defs : favSense.getParts_of_speech())
+                    list.add(defs);
                 sense.setParts_of_speech(list);
             }
 
             if(favSense.getTags() != null) {
                 ArrayList<String> list = new ArrayList<>();
-                for (RealmString defs : favSense.getTags())
-                    list.add(defs.getValue());
+                for (String defs : favSense.getTags())
+                    list.add(defs);
                 sense.setTags(list);
             }
 
             if(favSense.getSee_also() != null) {
                 ArrayList<String> list = new ArrayList<>();
-                for (RealmString defs : favSense.getSee_also())
-                    list.add(defs.getValue());
+                for (String defs : favSense.getSee_also())
+                    list.add(defs);
                 sense.setSee_also(list);
             }
 

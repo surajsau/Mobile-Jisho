@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.halfplatepoha.jisho.analytics.Analytics;
+import com.halfplatepoha.jisho.base.BaseActivity;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
 
@@ -28,6 +29,11 @@ public class SettingsActivity extends BaseActivity {
     private static final int REQ_PERM_STORAGE = 101;
     private static final String[] STORAGE_PERMS = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                                                             Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+    private static final int DOWNLOAD_TYPE_JISHO = 102;
+    private static final int DOWNLOAD_TYPE_STROKES = 103;
+
+    private int downloadType;
 
     @BindView(R.id.swtchOffline)
     SwitchButton swtchOffline;
@@ -100,8 +106,17 @@ public class SettingsActivity extends BaseActivity {
     @AfterPermissionGranted(REQ_PERM_STORAGE)
     private void checkStoragePersmissionAndStartDownload() {
         if(EasyPermissions.hasPermissions(this, STORAGE_PERMS)) {
-            Intent downloadIntent = new Intent(getApplicationContext(), DownloadService.class);
-            startService(downloadIntent);
+            switch (downloadType) {
+                case DOWNLOAD_TYPE_JISHO:
+                    Intent downloadIntent = new Intent(getApplicationContext(), DownloadService.class);
+                    startService(downloadIntent);
+                    break;
+
+                case DOWNLOAD_TYPE_STROKES:
+                    Intent strokesDownloadIntent = new Intent(getApplicationContext(), KanjiStrokesService.class);
+                    startService(strokesDownloadIntent);
+                    break;
+            }
         } else {
             EasyPermissions.requestPermissions(this,
                     "Storage permission required to download Jisho for offline mode",
@@ -116,10 +131,13 @@ public class SettingsActivity extends BaseActivity {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-    private void showDownloadFileDialog() {
+    private void showDownloadFileDialog(String title, String message, final int downloadType) {
+
+        this.downloadType = downloadType;
+
         new MaterialDialog.Builder(this)
-                .title("Download Offline Jisho")
-                .content("To enable offline mode of Jisho, we\'ll have to download the offline dictionary. It\'ll be best if you\'ve good internet connection for uninterrupted download.")
+                .title(title)
+                .content(message)
                 .positiveText("Download")
                 .negativeText("Cancel")
                 .canceledOnTouchOutside(false)
@@ -171,8 +189,10 @@ public class SettingsActivity extends BaseActivity {
 
     @OnClick(R.id.tvAbout)
     public void openAbout() {
+        KanjiDetailFragment fragment = KanjiDetailFragment.getInstance("40695");
+        fragment.show(getSupportFragmentManager(), "Kanji Detail");
 //        showDownloadFileDialog();
-        startActivity(new Intent(this, KanjiDetailActivity.class));
+//        startActivity(new Intent(this, KanjiDetailActivity.class));
 //        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_ABOUT, "About"));
     }
 
@@ -183,7 +203,16 @@ public class SettingsActivity extends BaseActivity {
 
     @OnClick(R.id.btnStartDownload)
     public void startDownload() {
-        showDownloadFileDialog();
+        showDownloadFileDialog("Download Offline Jisho",
+                "To enable offline mode of Jisho, we\'ll have to download the offline dictionary. It\'ll be best if you\'ve good internet connection for uninterrupted download.",
+                DOWNLOAD_TYPE_JISHO);
+    }
+
+    @OnClick(R.id.btnDownloadStrokes)
+    public void downloadStrokes() {
+        showDownloadFileDialog("Download Kanji Strokes",
+                "To see kanji strokes, we\'ll have to download the strokes files. It\'ll be best if you\'ve good internet connection for uninterrupted download.",
+                DOWNLOAD_TYPE_STROKES);
     }
 
     @Override

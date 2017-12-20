@@ -1,16 +1,27 @@
 package com.halfplatepoha.jisho;
 
+import android.app.Activity;
 import android.app.Application;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.halfplatepoha.jisho.analytics.Analytics;
+import com.halfplatepoha.jisho.injection.DaggerJishoComponent;
+import com.halfplatepoha.jisho.injection.JishoComponent;
+import com.halfplatepoha.jisho.injection.modules.DataModule;
 import com.halfplatepoha.jisho.offline.OfflineDbHelper;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
 import com.thefinestartist.Base;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import dagger.android.support.DaggerApplication;
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -19,14 +30,32 @@ import io.realm.RealmConfiguration;
  * Created by surjo on 22/04/17.
  */
 
-public class Jisho extends Application {
+public class Jisho extends Application implements HasActivityInjector {
+
+    @Named(DataModule.APP_REALM_CONFIG)
+    @Inject
+    RealmConfiguration appConfig;
+
+    @Named(DataModule.JDB_REALM_CONFIG)
+    @Inject
+    RealmConfiguration jdbConfig;
+
+    @Inject
+    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+
+    private static final String APP_REALM = "jisho.realm";
+    private static final String JDB_REALM = "jdb.realm";
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+        DaggerJishoComponent.builder()
+                .application(this)
+                .build()
+                .inject(this);
+
         Realm.init(this);
-        Realm.setDefaultConfiguration(getConfig());
         Fabric.with(this, new Crashlytics());
         Fabric.with(this, new Answers());
         Analytics.init(this);
@@ -52,11 +81,16 @@ public class Jisho extends Application {
         }
     }
 
-    private RealmConfiguration getConfig() {
-        RealmConfiguration configuration = new RealmConfiguration.Builder()
-                .schemaVersion(1)
-                .migration(new JishoMigration())
-                .build();
-        return configuration;
+    public RealmConfiguration getAppConfig() {
+        return appConfig;
+    }
+
+    public RealmConfiguration getJdbConfig() {
+        return jdbConfig;
+    }
+
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return activityDispatchingAndroidInjector;
     }
 }

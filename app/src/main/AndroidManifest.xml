@@ -19,7 +19,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".MainActivity"
+            android:name=".home.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
@@ -35,19 +35,19 @@
             android:value="73c1a606b8ec6031c5b79954bcc0ca282bc666aa" />
 
         <activity
-            android:name=".DetailsAcitivity"
+            android:name=".details.DetailsAcitivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SingleFragmentActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".DownloadService" />
+        <service android:name=".KanjiStrokesService" />
 
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".KanjiDetailActivity"></activity>
+        <activity android:name=".v2.DetailsActivity2"></activity>
     </application>
 
 </manifest>

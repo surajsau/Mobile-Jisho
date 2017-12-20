@@ -30,7 +30,7 @@ public class DownloadService extends Service {
 
     public static final String EXTRA_DOWNLOAD = "download";
 
-    private DownloadDbClient downloadDbClient;
+    private DownloadClient downloadDbClient;
 
     private NotificationCompat.Builder notificationBuilder;
     private NotificationManager notificationManager;
@@ -52,7 +52,7 @@ public class DownloadService extends Service {
                 .baseUrl("https://firebasestorage.googleapis.com/")
                 .build();
 
-        downloadDbClient = retrofit.create(DownloadDbClient.class);
+        downloadDbClient = retrofit.create(DownloadClient.class);
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -73,7 +73,7 @@ public class DownloadService extends Service {
     private void initDownload(){
         Utils.deleteFile();
 
-        Call<ResponseBody> request = downloadDbClient.downloadFile();
+        Call<ResponseBody> request = downloadDbClient.downloadDb();
         request.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

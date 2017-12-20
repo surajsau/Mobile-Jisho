@@ -11,37 +11,33 @@ import io.realm.RealmObject;
 
 public class FavSense extends RealmObject {
 
-    private RealmList<RealmString> english_definitions;
-    private RealmList<RealmString> parts_of_speech;
+    private RealmList<String> english_definitions;
+    private RealmList<String> parts_of_speech;
     private RealmList<FavLink> links;
-    private RealmList<RealmString> tags;
-    private RealmList<RealmString> see_also;
-    private RealmList<RealmString> info;
+    private RealmList<String> tags;
+    private RealmList<String> see_also;
+    private RealmList<String> info;
 
-    public RealmList<RealmString> getEnglish_definitions() {
+    public RealmList<String> getEnglish_definitions() {
         return english_definitions;
     }
 
     public void setEnglish_definitions(ArrayList<String> english_definitions) {
         if(english_definitions != null) {
             for(String str : english_definitions) {
-                RealmString rs = new RealmString();
-                rs.setValue(str);
-                this.english_definitions.add(rs);
+                this.english_definitions.add(str);
             }
         }
     }
 
-    public RealmList<RealmString> getParts_of_speech() {
+    public RealmList<String> getParts_of_speech() {
         return parts_of_speech;
     }
 
     public void setParts_of_speech(ArrayList<String> parts_of_speech) {
         if(parts_of_speech != null) {
             for(String str : parts_of_speech) {
-                RealmString rs = new RealmString();
-                rs.setValue(str);
-                this.english_definitions.add(rs);
+                this.english_definitions.add(str);
             }
         }
     }
@@ -54,44 +50,38 @@ public class FavSense extends RealmObject {
         this.links = links;
     }
 
-    public RealmList<RealmString> getTags() {
+    public RealmList<String> getTags() {
         return tags;
     }
 
     public void setTags(ArrayList<String> tags) {
         if(tags != null) {
             for(String str : tags) {
-                RealmString rs = new RealmString();
-                rs.setValue(str);
-                this.tags.add(rs);
+                this.tags.add(str);
             }
         }
     }
 
-    public RealmList<RealmString> getSee_also() {
+    public RealmList<String> getSee_also() {
         return see_also;
     }
 
     public void setSee_also(ArrayList<String> see_also) {
         if(see_also != null) {
             for(String str : see_also) {
-                RealmString rs = new RealmString();
-                rs.setValue(str);
-                this.see_also.add(rs);
+                this.see_also.add(str);
             }
         }
     }
 
-    public RealmList<RealmString> getInfo() {
+    public RealmList<String> getInfo() {
         return info;
     }
 
     public void setInfo(ArrayList<String> info) {
         if(info != null) {
             for(String str : info) {
-                RealmString rs = new RealmString();
-                rs.setValue(str);
-                this.info.add(rs);
+                this.info.add(str);
             }
         }
     }

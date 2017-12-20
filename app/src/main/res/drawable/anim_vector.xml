@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/k030b1">
-
-    <target
-        android:animation="@anim/animate_030b1"
-        android:name="top"/>
-</animated-vector>

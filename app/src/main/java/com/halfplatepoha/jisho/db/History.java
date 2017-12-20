@@ -9,13 +9,14 @@ import io.realm.RealmObject;
 
 public class History extends RealmObject {
 
-    private RealmList<RealmString> history;
+    private RealmList<String> history;
 
-    public RealmList<RealmString> getHistory() {
+    public RealmList<String> getHistory() {
         return history;
     }
 
-    public void setHistory(RealmList<RealmString> history) {
+    public void setHistory(RealmList<String> history) {
         this.history = history;
     }
+
 }

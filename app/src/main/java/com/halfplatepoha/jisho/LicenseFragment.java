@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
+import com.halfplatepoha.jisho.base.BaseFragment;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.thefinestartist.finestwebview.FinestWebView;
 

@@ -21,8 +21,10 @@ public interface IConstants {
     String DOWNLOAD_BROADCAST_FILTER = "download_broadcast_filter";
 
     String DICTIONARY_FILE_NAME = "dictionary.db";
+    String KANJI_STROKE_FILE_NAME = "jsons.zip";
 
     String STORAGE_DIRECTORY = Environment.getExternalStorageDirectory() + "/Mobile Jisho";
+    String STROKE_STORAGE_DIRECTORY = STORAGE_DIRECTORY + "/jsons/";
 
     String JMDICT = "http://www.edrdg.org/jmdict/j_jmdict.html";
     String JMEDICT = "http://www.edrdg.org/enamdict/enamdict_doc.html";

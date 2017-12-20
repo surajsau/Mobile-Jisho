@@ -91,6 +91,65 @@
                 android:paddingBottom="5dp"/>
         </RelativeLayout>
 
+        <RelativeLayout android:id="@+id/strokesView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryVeryLight">
+
+            <TextView android:id="@+id/strokesDownloadLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Kanji Strokes" />
+
+            <TextView android:text="With this update kanji strokes are now available for each of the Kanjis. Click the button below to download the Strokes."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_below="@id/strokesDownloadLabel"
+                android:id="@+id/tvDownloadStrokes"/>
+
+            <TextView android:id="@+id/tvDownloadingStokes"
+                android:text="Downloading..."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="16sp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_below="@id/tvDownloadStrokes"/>
+
+            <Button android:id="@+id/btnDownloadStrokes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Download strokes"
+                android:background="@drawable/rounded_rectangle_primary_light"
+                android:textColor="@color/white"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/tvDownloadStrokes"
+                android:textAllCaps="false"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
+
+        </RelativeLayout>
+
         <RelativeLayout android:id="@+id/offlineView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

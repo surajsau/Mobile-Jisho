@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="16dp"
     tools:background="@drawable/dark_background"
-    tools:context="com.halfplatepoha.jisho.SearchFragment">
+    tools:context="com.halfplatepoha.jisho.search.SearchFragment">
 
     <LinearLayout android:id="@+id/offlineView"
         android:layout_width="wrap_content"
