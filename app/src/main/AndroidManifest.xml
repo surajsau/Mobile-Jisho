@@ -45,7 +45,7 @@
         <service android:name=".KanjiStrokesService" />
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".v2.DetailsActivity2"></activity>
     </application>

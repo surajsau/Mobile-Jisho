@@ -14,11 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.InflectionDialogFragment;
+import com.halfplatepoha.jisho.base.BaseActivity;
 import com.halfplatepoha.jisho.home.MainActivity;
 import com.halfplatepoha.jisho.OtherFormsAdapter;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.analytics.Analytics;
-import com.halfplatepoha.jisho.base.BaseActivity;
 import com.halfplatepoha.jisho.db.FavJapanese;
 import com.halfplatepoha.jisho.db.FavLink;
 import com.halfplatepoha.jisho.db.FavSense;

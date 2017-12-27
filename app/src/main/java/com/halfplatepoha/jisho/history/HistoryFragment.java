@@ -43,7 +43,7 @@ public class HistoryFragment extends BaseFragment<HistoryContract.Presenter> imp
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        realm = Realm.getInstance(getApplication().getAppConfig());
+        realm = Realm.getDefaultInstance();
     }
 
     private void refreshUI() {

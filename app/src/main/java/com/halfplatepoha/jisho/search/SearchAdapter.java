@@ -39,7 +39,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
 
     private boolean isOffline;
 
-    public SearchAdapter(Context mContext) {
+    public SearchAdapter(Context context) {
         this.mContext = mContext;
         inflater = LayoutInflater.from(mContext);
 

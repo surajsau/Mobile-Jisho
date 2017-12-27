@@ -27,6 +27,8 @@ public interface JishoComponent {
 
     SearchApi searchApi();
 
+    Realm realm();
+
     @Component.Builder
     interface Builder {
 

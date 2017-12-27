@@ -11,7 +11,6 @@ import com.halfplatepoha.jisho.home.MainPresenter;
 import com.halfplatepoha.jisho.injection.ActivityScope;
 import com.halfplatepoha.jisho.injection.FragmentScope;
 import com.halfplatepoha.jisho.v2.search.SearchFragment;
-import com.halfplatepoha.jisho.v2.search.SearchFragment;
 
 import dagger.Binds;
 import dagger.Module;

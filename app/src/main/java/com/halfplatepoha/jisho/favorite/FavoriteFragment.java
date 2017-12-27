@@ -47,7 +47,7 @@ public class FavoriteFragment extends BaseFragment<FavoriteContract.Presenter> i
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        realm = Realm.getInstance(getApplication().getAppConfig());
+        realm = Realm.getDefaultInstance();
     }
 
     private void refreshUI() {

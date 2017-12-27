@@ -19,8 +19,9 @@ import com.halfplatepoha.jisho.Download;
 import com.halfplatepoha.jisho.DownloadService;
 import com.halfplatepoha.jisho.JishoPreference;
 import com.halfplatepoha.jisho.R;
-import com.halfplatepoha.jisho.SettingsActivity;
 import com.halfplatepoha.jisho.base.BaseActivity;
+import com.halfplatepoha.jisho.base.BaseFragmentActivity;
+import com.halfplatepoha.jisho.settings.SettingsActivity;
 import com.halfplatepoha.jisho.base.BaseFragment;
 import com.halfplatepoha.jisho.favorite.FavoriteFragment;
 import com.halfplatepoha.jisho.history.HistoryFragment;
@@ -36,7 +37,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends BaseActivity<MainContract.Presenter> implements MainContract.View,
+public class MainActivity extends BaseFragmentActivity<MainContract.Presenter> implements MainContract.View,
         HistoryFragment.HistoryFragmentActionListener,
         OnTabSelectListener, OnTabReselectListener {
 

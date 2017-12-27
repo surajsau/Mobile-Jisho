@@ -7,6 +7,9 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -15,9 +18,12 @@ import butterknife.Unbinder;
  * Created by surjo on 18/12/17.
  */
 
-public abstract class BaseDialog extends DialogFragment {
+public abstract class BaseDialog<P extends IPresenter> extends DialogFragment implements BaseView {
 
     private Unbinder unbinder;
+
+    @Inject
+    protected P presenter;
 
     @Nullable
     @Override
@@ -42,4 +48,12 @@ public abstract class BaseDialog extends DialogFragment {
         }
         super.onStop();
     }
+
+    @Override
+    public void shortToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void hideKeyboard() {}
 }

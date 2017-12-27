@@ -26,7 +26,7 @@
 //import com.afollestad.materialdialogs.MaterialDialog;
 //import com.halfplatepoha.jisho.JishoPreference;
 //import com.halfplatepoha.jisho.R;
-//import com.halfplatepoha.jisho.SettingsActivity;
+//import com.halfplatepoha.jisho.settings.SettingsActivity;
 //import com.halfplatepoha.jisho.SwitchButton;
 //import com.halfplatepoha.jisho.analytics.Analytics;
 //import com.halfplatepoha.jisho.base.BaseFragment;

@@ -21,6 +21,8 @@ import com.halfplatepoha.jisho.base.BaseFragment;
 import com.halfplatepoha.jisho.injection.modules.DataModule;
 import com.halfplatepoha.jisho.jdb.Entry;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -63,12 +65,15 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     @BindView(R.id.offlineView)
     View offlineView;
 
+    @Inject
+    SearchOfflineAdapter searchAdapter;
+
     Realm jdbRealm;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        jdbRealm = Realm.getInstance(getApplication().getJdbConfig());
+        jdbRealm = Realm.getDefaultInstance();
     }
 
     @Override
@@ -87,15 +92,15 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             Analytics.getInstance().recordSearch(etSearch.getText().toString());
+
+            presenter.search(v.getText().toString());
             String searchString = v.getText().toString();
 
             RealmResults<Entry> entries = jdbRealm.where(Entry.class).equalTo("japanese", searchString).findAll();
             if(entries != null) {
-                for(Entry entry : entries) {
-                    Log.e("ENTRY", entry.japanese);
-                }
+//                presenter.onSearchResult
             } else {
-                Log.e("RESULTS", "no results");
+                rlWords.setVisibility(View.GONE);
             }
             return true;
         }

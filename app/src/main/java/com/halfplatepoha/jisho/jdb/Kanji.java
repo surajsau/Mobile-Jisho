@@ -14,5 +14,7 @@ public class Kanji extends RealmObject {
     public RealmList<QueryCode> queryCodes;
     public RealmList<Reading> readings;
     public int strokeCount;
+    public RealmList<String> strokes;
+    public RealmList<KanjiElement> elements;
 
 }

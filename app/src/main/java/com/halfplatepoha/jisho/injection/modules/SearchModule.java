@@ -2,8 +2,12 @@ package com.halfplatepoha.jisho.injection.modules;
 
 import android.support.v4.app.Fragment;
 
+import com.halfplatepoha.jisho.base.BaseAdapterPresenter;
 import com.halfplatepoha.jisho.base.BaseFragmentModule;
 import com.halfplatepoha.jisho.injection.FragmentScope;
+import com.halfplatepoha.jisho.v2.search.SearchOfflineAdapter;
+import com.halfplatepoha.jisho.v2.search.SearchAdapterContract;
+import com.halfplatepoha.jisho.v2.search.SearchAdapterPresenter;
 import com.halfplatepoha.jisho.v2.search.SearchContract;
 import com.halfplatepoha.jisho.v2.search.SearchFragment;
 import com.halfplatepoha.jisho.v2.search.SearchPresenter;
@@ -34,14 +38,26 @@ public abstract class SearchModule {
     @FragmentScope
     abstract SearchContract.Presenter presenter(SearchPresenter presenter);
 
+    @Binds
+    @FragmentScope
+    abstract SearchAdapterContract.Presenter adapterPresenter(SearchAdapterPresenter presenter);
+
+    @Provides
+    @FragmentScope
+    static SearchOfflineAdapter searchAdapter(SearchAdapterContract.Presenter presenter) {
+        return new SearchOfflineAdapter(presenter);
+    }
+
     @Named(SearchFragment.EXTRA_SEARCH_STRING)
     @Provides
+    @FragmentScope
     static String searchString(SearchFragment fragment) {
         return fragment.getArguments().getString(SearchFragment.EXTRA_SEARCH_STRING);
     }
 
     @Named(SearchFragment.EXTRA_SOURCE)
     @Provides
+    @FragmentScope
     static String searchSource(SearchFragment fragment) {
         return fragment.getArguments().getString(SearchFragment.EXTRA_SEARCH_STRING);
     }

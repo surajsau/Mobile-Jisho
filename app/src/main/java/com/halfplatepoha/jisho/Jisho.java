@@ -10,6 +10,7 @@ import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.injection.DaggerJishoComponent;
 import com.halfplatepoha.jisho.injection.JishoComponent;
 import com.halfplatepoha.jisho.injection.modules.DataModule;
+import com.halfplatepoha.jisho.injection.modules.JdbModule;
 import com.halfplatepoha.jisho.offline.OfflineDbHelper;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
@@ -32,13 +33,7 @@ import io.realm.RealmConfiguration;
 
 public class Jisho extends Application implements HasActivityInjector {
 
-    @Named(DataModule.APP_REALM_CONFIG)
-    @Inject
-    RealmConfiguration appConfig;
-
-    @Named(DataModule.JDB_REALM_CONFIG)
-    @Inject
-    RealmConfiguration jdbConfig;
+    private static final int APP_REALM_VERSION = 3;
 
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
@@ -50,12 +45,16 @@ public class Jisho extends Application implements HasActivityInjector {
     public void onCreate() {
         super.onCreate();
 
+        Realm.init(this);
+
         DaggerJishoComponent.builder()
                 .application(this)
                 .build()
                 .inject(this);
 
-        Realm.init(this);
+        Realm.setDefaultConfiguration(appRealmConfiguration());
+        appRealmConfiguration();
+
         Fabric.with(this, new Crashlytics());
         Fabric.with(this, new Answers());
         Analytics.init(this);
@@ -81,16 +80,15 @@ public class Jisho extends Application implements HasActivityInjector {
         }
     }
 
-    public RealmConfiguration getAppConfig() {
-        return appConfig;
-    }
-
-    public RealmConfiguration getJdbConfig() {
-        return jdbConfig;
-    }
-
     @Override
     public AndroidInjector<Activity> activityInjector() {
         return activityDispatchingAndroidInjector;
+    }
+
+    private RealmConfiguration appRealmConfiguration() {
+        return new RealmConfiguration.Builder()
+                .schemaVersion(APP_REALM_VERSION)
+                .migration(new JishoMigration())
+                .build();
     }
 }
