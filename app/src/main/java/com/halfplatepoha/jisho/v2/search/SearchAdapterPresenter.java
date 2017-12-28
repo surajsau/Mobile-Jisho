@@ -25,10 +25,7 @@ public class SearchAdapterPresenter extends BaseAdapterPresenter<SearchAdapterCo
         super();
     }
 
-    public void setListener(Listener listener) {
-        this.listener = listener;
-    }
-
+    @Override
     public void setResults(RealmResults<Entry> entries) {
         this.entries = entries;
         adapterInterface.dataSetChanged();
@@ -38,6 +35,16 @@ public class SearchAdapterPresenter extends BaseAdapterPresenter<SearchAdapterCo
     public void onItemClick(int adapterPosition) {
         if(listener != null)
             listener.onItemClick(entries.get(adapterPosition).japanese);
+    }
+
+    @Override
+    public void attachListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void removeListener() {
+        this.listener = null;
     }
 
     @Override
@@ -60,7 +67,7 @@ public class SearchAdapterPresenter extends BaseAdapterPresenter<SearchAdapterCo
 
     @Override
     public int getItemCount() {
-        return 0;
+        return entries != null ?  entries.size() : 0;
     }
 
     public interface Listener {

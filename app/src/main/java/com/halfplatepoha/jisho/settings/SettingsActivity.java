@@ -250,11 +250,7 @@ public class SettingsActivity extends BaseFragmentActivity<SettingsContract.Pres
 
     @OnClick(R.id.tvAbout)
     public void openAbout() {
-        KanjiDetailFragment fragment = KanjiDetailFragment.getInstance("40695");
-        fragment.show(mFragmentManager, "Kanji Detail");
-//        showDownloadFileDialog();
-//        startActivity(new Intent(this, KanjiDetailActivity.class));
-//        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_ABOUT, "About"));
+        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_ABOUT, "About"));
     }
 
     @OnClick(R.id.tvLicense)
@@ -264,23 +260,24 @@ public class SettingsActivity extends BaseFragmentActivity<SettingsContract.Pres
 
     @OnClick(R.id.btnStartDownload)
     public void startDownload() {
-        KanjiDetailFragment kanjiDetailFragment = KanjiDetailFragment.getInstance("穐");
-        kanjiDetailFragment.show(getSupportFragmentManager(), "KanjiDetail");
-//        showDownloadFileDialog("Download Offline Jisho",
-//                "To enable offline mode of Jisho, we\'ll have to download the offline dictionary. It\'ll be best if you\'ve good internet connection for uninterrupted download.",
-//                DOWNLOAD_TYPE_JISHO);
+        showDownloadFileDialog("Download Offline Jisho",
+                "To enable offline mode of Jisho, we\'ll have to download the offline dictionary. It\'ll be best if you\'ve good internet connection for uninterrupted download.",
+                DOWNLOAD_TYPE_JISHO);
     }
 
     @OnClick(R.id.btnDownloadStrokes)
     public void downloadStrokes() {
 
-//        consumeEdict(0);
-//        consumeTanaka(0);
-        consumeKanjiDic(0);
+        showDownloadFileDialog("Download Kanji Strokes",
+                "To see kanji strokes, we\'ll have to download the strokes files. It\'ll be best if you\'ve good internet connection for uninterrupted download.",
+                DOWNLOAD_TYPE_STROKES);
+    }
 
-//        showDownloadFileDialog("Download Kanji Strokes",
-//                "To see kanji strokes, we\'ll have to download the strokes files. It\'ll be best if you\'ve good internet connection for uninterrupted download.",
-//                DOWNLOAD_TYPE_STROKES);
+    @OnClick(R.id.btnConsumeDB)
+    public void consumeDB() {
+        consumeEdict(0);
+        consumeTanaka(0);
+        consumeKanjiDic(0);
     }
 
     private void consumeKanjiStroke() {

@@ -150,6 +150,23 @@
 
         </RelativeLayout>
 
+        <Button android:id="@+id/btnConsumeDB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Download strokes"
+            android:background="@drawable/rounded_rectangle_primary_light"
+            android:textColor="@color/white"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tvDownloadStrokes"
+            android:textAllCaps="false"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"/>
+
         <RelativeLayout android:id="@+id/offlineView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

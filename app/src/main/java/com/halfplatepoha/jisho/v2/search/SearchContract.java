@@ -11,6 +11,11 @@ public interface SearchContract {
 
     interface View extends BaseView {
 
+        void openDetails(String japanese);
+
+        void showSpinner();
+
+        void hideSpinner();
     }
 
     interface Presenter extends IPresenter {

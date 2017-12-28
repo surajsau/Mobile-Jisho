@@ -37,6 +37,10 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     @Inject
     protected P presenter;
 
+    @Named(BaseActivityModule.ACTIVITY_FRAGMENT_MANAGER)
+    @Inject
+    protected FragmentManager supportFragmentManager;
+
     @Override
     public void shortToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

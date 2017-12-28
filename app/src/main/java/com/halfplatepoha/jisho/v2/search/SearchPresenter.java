@@ -28,18 +28,31 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        adapterPresenter.attachListener(this);
+    }
+
+    @Override
     public void search(String searchString) {
         RealmResults<Entry> entries = realm.where(Entry.class).equalTo("japanese", searchString).findAll();
         if(entries != null) {
-            for(Entry entry : entries) {
-                Log.e("ENTRY", entry.japanese);
-            }
+            view.showSpinner();
+            adapterPresenter.setResults(entries);
+        } else {
+            view.hideSpinner();
         }
     }
 
     @Override
-    public void onItemClick(String japanese) {
+    public void onStop() {
+        super.onStop();
+        adapterPresenter.removeListener();
+    }
 
+    @Override
+    public void onItemClick(String japanese) {
+        view.openDetails(japanese);
     }
 
 }

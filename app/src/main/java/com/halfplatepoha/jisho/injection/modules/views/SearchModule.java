@@ -1,8 +1,7 @@
-package com.halfplatepoha.jisho.injection.modules;
+package com.halfplatepoha.jisho.injection.modules.views;
 
 import android.support.v4.app.Fragment;
 
-import com.halfplatepoha.jisho.base.BaseAdapterPresenter;
 import com.halfplatepoha.jisho.base.BaseFragmentModule;
 import com.halfplatepoha.jisho.injection.FragmentScope;
 import com.halfplatepoha.jisho.v2.search.SearchOfflineAdapter;

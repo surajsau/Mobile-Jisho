@@ -47,7 +47,7 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".v2.DetailsActivity2"></activity>
+        <activity android:name=".v2.detail.DetailsActivity"></activity>
     </application>
 
 </manifest>

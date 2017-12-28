@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.injection.modules;
+package com.halfplatepoha.jisho.injection.modules.views;
 
 import android.app.Activity;
 
@@ -10,6 +10,9 @@ import com.halfplatepoha.jisho.home.MainContract;
 import com.halfplatepoha.jisho.home.MainPresenter;
 import com.halfplatepoha.jisho.injection.ActivityScope;
 import com.halfplatepoha.jisho.injection.FragmentScope;
+import com.halfplatepoha.jisho.injection.modules.FavoriteModule;
+import com.halfplatepoha.jisho.injection.modules.HistoryModule;
+import com.halfplatepoha.jisho.injection.modules.views.SearchModule;
 import com.halfplatepoha.jisho.v2.search.SearchFragment;
 
 import dagger.Binds;

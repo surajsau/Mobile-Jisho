@@ -19,7 +19,7 @@ public abstract class BaseAdapterPresenter<VH extends BaseViewholderView> implem
     public int getItemViewType() {
         return DEFAULT;
     }
-    
+
     public interface AdapterInterface {
         void dataSetChanged();
         void itemChanged(int position);
