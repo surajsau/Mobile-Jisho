@@ -15,9 +15,22 @@ public class SentenceAdapterPresenter extends BaseAdapterPresenter<SentenceAdapt
 
     private String keyword;
 
+    private Listener listener;
+
     @Override
     public void onBind(SentenceAdapterContract.View viewHolder, int position) {
+        viewHolder.setOriginal(sentences.get(position).sentence);
+        viewHolder.setEnglish(sentences.get(position).english);
+    }
 
+    @Override
+    public void attachListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void removeListener() {
+        this.listener = null;
     }
 
     @Override
@@ -34,5 +47,15 @@ public class SentenceAdapterPresenter extends BaseAdapterPresenter<SentenceAdapt
     @Override
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    @Override
+    public void onItemClick(int adapterPosition) {
+        if(listener != null)
+            listener.onItemClick(sentences.get(adapterPosition));
+    }
+
+    public interface Listener {
+        void onItemClick(Sentence sentence);
     }
 }

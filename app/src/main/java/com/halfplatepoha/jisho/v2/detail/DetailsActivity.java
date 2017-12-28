@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseActivity;
+import com.halfplatepoha.jisho.jdb.Sentence;
 import com.halfplatepoha.jisho.kanjidetail.KanjiDetailFragment;
 import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapter;
+import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapter;
 
 import javax.inject.Inject;
 
@@ -38,11 +40,17 @@ public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> imp
     @BindView(R.id.rlKanji)
     RecyclerView rlKanji;
 
+    @BindView(R.id.rlSentences)
+    RecyclerView rlSentences;
+
     @BindView(R.id.tvExamplesCount)
     TextView tvExamplesCount;
 
     @Inject
     KanjiAdapter kanjiAdapter;
+
+    @Inject
+    SentenceAdapter sentenceAdapter;
 
     public static Intent getLaunchIntent(Context context, String japanese) {
         Intent intent = new Intent(context, DetailsActivity.class);
@@ -61,6 +69,9 @@ public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> imp
 
         rlKanji.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rlKanji.setAdapter(kanjiAdapter);
+
+        rlSentences.setLayoutManager(new LinearLayoutManager(this));
+        rlSentences.setAdapter(sentenceAdapter);
     }
 
     @Override
@@ -82,6 +93,11 @@ public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> imp
     public void openKanjiDialog(String kanjiLiteral) {
         KanjiDetailFragment kanjiDetailFragment = KanjiDetailFragment.getInstance(kanjiLiteral);
         kanjiDetailFragment.show(supportFragmentManager, KANJI_DETAIL_TAG);
+    }
+
+    @Override
+    public void openSentenceDetail(Sentence sentence) {
+
     }
 
     @OnClick(R.id.btnKanjiPlay)

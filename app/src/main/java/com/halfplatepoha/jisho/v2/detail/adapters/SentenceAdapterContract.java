@@ -14,13 +14,23 @@ public interface SentenceAdapterContract {
 
     interface View extends BaseViewholderView {
 
+        void setEnglish(String english);
+
+        void setOriginal(String sentence);
+
     }
 
     interface Presenter extends IAdapterPresenter<View> {
 
+        void attachListener(SentenceAdapterPresenter.Listener listener);
+
+        void removeListener();
+
         void setSentences(RealmResults<Sentence> sentences);
 
         void setKeyword(String keyword);
+
+        void onItemClick(int adapterPosition);
     }
 
 }

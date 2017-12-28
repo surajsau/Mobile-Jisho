@@ -6,6 +6,8 @@ import com.halfplatepoha.jisho.jdb.Sentence;
 import com.halfplatepoha.jisho.utils.Utils;
 import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapterContract;
 import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapterPresenter;
+import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapterContract;
+import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapterPresenter;
 
 import java.util.List;
 
@@ -19,7 +21,9 @@ import io.realm.RealmResults;
  * Created by surjo on 28/12/17.
  */
 
-public class DetailsPresenter extends BasePresenter<DetailsContract.View> implements DetailsContract.Presenter, KanjiAdapterPresenter.Listener {
+public class DetailsPresenter extends BasePresenter<DetailsContract.View> implements DetailsContract.Presenter,
+        KanjiAdapterPresenter.Listener,
+        SentenceAdapterPresenter.Listener {
 
     private Realm realm;
 
@@ -28,6 +32,8 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
     private Entry entry;
 
     private KanjiAdapterContract.Presenter kanjiAdapterPresenter;
+
+    private SentenceAdapterContract.Presenter sentenceAdapterPresenter;
 
     @Inject
     public DetailsPresenter(DetailsContract.View view,
@@ -45,6 +51,7 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
         super.onCreate();
 
         kanjiAdapterPresenter.attachListener(this);
+        sentenceAdapterPresenter.attachListener(this);
 
         entry = realm.where(Entry.class).equalTo("japanese", japanese).findFirst();
 
@@ -67,16 +74,29 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
     @Override
     public void clickExamples() {
         RealmResults<Sentence> sentences = realm.where(Sentence.class).equalTo("splits.keyword", entry.japanese).findAll();
+
+        if(sentences != null && !sentences.isEmpty()) {
+            sentenceAdapterPresenter.setKeyword(entry.japanese);
+            sentenceAdapterPresenter.setSentences(sentences);
+        } else {
+            //TODO: hide sentence recycler
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
         kanjiAdapterPresenter.removeListener();
+        sentenceAdapterPresenter.removeListener();
     }
 
     @Override
     public void onItemClick(String kanjiLiteral) {
         view.openKanjiDialog(kanjiLiteral);
+    }
+
+    @Override
+    public void onItemClick(Sentence sentence) {
+        view.openSentenceDetail(sentence);
     }
 }
