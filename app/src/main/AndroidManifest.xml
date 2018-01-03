@@ -41,8 +41,10 @@
             android:name=".SingleFragmentActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name=".DownloadService" />
-        <service android:name=".KanjiStrokesService" />
+        <service android:name=".UpdateDBService"/>
+
+        <!--<service android:name=".DownloadService" />-->
+        <!--<service android:name=".KanjiStrokesService" />-->
 
         <activity
             android:name=".settings.SettingsActivity"

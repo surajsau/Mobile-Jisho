@@ -37,6 +37,9 @@ public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> imp
     @BindView(R.id.tvJapaneseReading)
     TextView tvJapaneseReading;
 
+    @BindView(R.id.tvMeaning)
+    TextView tvMeaning;
+
     @BindView(R.id.rlKanji)
     RecyclerView rlKanji;
 
@@ -45,6 +48,9 @@ public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> imp
 
     @BindView(R.id.tvExamplesCount)
     TextView tvExamplesCount;
+
+    @BindView(R.id.tvPos)
+    TextView tvPos;
 
     @Inject
     KanjiAdapter kanjiAdapter;
@@ -105,8 +111,4 @@ public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> imp
         presenter.clickKanjiPlay();
     }
 
-    @OnClick(R.id.btnExamples)
-    public void clickExamples() {
-        presenter.clickExamples();
-    }
 }

@@ -26,6 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+@Deprecated
 public class DownloadService extends Service {
 
     public static final String EXTRA_DOWNLOAD = "download";
@@ -187,7 +188,7 @@ public class DownloadService extends Service {
 
         notificationManager.cancel(0);
         notificationBuilder.setProgress(0,0,false);
-        notificationBuilder.setContentText("Successfully downloaded");
+        notificationBuilder.setContentText("Successfully updated");
         notificationManager.notify(0, notificationBuilder.build());
 
         stopSelf();

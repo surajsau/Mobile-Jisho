@@ -19,8 +19,10 @@ public interface IConstants {
     String EXTRA_OFFLINE_STATUS = "offline_status";
     String OFFLINE_STATUS_BROADCAST_FILTER = "offline_status_broadcast_filter";
     String DOWNLOAD_BROADCAST_FILTER = "download_broadcast_filter";
+    String UPDATE_BROADCAST_FILTER = "updatE_broadcast_filter";
 
     String DICTIONARY_FILE_NAME = "dictionary.db";
+    String RESOURCES_FILE_NAME = "tanaka";
     String KANJI_STROKE_FILE_NAME = "jsons.zip";
 
     String STORAGE_DIRECTORY = Environment.getExternalStorageDirectory() + "/Mobile Jisho";
@@ -34,4 +36,9 @@ public interface IConstants {
     String EDRDG_LICENSE = "http://www.edrdg.org/edrdg/licence.html";
 
     int MAX_DOWNLOAD_RETRY = 3;
+
+    int TYPE_KANJI = 1;
+    int TYPE_STROKES = 2;
+    int TYPE_EDICT = 3;
+    int TYPE_TANAKA = 4;
 }

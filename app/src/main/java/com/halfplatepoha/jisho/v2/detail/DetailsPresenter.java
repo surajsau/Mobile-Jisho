@@ -39,11 +39,13 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
     public DetailsPresenter(DetailsContract.View view,
                             Realm realm,
                             KanjiAdapterContract.Presenter kanjiAdapterPresenter,
+                            SentenceAdapterContract.Presenter sentenceAdapterPresenter,
                             @Named(DetailsActivity.KEY_JAPANESE) String japanese) {
         super(view);
         this.realm = realm;
         this.japanese = japanese;
         this.kanjiAdapterPresenter = kanjiAdapterPresenter;
+        this.sentenceAdapterPresenter = sentenceAdapterPresenter;
     }
 
     @Override

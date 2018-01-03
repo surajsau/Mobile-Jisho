@@ -11,9 +11,22 @@ public interface SettingsContract {
 
     interface View extends BaseView {
 
+        void checkStoragePersmissionAndStartDownload();
     }
 
     interface Presenter extends IPresenter {
+
+        void clickUpdate();
+
+    }
+
+    interface Async {
+
+        void consumeEdict();
+
+        void consumeTanaka();
+
+        void consumeKanjiDic();
 
     }
 }

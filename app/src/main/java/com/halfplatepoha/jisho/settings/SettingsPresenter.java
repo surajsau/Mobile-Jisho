@@ -14,4 +14,9 @@ public class SettingsPresenter extends BasePresenter<SettingsContract.View> impl
     public SettingsPresenter(SettingsContract.View view) {
         super(view);
     }
+
+    @Override
+    public void clickUpdate() {
+        view.checkStoragePersmissionAndStartDownload();
+    }
 }

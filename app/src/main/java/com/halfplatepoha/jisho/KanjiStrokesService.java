@@ -34,6 +34,7 @@ import retrofit2.Retrofit;
  * Created by surjo on 18/12/17.
  */
 
+@Deprecated
 public class KanjiStrokesService extends Service {
 
     public static final String EXTRA_DOWNLOAD = "download";

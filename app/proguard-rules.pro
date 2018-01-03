@@ -37,10 +37,11 @@
 -keep class retrofit2.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
-
 -keepclasseswithmembers class * {
     @retrofit2.http.* <methods>;
 }
+-keepnames class com.fasterxml.jackson.** { *; }
+-dontwarn com.fasterxml.jackson.**
 
 # Retain generated class which implement Unbinder.
 -keep public class * implements butterknife.Unbinder { public <init>(**, android.view.View); }
@@ -59,9 +60,7 @@
 
 -keep class **$$ViewBinder { *; }
 
-
-# Dagger ProGuard rules.
-# https://github.com/square/dagger
+-dontwarn com.roughike.bottombar.**
 
 -dontwarn dagger.internal.codegen.**
 -keepclassmembers,allowobfuscation class * {
@@ -78,3 +77,17 @@
 
 # For Dagger
 -dontwarn com.google.errorprone.annotations.*
+
+#RxJava
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+   long producerIndex;
+   long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+-dontnote rx.internal.util.PlatformDependent

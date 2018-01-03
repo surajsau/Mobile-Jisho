@@ -3,6 +3,8 @@ package com.halfplatepoha.jisho.v2.detail.adapters;
 import com.halfplatepoha.jisho.base.BaseAdapterPresenter;
 import com.halfplatepoha.jisho.jdb.Sentence;
 
+import javax.inject.Inject;
+
 import io.realm.RealmResults;
 
 /**
@@ -16,6 +18,11 @@ public class SentenceAdapterPresenter extends BaseAdapterPresenter<SentenceAdapt
     private String keyword;
 
     private Listener listener;
+
+    @Inject
+    public SentenceAdapterPresenter() {
+        super();
+    }
 
     @Override
     public void onBind(SentenceAdapterContract.View viewHolder, int position) {
