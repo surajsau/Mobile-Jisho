@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.favorite;
+package com.halfplatepoha.jisho.lists;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +22,7 @@ import butterknife.OnClick;
 /**
  * Created by surjo on 22/04/17.
  */
-
+@Deprecated
 public class FavoritesAdapter  extends RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder> {
 
     private ArrayList<FavouriteWord> words;

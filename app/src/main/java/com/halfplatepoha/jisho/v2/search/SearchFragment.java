@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,22 +15,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
-import com.halfplatepoha.jisho.SwitchButton;
 import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.base.BaseFragment;
-import com.halfplatepoha.jisho.injection.modules.DataModule;
-import com.halfplatepoha.jisho.jdb.Entry;
 import com.halfplatepoha.jisho.v2.detail.DetailsActivity;
 
-import java.util.List;
-
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 /**
@@ -55,22 +47,16 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     @BindView(R.id.ivSearch)
     ImageView ivSearch;
 
-    @BindView(R.id.progress)
-    MaterialProgressBar progress;
-
     @BindView(R.id.tvError)
     TextView tvError;
 
-    @BindView(R.id.swtchOffline)
-    SwitchButton swtchOffline;
-
-    @BindView(R.id.offlineView)
-    View offlineView;
+    @BindView(R.id.verticalView)
+    View verticalSpace;
 
     @Inject
     SearchOfflineAdapter searchAdapter;
 
-    Realm jdbRealm;
+    private Realm jdbRealm;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +75,7 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
         etSearch.setOnEditorActionListener(this);
         etSearch.addTextChangedListener(this);
 
-        rlWords.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rlWords.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         rlWords.setAdapter(searchAdapter);
     }
 
@@ -114,17 +100,34 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     public void afterTextChanged(Editable s) {}
 
     @Override
-    public void openDetails(String japanese) {
-        startActivity(DetailsActivity.getLaunchIntent(getContext(), japanese));
+    public void openDetails(String japanese, String furigana) {
+        startActivity(DetailsActivity.getLaunchIntent(getContext(), japanese, furigana));
     }
 
     @Override
     public void showSpinner() {
-
     }
 
     @Override
     public void hideSpinner() {
-
     }
+
+    @Override
+    public void changeSearchListOrientation(int currentOrientation) {
+        if(currentOrientation == SearchAdapterPresenter.TYPE_VERTICAL)
+            rlWords.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        else
+            rlWords.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    @Override
+    public void showVerticalSpace() {
+        verticalSpace.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideVerticalSpace() {
+        verticalSpace.setVisibility(View.GONE);
+    }
+
 }

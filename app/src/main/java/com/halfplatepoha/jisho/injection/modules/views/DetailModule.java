@@ -66,4 +66,11 @@ public abstract class DetailModule {
     static String japanese(DetailsActivity activity) {
         return activity.getIntent().getStringExtra(DetailsActivity.KEY_JAPANESE);
     }
+
+    @Named(DetailsActivity.KEY_FURIGANA)
+    @Provides
+    @ActivityScope
+    static String furigana(DetailsActivity activity) {
+        return activity.getIntent().getStringExtra(DetailsActivity.KEY_FURIGANA);
+    }
 }

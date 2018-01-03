@@ -56,4 +56,9 @@ public abstract class BaseDialog<P extends IPresenter> extends DialogFragment im
 
     @Override
     public void hideKeyboard() {}
+
+    @Override
+    public void finishScreen() {
+        //..do nothing
+    }
 }

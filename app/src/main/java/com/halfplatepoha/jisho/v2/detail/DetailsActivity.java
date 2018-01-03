@@ -13,6 +13,7 @@ import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseActivity;
 import com.halfplatepoha.jisho.jdb.Sentence;
 import com.halfplatepoha.jisho.kanjidetail.KanjiDetailFragment;
+import com.halfplatepoha.jisho.lists.ListsActivity;
 import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapter;
 import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapter;
 
@@ -28,6 +29,9 @@ import butterknife.OnClick;
 public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> implements DetailsContract.View {
 
     public static final String KEY_JAPANESE = "key_japanese";
+    public static final String KEY_FURIGANA = "key_furigana";
+
+    private static final int REQUEST_LIST_NAME = 101;
 
     private static final String KANJI_DETAIL_TAG = "kanji_detail";
 
@@ -58,7 +62,7 @@ public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> imp
     @Inject
     SentenceAdapter sentenceAdapter;
 
-    public static Intent getLaunchIntent(Context context, String japanese) {
+    public static Intent getLaunchIntent(Context context, String japanese, String furigana) {
         Intent intent = new Intent(context, DetailsActivity.class);
         intent.putExtra(KEY_JAPANESE, japanese);
         return intent;
@@ -106,9 +110,32 @@ public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> imp
 
     }
 
+    @Override
+    public void openListsScreenForResults() {
+        Intent intent = new Intent(this, ListsActivity.class);
+        startActivityForResult(intent, REQUEST_LIST_NAME);
+    }
+
     @OnClick(R.id.btnKanjiPlay)
     public void clickKanjiPlay() {
         presenter.clickKanjiPlay();
     }
 
+    @OnClick(R.id.btnAddNote)
+    public void clickAddNote() {
+        presenter.clickAddNote();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_LIST_NAME:
+                if(data != null) {
+                    String listName = data.getStringExtra(ListsActivity.RESULT_LIST_NAME);
+                    presenter.onListNameResultReceived(listName);
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

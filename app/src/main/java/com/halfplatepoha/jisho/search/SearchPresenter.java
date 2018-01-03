@@ -13,7 +13,7 @@
 //import com.halfplatepoha.jisho.offline.utils.SearchTask;
 //import com.halfplatepoha.jisho.utils.IConstants;
 //
-//import java.util.List;
+//import java.util.JishoList;
 //
 //import javax.inject.Inject;
 //import javax.inject.Named;
@@ -75,7 +75,7 @@
 //
 //                offlineTask.search(searchString, new SearchTask.SearchResultListener() {
 //                    @Override
-//                    public void onResult(List<ListEntry> entries) {
+//                    public void onResult(JishoList<ListEntry> entries) {
 //                        if(entries != null && !entries.isEmpty()) {
 //                            for(ListEntry entry : entries) {
 //                                Word word = Word.fromOfflineListEntry(entry);

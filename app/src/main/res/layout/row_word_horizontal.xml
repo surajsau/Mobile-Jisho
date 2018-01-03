@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rowCard"
     android:layout_width="256dp"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:elevation="15dp"
-    app:cardCornerRadius="5dp">
+    android:background="@color/colorPrimaryVeryLight">
 
     <ImageView android:id="@+id/ivCommon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/common_indicator"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:layout_gravity="right|top"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"/>
@@ -24,38 +25,30 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/tvHiragana"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvFurigana"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="きをつけて"/>
+            tools:text="きをつけて"
+            android:textColor="@color/colorPrimaryLight"/>
 
         <TextView
             android:id="@+id/tvJapanese"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            tools:text="気をつけて"/>
+            android:textSize="18sp"
+            tools:text="気をつけて"
+            android:textColor="@color/colorPrimary"/>
 
-        <LinearLayout
-            android:id="@+id/sensesContainer"
+        <TextView
+            android:id="@+id/tvSense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:visibility="visible"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/tvOtherForms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            android:maxLines="1"
-            android:ellipsize="end"
-            tools:text="御礼 (おれい)、御礼 (おんれい)"
+            android:textColor="@color/colorPrimaryLight"
+            tools:text="To be careful"
             tools:visibility="visible" />
 
     </LinearLayout>
-</android.support.v7.widget.CardView>
+</RelativeLayout>

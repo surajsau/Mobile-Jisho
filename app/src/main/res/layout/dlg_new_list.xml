@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <TextView android:text="Enter list name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/etListName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="e.g., JLPT Revision"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimaryLight"/>
+
+    <Button android:id="@+id/btnAddListName"
+        android:background="@color/colorPrimaryLight"
+        android:layout_width="wrap_content"
+        android:text="Add"
+        android:textColor="@color/white"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

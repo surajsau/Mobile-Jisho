@@ -5,58 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="16dp"
-    tools:background="@drawable/dark_background"
-    tools:context="com.halfplatepoha.jisho.search.SearchFragment">
+    android:background="@color/white">
 
-    <LinearLayout android:id="@+id/offlineView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="16dp"
+    <View android:id="@+id/verticalView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/colorPrimaryVeryLight"
         android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_alignParentRight="true">
+        tools:visibility="visible"/>
 
-        <TextView android:text="@string/offline_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryLight"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"/>
-
-        <com.halfplatepoha.jisho.SwitchButton
-            android:id="@+id/swtchOffline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            app:backColor="@color/colorOn"
-            app:backRadius="12dp"
-            app:textOff="OFF"
-            android:textSize="12sp"
-            app:textOn="ON"
-            android:textColor="@color/white"
-            app:thumbColor="@color/white"
-            app:thumbRadius="10dp" />
-
-    </LinearLayout>
-
-    <RelativeLayout
+    <RelativeLayout android:layout_below="@id/verticalView"
         android:id="@+id/searchContainer"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="?android:actionBarSize"
+        android:layout_height="150dp"
         android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp">
+        android:padding="16dp"
+        android:background="@color/colorPrimaryVeryLight">
 
         <ImageView
             android:id="@+id/ivSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:alpha="0.5"
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:paddingBottom="5dp"
@@ -70,16 +40,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@id/ivSearch"
-            android:alpha="0.5"
             android:background="@null"
             android:hint="Search jisho"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimaryLight"
+            android:textSize="24sp" />
 
         <ImageButton
             android:id="@+id/btnClear"
@@ -95,19 +63,6 @@
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-            android:id="@+id/progress"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:alpha="0.5"
-            android:foregroundGravity="center"
-            android:visibility="gone"
-            app:mpb_progressTint="@color/white"
-            tools:visibility="visible" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -120,7 +75,7 @@
             android:id="@+id/rlWords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/row_word"
+            tools:listitem="@layout/row_word_horizontal"
             tools:visibility="gone"/>
 
         <TextView android:id="@+id/tvError"

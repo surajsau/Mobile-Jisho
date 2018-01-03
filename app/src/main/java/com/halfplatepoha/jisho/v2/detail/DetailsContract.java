@@ -22,6 +22,8 @@ public interface DetailsContract {
 
         void openSentenceDetail(Sentence sentence);
 
+        void openListsScreenForResults();
+
     }
 
     interface Presenter extends IPresenter {
@@ -29,5 +31,10 @@ public interface DetailsContract {
         void clickKanjiPlay();
 
         void clickExamples();
+
+        void clickAddNote();
+
+        void onListNameResultReceived(String listName);
+
     }
 }

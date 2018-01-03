@@ -7,4 +7,5 @@ package com.halfplatepoha.jisho.base;
 public interface BaseView {
     void shortToast(String message);
     void hideKeyboard();
+    void finishScreen();
 }

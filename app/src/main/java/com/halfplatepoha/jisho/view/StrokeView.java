@@ -3,7 +3,7 @@
 //import android.graphics.Path;
 //
 //import java.util.ArrayList;
-//import java.util.List;
+//import java.util.JishoList;
 //import java.util.regex.Matcher;
 //import java.util.regex.Pattern;
 //
@@ -75,8 +75,8 @@
 //                    break;
 //
 //                case 'v':
-//                    List<List<Float>> vFloatsL = forEachCoordinateGroup(coordinateStr, 1);
-//                    for(List<Float> vFloats : vFloatsL) {
+//                    JishoList<JishoList<Float>> vFloatsL = forEachCoordinateGroup(coordinateStr, 1);
+//                    for(JishoList<Float> vFloats : vFloatsL) {
 //                        float vy = vFloats.get(0);
 //                        if (Character.isUpperCase(command)) {
 //                            path.lineTo(lastX, vy);
@@ -89,9 +89,9 @@
 //                    break;
 //
 //                case 'h':
-//                    List<List<Float>> hFloatsL = forEachCoordinateGroup(coordinateStr, 1);
+//                    JishoList<JishoList<Float>> hFloatsL = forEachCoordinateGroup(coordinateStr, 1);
 //
-//                    for(List<Float> hFloats : hFloatsL) {
+//                    for(JishoList<Float> hFloats : hFloatsL) {
 //                        float hx = hFloats.get(0);
 //                        if (Character.isUpperCase(command)) {
 //                            path.lineTo(hx, lastY);
@@ -105,9 +105,9 @@
 //
 //                case 'c':
 //                    curve = true;
-//                    List<List<Float>> cFloatsL = forEachCoordinateGroup(coordinateStr, 6);
+//                    JishoList<JishoList<Float>> cFloatsL = forEachCoordinateGroup(coordinateStr, 6);
 //
-//                    for(List<Float> cFloats : cFloatsL) {
+//                    for(JishoList<Float> cFloats : cFloatsL) {
 //                        float x1 = cFloats.get(0);
 //                        float y1 = cFloats.get(1);
 //
@@ -137,9 +137,9 @@
 //
 //                case 's':
 //                    curve = true;
-//                    List<List<Float>> sFloatsL = forEachCoordinateGroup(coordinateStr, 4);
+//                    JishoList<JishoList<Float>> sFloatsL = forEachCoordinateGroup(coordinateStr, 4);
 //
-//                    for(List<Float> sFloats : sFloatsL) {
+//                    for(JishoList<Float> sFloats : sFloatsL) {
 //                        float sx2 = sFloats.get(0);
 //                        float sy2 = sFloats.get(1);
 //
@@ -187,7 +187,7 @@
 //        return path;
 //    }
 //
-//    private static List<String> collect(String input, int groupIndex) {
+//    private static JishoList<String> collect(String input, int groupIndex) {
 //        Matcher matcher = svgPathPattern.matcher(input);
 //        ArrayList<String> list = new ArrayList<>();
 //
@@ -200,9 +200,9 @@
 //        return list;
 //    }
 //
-//    private static List<List<Float>> forEachCoordinateGroup(String input, int groupSize) {
-//        List<String> strs = collect(input, 0);
-//        List<List<Float>> fll = new ArrayList<>();
+//    private static JishoList<JishoList<Float>> forEachCoordinateGroup(String input, int groupSize) {
+//        JishoList<String> strs = collect(input, 0);
+//        JishoList<JishoList<Float>> fll = new ArrayList<>();
 //
 //        for(int i=0; i<strs.size(); i++) {
 //            int index = i/groupSize;

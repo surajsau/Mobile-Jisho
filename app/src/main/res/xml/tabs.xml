@@ -5,9 +5,9 @@
         icon="@drawable/search"
         title="Search" />
     <tab
-        id="@+id/tab_favorites"
+        id="@+id/tab_lists"
         icon="@drawable/unfav"
-        title="Favorites" />
+        title="Lists" />
     <tab
         id="@+id/tab_history"
         icon="@drawable/history"

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:id="@+id/rowCard"
+    android:padding="10dp"
+    android:background="@color/colorPrimaryVeryLight">
+
+    <ImageView android:id="@+id/ivCommon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/common_indicator"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"/>
+
+    <TextView
+        android:id="@+id/tvJapanese"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        tools:text="気をつけて"/>
+
+    <TextView
+        android:id="@+id/tvSense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:layout_below="@id/tvJapanese"
+        android:textColor="@color/colorPrimaryLight"
+        tools:text="To be careful"/>
+
+</RelativeLayout>

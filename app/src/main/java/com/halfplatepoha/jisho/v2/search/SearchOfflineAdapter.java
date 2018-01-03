@@ -19,18 +19,27 @@ import butterknife.OnClick;
  * Created by surjo on 21/12/17.
  */
 
-public class SearchOfflineAdapter extends BaseAdapter<SearchAdapterContract.Presenter, SearchOfflineAdapter.SearchResultViewHolder> {
+public class SearchOfflineAdapter extends BaseAdapter<SearchAdapterContract.Presenter, BaseViewholder<SearchAdapterContract.Presenter>> {
 
     public SearchOfflineAdapter(SearchAdapterContract.Presenter presenter) {
         super(presenter);
     }
 
     @Override
-    protected SearchResultViewHolder createVH(ViewGroup parent, int viewType) {
-        return new SearchResultViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_word, parent, false), presenter);
+    protected BaseViewholder<SearchAdapterContract.Presenter> createVH(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case SearchAdapterPresenter.TYPE_HORIZONTAL:
+                return new SearchResultViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_word_horizontal, parent, false), presenter);
+
+            case SearchAdapterPresenter.TYPE_VERTICAL:
+                return new SearchResultVerticalViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_word_vertical, parent, false), presenter);
+        }
+
+        return null;
+
     }
 
-    public static class SearchResultViewHolder extends BaseViewholder<SearchAdapterContract.Presenter> implements SearchAdapterContract.View {
+    public static class SearchResultViewHolder extends BaseViewholder<SearchAdapterContract.Presenter> implements SearchAdapterContract.HorizontalView {
 
         @BindView(R.id.tvJapanese)
         TextView tvJapanese;
@@ -38,14 +47,14 @@ public class SearchOfflineAdapter extends BaseAdapter<SearchAdapterContract.Pres
         @BindView(R.id.ivCommon)
         ImageView ivCommon;
 
-        @BindView(R.id.tvHiragana)
-        TextView tvHiragana;
+        @BindView(R.id.tvFurigana)
+        TextView tvFurigana;
 
-        @BindView(R.id.sensesContainer)
-        LinearLayout sensesContainer;
+        @BindView(R.id.tvSense)
+        TextView tvSense;
 
-        @BindView(R.id.tvOtherForms)
-        TextView tvOtherForms;
+//        @BindView(R.id.tvOtherForms)
+//        TextView tvOtherForms;
 
         public SearchResultViewHolder(View itemView, SearchAdapterContract.Presenter presenter) {
             super(itemView, presenter);
@@ -64,17 +73,17 @@ public class SearchOfflineAdapter extends BaseAdapter<SearchAdapterContract.Pres
 
         @Override
         public void showFurigana() {
-            tvHiragana.setVisibility(View.VISIBLE);
+            tvFurigana.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void setFurigana(String furigana) {
-            tvHiragana.setText(furigana);
+            tvFurigana.setText(furigana);
         }
 
         @Override
         public void hideFurigana() {
-            tvHiragana.setVisibility(View.GONE);
+            tvFurigana.setVisibility(View.GONE);
         }
 
         @Override
@@ -86,6 +95,54 @@ public class SearchOfflineAdapter extends BaseAdapter<SearchAdapterContract.Pres
         public void hideCommon() {
             ivCommon.setVisibility(View.GONE);
         }
+
+        @Override
+        public void setSense(String sense) {
+            tvSense.setText(sense);
+        }
+    }
+
+    public static class SearchResultVerticalViewHolder extends BaseViewholder<SearchAdapterContract.Presenter> implements SearchAdapterContract.VerticalView {
+
+        @BindView(R.id.tvJapanese)
+        TextView tvJapanese;
+
+        @BindView(R.id.tvSense)
+        TextView tvSense;
+
+        @BindView(R.id.ivCommon)
+        View ivCommon;
+
+        public SearchResultVerticalViewHolder(View itemView, SearchAdapterContract.Presenter presenter) {
+            super(itemView, presenter);
+        }
+
+        @OnClick(R.id.rowCard)
+        void seeMore() {
+            Analytics.getInstance().recordClick("Search_Details", "Fav_Detail");
+            presenter.onItemClick(getAdapterPosition());
+        }
+
+        @Override
+        public void setJapanese(String japanese) {
+            tvJapanese.setText(japanese);
+        }
+
+        @Override
+        public void showCommon() {
+            ivCommon.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void hideCommon() {
+            ivCommon.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void setSense(String sense) {
+            tvSense.setText(sense);
+        }
+
     }
 
 }

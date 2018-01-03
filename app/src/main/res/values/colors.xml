@@ -3,12 +3,14 @@
     <color name="colorPrimary">#993D3D</color>
     <color name="colorPrimaryDark">#5B2424</color>
     <color name="colorAccent">#1C1D21</color>
+    <color name="colorAccentLight">#232326</color>
     <color name="colorPrimaryLight">#cc9e9e</color>
     <color name="colorPrimaryVeryLight">#F8F5F5</color>
     <color name="white">#FFFFFF</color>
     <color name="darkgray">#404040</color>
     <color name="lightgray">#9F9F9F</color>
-    <color name="common">#A1D634</color>
+    <!--<color name="common">#A1D634</color>-->
+    <color name="common">#cc9e9e</color>
     <color name="colorSecondary">#17605b</color>
     <color name="colorSecondaryLight">#5c8f8c</color>
     <color name="colorOff">#D32F2F</color>

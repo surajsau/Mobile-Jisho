@@ -112,6 +112,12 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     }
 
     @Override
+    public void finishScreen() {
+        if(getActivity() != null)
+            getActivity().finish();
+    }
+
+    @Override
     public void hideKeyboard() {
         View view = getActivity().getCurrentFocus();
         if (view != null) {

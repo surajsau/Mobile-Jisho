@@ -3,9 +3,9 @@ package com.halfplatepoha.jisho.injection.modules;
 import android.support.v4.app.Fragment;
 
 import com.halfplatepoha.jisho.base.BaseFragmentModule;
-import com.halfplatepoha.jisho.favorite.FavoriteContract;
-import com.halfplatepoha.jisho.favorite.FavoriteFragment;
-import com.halfplatepoha.jisho.favorite.FavoritePresenter;
+import com.halfplatepoha.jisho.lists.ListContract;
+import com.halfplatepoha.jisho.lists.ListsFragment;
+import com.halfplatepoha.jisho.lists.ListsPresenter;
 import com.halfplatepoha.jisho.injection.FragmentScope;
 
 import javax.inject.Named;
@@ -23,14 +23,14 @@ public abstract class FavoriteModule {
     @Named(BaseFragmentModule.FRAGMENT)
     @Binds
     @FragmentScope
-    abstract Fragment fragment(FavoriteFragment fragment);
+    abstract Fragment fragment(ListsFragment fragment);
 
     @Binds
     @FragmentScope
-    abstract FavoriteContract.View view(FavoriteFragment fragment);
+    abstract ListContract.View view(ListsFragment fragment);
 
     @Binds
     @FragmentScope
-    abstract FavoriteContract.Presenter presenter(FavoritePresenter presenter);
+    abstract ListContract.Presenter presenter(ListsPresenter presenter);
 
 }

@@ -16,15 +16,26 @@ public interface SearchAdapterContract {
 
         void setJapanese(String japanese);
 
+        void showCommon();
+
+        void hideCommon();
+
+        void setSense(String sense);
+
+    }
+
+    interface VerticalView extends View {
+
+    }
+
+    interface HorizontalView extends View {
+
         void showFurigana();
 
         void setFurigana(String furigana);
 
         void hideFurigana();
 
-        void showCommon();
-
-        void hideCommon();
     }
 
     interface Presenter extends IAdapterPresenter<View> {
@@ -37,5 +48,6 @@ public interface SearchAdapterContract {
 
         void removeListener();
 
+        void setItemViewType(int itemViewType);
     }
 }

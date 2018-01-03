@@ -19,11 +19,10 @@ import com.halfplatepoha.jisho.Download;
 import com.halfplatepoha.jisho.DownloadService;
 import com.halfplatepoha.jisho.JishoPreference;
 import com.halfplatepoha.jisho.R;
-import com.halfplatepoha.jisho.base.BaseActivity;
 import com.halfplatepoha.jisho.base.BaseFragmentActivity;
+import com.halfplatepoha.jisho.lists.ListsFragment;
 import com.halfplatepoha.jisho.settings.SettingsActivity;
 import com.halfplatepoha.jisho.base.BaseFragment;
-import com.halfplatepoha.jisho.favorite.FavoriteFragment;
 import com.halfplatepoha.jisho.history.HistoryFragment;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.UIUtils;
@@ -189,9 +188,9 @@ public class MainActivity extends BaseFragmentActivity<MainContract.Presenter> i
                 openFragment(historyFragment);
                 break;
 
-            case R.id.tab_favorites:
-                FavoriteFragment favoriteFragment = new FavoriteFragment();
-                openFragment(favoriteFragment);
+            case R.id.tab_lists:
+                ListsFragment listsFragment = new ListsFragment();
+                openFragment(listsFragment);
                 break;
 
             case R.id.tab_options:

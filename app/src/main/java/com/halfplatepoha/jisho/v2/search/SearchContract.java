@@ -11,15 +11,25 @@ public interface SearchContract {
 
     interface View extends BaseView {
 
-        void openDetails(String japanese);
+        void openDetails(String japanese, String furigana);
 
         void showSpinner();
 
         void hideSpinner();
+
+        void changeSearchListOrientation(int currentOrientation);
+
+        void showVerticalSpace();
+
+        void hideVerticalSpace();
+
     }
 
     interface Presenter extends IPresenter {
 
         void search(String searchString);
+
+        void clickOrientation();
+
     }
 }

@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.favorite;
+package com.halfplatepoha.jisho.lists;
 
 import com.halfplatepoha.jisho.base.BaseView;
 import com.halfplatepoha.jisho.base.IPresenter;
@@ -7,10 +7,13 @@ import com.halfplatepoha.jisho.base.IPresenter;
  * Created by surjo on 20/12/17.
  */
 
-public interface FavoriteContract {
+public interface ListContract {
 
     interface View extends BaseView {
 
+        void hideZeroState();
+
+        void showZeroState();
     }
 
     interface Presenter extends IPresenter {

@@ -102,6 +102,11 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         super.onDestroy();
     }
 
+    @Override
+    public void finishScreen() {
+        finish();
+    }
+
     protected Jisho getJishoApplication() {
         return (Jisho)getApplicationContext();
     }

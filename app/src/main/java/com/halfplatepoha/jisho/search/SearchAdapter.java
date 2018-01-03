@@ -56,7 +56,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
 
     @Override
     public MainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowView = inflater.inflate(R.layout.row_word, parent, false);
+        View rowView = inflater.inflate(R.layout.row_word_horizontal, parent, false);
         return new MainViewHolder(rowView);
     }
 

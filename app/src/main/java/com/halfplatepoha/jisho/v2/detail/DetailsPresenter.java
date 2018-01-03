@@ -2,6 +2,8 @@ package com.halfplatepoha.jisho.v2.detail;
 
 import com.halfplatepoha.jisho.base.BasePresenter;
 import com.halfplatepoha.jisho.jdb.Entry;
+import com.halfplatepoha.jisho.jdb.JishoList;
+import com.halfplatepoha.jisho.jdb.Schema;
 import com.halfplatepoha.jisho.jdb.Sentence;
 import com.halfplatepoha.jisho.utils.Utils;
 import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapterContract;
@@ -15,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 /**
@@ -29,6 +32,8 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
 
     private String japanese;
 
+    private String furigana;
+
     private Entry entry;
 
     private KanjiAdapterContract.Presenter kanjiAdapterPresenter;
@@ -40,10 +45,12 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
                             Realm realm,
                             KanjiAdapterContract.Presenter kanjiAdapterPresenter,
                             SentenceAdapterContract.Presenter sentenceAdapterPresenter,
-                            @Named(DetailsActivity.KEY_JAPANESE) String japanese) {
+                            @Named(DetailsActivity.KEY_JAPANESE) String japanese,
+                            @Named(DetailsActivity.KEY_FURIGANA) String furigana) {
         super(view);
         this.realm = realm;
         this.japanese = japanese;
+        this.furigana = furigana;
         this.kanjiAdapterPresenter = kanjiAdapterPresenter;
         this.sentenceAdapterPresenter = sentenceAdapterPresenter;
     }
@@ -55,14 +62,22 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
         kanjiAdapterPresenter.attachListener(this);
         sentenceAdapterPresenter.attachListener(this);
 
-        entry = realm.where(Entry.class).equalTo("japanese", japanese).findFirst();
+        RealmQuery<Entry> detailQuery = realm.where(Entry.class)
+                .equalTo(Schema.Entry.JAPANESE, japanese);
+
+        if(furigana != null) {
+            detailQuery = detailQuery.and()
+                    .equalTo(Schema.Entry.FURIGANA, furigana);
+        }
+
+        entry = detailQuery.findFirst();
 
         if(entry != null) {
-            view.setJapanese(entry.japanese);
+            view.setJapanese(japanese);
 
-            if(entry.furigana != null && entry.furigana.length() > 0) {
+            if(furigana != null && furigana.length() > 0) {
                 view.showFurigana();
-                view.setFurigana(entry.furigana);
+                view.setFurigana(furigana);
             }
         }
     }
@@ -83,6 +98,29 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
         } else {
             //TODO: hide sentence recycler
         }
+    }
+
+    @Override
+    public void clickAddNote() {
+        view.openListsScreenForResults();
+    }
+
+    @Override
+    public void onListNameResultReceived(String listName) {
+
+        JishoList list = realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, listName).findFirst();
+
+        realm.beginTransaction();
+
+        if(list == null) {
+            list = realm.createObject(JishoList.class);
+            list.name = listName;
+        }
+
+        list.entries.add(entry);
+
+        realm.commitTransaction();
+
     }
 
     @Override

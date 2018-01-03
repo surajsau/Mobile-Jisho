@@ -3,7 +3,7 @@ package com.halfplatepoha.jisho.injection.modules.views;
 import android.app.Activity;
 
 import com.halfplatepoha.jisho.base.BaseActivityModule;
-import com.halfplatepoha.jisho.favorite.FavoriteFragment;
+import com.halfplatepoha.jisho.lists.ListsFragment;
 import com.halfplatepoha.jisho.history.HistoryFragment;
 import com.halfplatepoha.jisho.home.MainActivity;
 import com.halfplatepoha.jisho.home.MainContract;
@@ -12,7 +12,6 @@ import com.halfplatepoha.jisho.injection.ActivityScope;
 import com.halfplatepoha.jisho.injection.FragmentScope;
 import com.halfplatepoha.jisho.injection.modules.FavoriteModule;
 import com.halfplatepoha.jisho.injection.modules.HistoryModule;
-import com.halfplatepoha.jisho.injection.modules.views.SearchModule;
 import com.halfplatepoha.jisho.v2.search.SearchFragment;
 
 import dagger.Binds;
@@ -48,6 +47,6 @@ public abstract class MainModule {
 
     @ContributesAndroidInjector(modules = FavoriteModule.class)
     @FragmentScope
-    abstract FavoriteFragment favoriteFragment();
+    abstract ListsFragment favoriteFragment();
 
 }
