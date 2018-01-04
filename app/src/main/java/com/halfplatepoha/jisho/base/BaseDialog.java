@@ -1,5 +1,8 @@
 package com.halfplatepoha.jisho.base;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -13,6 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dagger.android.support.AndroidSupportInjection;
 
 /**
  * Created by surjo on 18/12/17.
@@ -29,6 +33,24 @@ public abstract class BaseDialog<P extends IPresenter> extends DialogFragment im
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(getLayoutId(), container, false);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            AndroidSupportInjection.inject(this);
+        }
+        super.onAttach(context);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) {
+        // Perform injection here for M (API 23) due to deprecation of onAttach(Activity).
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            AndroidSupportInjection.inject(this);
+        }
+        super.onAttach(activity);
     }
 
     @LayoutRes

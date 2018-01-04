@@ -4,6 +4,8 @@ import com.halfplatepoha.jisho.home.MainActivity;
 import com.halfplatepoha.jisho.injection.modules.views.DetailModule;
 import com.halfplatepoha.jisho.injection.modules.views.MainModule;
 import com.halfplatepoha.jisho.injection.modules.SettingsModule;
+import com.halfplatepoha.jisho.lists.ListActivityModule;
+import com.halfplatepoha.jisho.lists.ListsActivity;
 import com.halfplatepoha.jisho.settings.SettingsActivity;
 import com.halfplatepoha.jisho.v2.detail.DetailsActivity;
 
@@ -28,5 +30,9 @@ public abstract class ActivityModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {DetailModule.class})
     abstract DetailsActivity detailsActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {ListActivityModule.class})
+    abstract ListsActivity listActivity();
 
 }

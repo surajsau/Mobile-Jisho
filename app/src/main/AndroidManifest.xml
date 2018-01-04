@@ -37,6 +37,11 @@
         <activity
             android:name=".details.DetailsAcitivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".lists.ListsActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".SingleFragmentActivity"
             android:screenOrientation="portrait" />

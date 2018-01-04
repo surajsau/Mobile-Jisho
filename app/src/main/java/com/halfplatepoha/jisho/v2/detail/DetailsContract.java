@@ -36,5 +36,7 @@ public interface DetailsContract {
 
         void onListNameResultReceived(String listName);
 
+        void clickAddToList();
+
     }
 }

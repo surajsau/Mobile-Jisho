@@ -33,7 +33,7 @@ import io.realm.RealmConfiguration;
 
 public class Jisho extends Application implements HasActivityInjector {
 
-    private static final int APP_REALM_VERSION = 3;
+    public static final int APP_REALM_VERSION = 4;
 
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;

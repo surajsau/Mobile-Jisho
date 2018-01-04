@@ -13,13 +13,19 @@ public interface NewListDialogContract {
 
         void dismissDialog();
 
+        void showDuplicateListError();
+
     }
 
     interface Presenter extends IPresenter {
 
-        void addListener(NewListDialogPresenter.Listener listener);
-
         void clickAddListName(String listName);
+
+    }
+
+    interface Bus {
+
+        void pushNewListName(NewListName nlm);
 
     }
 }

@@ -18,6 +18,13 @@ public interface ListContract {
 
     interface Presenter extends IPresenter {
 
+        void onNewListName(String name);
+    }
+
+    interface Bus {
+
+        void pushListName(ListName ln);
+
     }
 
 }

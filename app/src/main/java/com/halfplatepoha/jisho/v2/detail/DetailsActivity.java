@@ -65,6 +65,7 @@ public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> imp
     public static Intent getLaunchIntent(Context context, String japanese, String furigana) {
         Intent intent = new Intent(context, DetailsActivity.class);
         intent.putExtra(KEY_JAPANESE, japanese);
+        intent.putExtra(KEY_FURIGANA, furigana);
         return intent;
     }
 
@@ -124,6 +125,11 @@ public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> imp
     @OnClick(R.id.btnAddNote)
     public void clickAddNote() {
         presenter.clickAddNote();
+    }
+
+    @OnClick(R.id.btnAddToList)
+    public void clickAddToList() {
+        presenter.clickAddToList();
     }
 
     @Override

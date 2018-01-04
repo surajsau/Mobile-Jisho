@@ -1,6 +1,7 @@
 package com.halfplatepoha.jisho.injection.modules.views;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
 
 import com.halfplatepoha.jisho.base.BaseActivityModule;
 import com.halfplatepoha.jisho.injection.ActivityScope;
@@ -67,6 +68,7 @@ public abstract class DetailModule {
         return activity.getIntent().getStringExtra(DetailsActivity.KEY_JAPANESE);
     }
 
+    @Nullable
     @Named(DetailsActivity.KEY_FURIGANA)
     @Provides
     @ActivityScope

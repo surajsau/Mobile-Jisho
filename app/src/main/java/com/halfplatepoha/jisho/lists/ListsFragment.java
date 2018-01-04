@@ -24,7 +24,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class ListsFragment extends BaseFragment<ListContract.Presenter> implements
-        ListContract.View{
+        ListContract.View, ListContract.Bus {
 
     @BindView(R.id.rlLists)
     RecyclerView rlLists;
@@ -60,8 +60,8 @@ public class ListsFragment extends BaseFragment<ListContract.Presenter> implemen
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onListName(ListName listName) {
-        //TODO: implement this .. also, see that activity subscriber doesn't show up
+    public void onNewListName(NewListName newListName) {
+        presenter.onNewListName(newListName.name);
     }
 
     @Override
@@ -72,5 +72,10 @@ public class ListsFragment extends BaseFragment<ListContract.Presenter> implemen
     @Override
     public void showZeroState() {
         listZeroState.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void pushListName(ListName ln) {
+        EventBus.getDefault().post(ln);
     }
 }

@@ -10,7 +10,6 @@ import com.halfplatepoha.jisho.home.MainContract;
 import com.halfplatepoha.jisho.home.MainPresenter;
 import com.halfplatepoha.jisho.injection.ActivityScope;
 import com.halfplatepoha.jisho.injection.FragmentScope;
-import com.halfplatepoha.jisho.injection.modules.FavoriteModule;
 import com.halfplatepoha.jisho.injection.modules.HistoryModule;
 import com.halfplatepoha.jisho.v2.search.SearchFragment;
 
@@ -45,7 +44,7 @@ public abstract class MainModule {
     @FragmentScope
     abstract HistoryFragment historyFragment();
 
-    @ContributesAndroidInjector(modules = FavoriteModule.class)
+    @ContributesAndroidInjector(modules = ListModule.class)
     @FragmentScope
     abstract ListsFragment favoriteFragment();
 

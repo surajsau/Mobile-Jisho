@@ -11,6 +11,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import butterknife.OnClick;
+
 /**
  * Created by surjo on 03/01/18.
  */
@@ -58,6 +60,11 @@ public class ListsActivity extends BaseActivity<ListActivityContract.Presenter> 
         Intent intent = new Intent();
         intent.putExtra(RESULT_LIST_NAME, listName);
         setResult(RESULT_OK, intent);
+    }
+
+    @OnClick(R.id.btnAddToList)
+    public void clickAddListName() {
+        new NewListDialog().show(supportFragmentManager, NewListDialog.TAG);
     }
 
 }

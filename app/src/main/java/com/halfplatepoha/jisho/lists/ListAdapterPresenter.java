@@ -3,6 +3,9 @@ package com.halfplatepoha.jisho.lists;
 import com.halfplatepoha.jisho.base.BaseAdapterPresenter;
 import com.halfplatepoha.jisho.jdb.JishoList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.realm.RealmResults;
@@ -13,7 +16,7 @@ import io.realm.RealmResults;
 
 public class ListAdapterPresenter extends BaseAdapterPresenter<ListAdapterContract.View> implements ListAdapterContract.Presenter {
 
-    private RealmResults<JishoList> lists;
+    private List<JishoList> lists;
 
     private int currentSelectedPosition;
 
@@ -50,7 +53,7 @@ public class ListAdapterPresenter extends BaseAdapterPresenter<ListAdapterContra
     }
 
     @Override
-    public void addLists(RealmResults<JishoList> lists) {
+    public void addLists(List<JishoList> lists) {
         this.lists = lists;
         adapterInterface.itemRangeInserted(0, lists.size());
     }
@@ -63,6 +66,16 @@ public class ListAdapterPresenter extends BaseAdapterPresenter<ListAdapterContra
     @Override
     public void removeListener() {
         this.listener = null;
+    }
+
+    @Override
+    public void addList(JishoList newList) {
+        if(lists == null)
+            lists = new ArrayList<>();
+
+        lists.add(newList);
+
+        adapterInterface.itemInserted(0);
     }
 
     public interface Listener {

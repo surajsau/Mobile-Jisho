@@ -1,5 +1,7 @@
 package com.halfplatepoha.jisho.v2.detail;
 
+import android.support.annotation.Nullable;
+
 import com.halfplatepoha.jisho.base.BasePresenter;
 import com.halfplatepoha.jisho.jdb.Entry;
 import com.halfplatepoha.jisho.jdb.JishoList;
@@ -32,6 +34,7 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
 
     private String japanese;
 
+    @Nullable
     private String furigana;
 
     private Entry entry;
@@ -46,7 +49,7 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
                             KanjiAdapterContract.Presenter kanjiAdapterPresenter,
                             SentenceAdapterContract.Presenter sentenceAdapterPresenter,
                             @Named(DetailsActivity.KEY_JAPANESE) String japanese,
-                            @Named(DetailsActivity.KEY_FURIGANA) String furigana) {
+                            @Nullable @Named(DetailsActivity.KEY_FURIGANA) String furigana) {
         super(view);
         this.realm = realm;
         this.japanese = japanese;
@@ -102,6 +105,11 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
 
     @Override
     public void clickAddNote() {
+        //TODO: implemenet adding note
+    }
+
+    @Override
+    public void clickAddToList() {
         view.openListsScreenForResults();
     }
 

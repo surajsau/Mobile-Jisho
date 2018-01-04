@@ -4,6 +4,8 @@ import com.halfplatepoha.jisho.base.BaseViewholderView;
 import com.halfplatepoha.jisho.base.IAdapterPresenter;
 import com.halfplatepoha.jisho.jdb.JishoList;
 
+import java.util.List;
+
 import io.realm.RealmResults;
 
 /**
@@ -28,10 +30,13 @@ public interface ListAdapterContract {
 
         void onItemClick(int adapterPosition);
 
-        void addLists(RealmResults<JishoList> lists);
+        void addLists(List<JishoList> lists);
 
         void addListener(ListAdapterPresenter.Listener listener);
 
         void removeListener();
+
+        void addList(JishoList name);
+
     }
 }

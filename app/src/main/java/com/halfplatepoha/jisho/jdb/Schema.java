@@ -7,6 +7,7 @@ package com.halfplatepoha.jisho.jdb;
 public interface Schema {
 
     interface Entry {
+        String ENTRY = "Entry";
         String ENTRY_SEQ = "entrySeq";
         String JAPANESE = "japanese";
         String POS = "pos";
@@ -22,6 +23,7 @@ public interface Schema {
     }
 
     interface JishoList {
+        String JISHOLIST = "JishoList";
         String NAME = "name";
         String ENTRIES = "entries";
     }
