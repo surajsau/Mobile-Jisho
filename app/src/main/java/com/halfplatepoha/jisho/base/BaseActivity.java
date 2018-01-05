@@ -20,6 +20,7 @@ import javax.inject.Named;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -29,7 +30,7 @@ import dagger.android.support.HasSupportFragmentInjector;
  * Created by surjo on 21/04/17.
  */
 
-public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity implements BaseView, HasSupportFragmentInjector {
+public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity implements BaseView {
 
     @Nullable
     @BindView(R.id.background)
@@ -38,14 +39,6 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     @Inject
     protected
     P presenter;
-
-    @Named(BaseActivityModule.ACTIVITY_FRAGMENT_MANAGER)
-    @Inject
-    protected
-    FragmentManager supportFragmentManager;
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> fragmentInjector;
 
     @Override
     public void shortToast(String message) {
@@ -108,15 +101,10 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         super.onDestroy();
     }
 
-    @Nullable
+    @Optional
     @OnClick(R.id.back)
     public void clickBack() {
         presenter.onBack();
-    }
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return fragmentInjector;
     }
 
     @Override

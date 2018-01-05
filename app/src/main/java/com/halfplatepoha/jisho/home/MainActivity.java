@@ -160,7 +160,7 @@ public class MainActivity extends BaseFragmentActivity<MainContract.Presenter> i
     }
 
     private void openFragment(BaseFragment fragment) {
-        mFragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
     }

@@ -23,12 +23,7 @@ public abstract class BaseFragmentActivity<P extends IPresenter> extends BaseAct
 
     @Inject
     @Named(BaseActivityModule.ACTIVITY_FRAGMENT_MANAGER)
-    protected FragmentManager mFragmentManager;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    protected FragmentManager supportFragmentManager;
 
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {

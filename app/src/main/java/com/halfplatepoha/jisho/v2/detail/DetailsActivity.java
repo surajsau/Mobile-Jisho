@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseActivity;
+import com.halfplatepoha.jisho.base.BaseFragmentActivity;
 import com.halfplatepoha.jisho.jdb.Sentence;
 import com.halfplatepoha.jisho.kanjidetail.KanjiDetailFragment;
 import com.halfplatepoha.jisho.lists.listactivity.ListsActivity;
@@ -26,7 +27,7 @@ import butterknife.OnClick;
  * Created by surjo on 19/12/17.
  */
 
-public class DetailsActivity extends BaseActivity<DetailsContract.Presenter> implements DetailsContract.View {
+public class DetailsActivity extends BaseFragmentActivity<DetailsContract.Presenter> implements DetailsContract.View {
 
     public static final String KEY_JAPANESE = "key_japanese";
     public static final String KEY_FURIGANA = "key_furigana";

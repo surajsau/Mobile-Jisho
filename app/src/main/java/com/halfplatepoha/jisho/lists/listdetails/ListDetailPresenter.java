@@ -39,6 +39,7 @@ public class ListDetailPresenter extends BasePresenter<ListDetailContract.View> 
         super.onCreate();
 
         entriesAdapterPresenter.attachListener(this);
+        entriesAdapterPresenter.setItemViewType(EntriesAdapterPresenter.TYPE_VERTICAL);
 
         JishoList list = realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, listName).findFirst();
 
