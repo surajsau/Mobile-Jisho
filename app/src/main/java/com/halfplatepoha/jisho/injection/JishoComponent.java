@@ -21,7 +21,8 @@ import retrofit2.Retrofit;
  */
 
 @Component(modules = {JishoModule.class, DataModule.class, NetworkModule.class})
-public interface JishoComponent {
+@AppScope
+public interface JishoComponent extends AndroidInjector<Jisho> {
 
     Application application();
 
@@ -33,12 +34,13 @@ public interface JishoComponent {
     interface Builder {
 
         @BindsInstance
-        Builder application(Jisho application);
+        abstract Builder application(Jisho application);
 
         JishoComponent build();
 
     }
 
+    @Override
     void inject(Jisho application);
 
 }

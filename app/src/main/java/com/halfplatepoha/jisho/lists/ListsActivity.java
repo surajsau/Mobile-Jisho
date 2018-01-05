@@ -21,8 +21,6 @@ public class ListsActivity extends BaseActivity<ListActivityContract.Presenter> 
 
     public static final String RESULT_LIST_NAME = "list_name";
 
-    private ListsFragment listsFragment;
-
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_lists;
@@ -30,12 +28,11 @@ public class ListsActivity extends BaseActivity<ListActivityContract.Presenter> 
 
     @Override
     public void openListFragment() {
-        if(listsFragment == null)
-            listsFragment = new ListsFragment();
 
         supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, listsFragment)
+                .add(R.id.fragmentContainer, new ListsFragment())
                 .commit();
+
     }
 
     @Override

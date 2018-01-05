@@ -31,12 +31,9 @@ import io.realm.RealmConfiguration;
  * Created by surjo on 22/04/17.
  */
 
-public class Jisho extends Application implements HasActivityInjector {
+public class Jisho extends DaggerApplication {
 
     public static final int APP_REALM_VERSION = 4;
-
-    @Inject
-    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
 
     private static final String APP_REALM = "jisho.realm";
     private static final String JDB_REALM = "jdb.realm";
@@ -46,11 +43,6 @@ public class Jisho extends Application implements HasActivityInjector {
         super.onCreate();
 
         Realm.init(this);
-
-        DaggerJishoComponent.builder()
-                .application(this)
-                .build()
-                .inject(this);
 
         Realm.setDefaultConfiguration(appRealmConfiguration());
         appRealmConfiguration();
@@ -80,15 +72,22 @@ public class Jisho extends Application implements HasActivityInjector {
         }
     }
 
-    @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return activityDispatchingAndroidInjector;
-    }
-
     private RealmConfiguration appRealmConfiguration() {
         return new RealmConfiguration.Builder()
                 .schemaVersion(APP_REALM_VERSION)
                 .migration(new JishoMigration())
                 .build();
     }
+
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        JishoComponent component = DaggerJishoComponent.builder()
+                .application(this)
+                .build();
+
+        component.inject(this);
+
+        return component;
+    }
+
 }

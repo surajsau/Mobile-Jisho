@@ -28,18 +28,23 @@ import dagger.android.support.HasSupportFragmentInjector;
  * Created by surjo on 21/04/17.
  */
 
-public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity implements BaseView, HasSupportFragmentInjector {
 
     @Nullable
     @BindView(R.id.background)
     protected View background;
 
     @Inject
-    protected P presenter;
+    protected
+    P presenter;
 
     @Named(BaseActivityModule.ACTIVITY_FRAGMENT_MANAGER)
     @Inject
-    protected FragmentManager supportFragmentManager;
+    protected
+    FragmentManager supportFragmentManager;
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentInjector;
 
     @Override
     public void shortToast(String message) {
@@ -100,6 +105,11 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
             presenter.onDestroy();
 
         super.onDestroy();
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentInjector;
     }
 
     @Override

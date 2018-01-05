@@ -7,13 +7,14 @@ import com.halfplatepoha.jisho.Jisho;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import dagger.android.support.AndroidSupportInjectionModule;
 import io.realm.Realm;
 
 /**
  * Created by surjo on 20/12/17.
  */
 
-@Module(includes = {ActivityModule.class})
+@Module(includes = {AndroidSupportInjectionModule.class, ActivityModule.class})
 public abstract class JishoModule {
 
     @Binds

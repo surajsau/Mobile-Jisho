@@ -23,6 +23,8 @@ public class NewListDialogPresenter extends BasePresenter<NewListDialogContract.
     public NewListDialogPresenter(NewListDialogContract.View view, NewListDialogContract.Bus eventBus) {
         super(view);
         this.eventBus = eventBus;
+
+        realm = Realm.getDefaultInstance();
     }
 
     @Override
