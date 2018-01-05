@@ -20,7 +20,8 @@ import com.halfplatepoha.jisho.DownloadService;
 import com.halfplatepoha.jisho.JishoPreference;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseFragmentActivity;
-import com.halfplatepoha.jisho.lists.ListsFragment;
+import com.halfplatepoha.jisho.lists.listsfragment.ListsFragment;
+import com.halfplatepoha.jisho.lists.listsfragment.ListsPresenter;
 import com.halfplatepoha.jisho.settings.SettingsActivity;
 import com.halfplatepoha.jisho.base.BaseFragment;
 import com.halfplatepoha.jisho.history.HistoryFragment;
@@ -189,7 +190,7 @@ public class MainActivity extends BaseFragmentActivity<MainContract.Presenter> i
                 break;
 
             case R.id.tab_lists:
-                ListsFragment listsFragment = new ListsFragment();
+                ListsFragment listsFragment = ListsFragment.getInstance(ListsPresenter.MODE_OPEN_LIST);
                 openFragment(listsFragment);
                 break;
 

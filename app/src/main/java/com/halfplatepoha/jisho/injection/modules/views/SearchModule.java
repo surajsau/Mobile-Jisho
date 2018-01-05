@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 
 import com.halfplatepoha.jisho.base.BaseFragmentModule;
 import com.halfplatepoha.jisho.injection.FragmentScope;
-import com.halfplatepoha.jisho.v2.search.SearchOfflineAdapter;
-import com.halfplatepoha.jisho.v2.search.SearchAdapterContract;
-import com.halfplatepoha.jisho.v2.search.SearchAdapterPresenter;
+import com.halfplatepoha.jisho.v2.search.EntriesAdapter;
+import com.halfplatepoha.jisho.v2.search.EntriesAdapterContract;
+import com.halfplatepoha.jisho.v2.search.EntriesAdapterPresenter;
 import com.halfplatepoha.jisho.v2.search.SearchContract;
 import com.halfplatepoha.jisho.v2.search.SearchFragment;
 import com.halfplatepoha.jisho.v2.search.SearchPresenter;
@@ -39,12 +39,12 @@ public abstract class SearchModule {
 
     @Binds
     @FragmentScope
-    abstract SearchAdapterContract.Presenter adapterPresenter(SearchAdapterPresenter presenter);
+    abstract EntriesAdapterContract.Presenter adapterPresenter(EntriesAdapterPresenter presenter);
 
     @Provides
     @FragmentScope
-    static SearchOfflineAdapter searchAdapter(SearchAdapterContract.Presenter presenter) {
-        return new SearchOfflineAdapter(presenter);
+    static EntriesAdapter searchAdapter(EntriesAdapterContract.Presenter presenter) {
+        return new EntriesAdapter(presenter);
     }
 
     @Named(SearchFragment.EXTRA_SEARCH_STRING)

@@ -4,13 +4,15 @@ import com.halfplatepoha.jisho.base.BaseViewholderView;
 import com.halfplatepoha.jisho.base.IAdapterPresenter;
 import com.halfplatepoha.jisho.jdb.Entry;
 
+import java.util.List;
+
 import io.realm.RealmResults;
 
 /**
  * Created by surjo on 21/12/17.
  */
 
-public interface SearchAdapterContract {
+public interface EntriesAdapterContract {
 
     interface View extends BaseViewholderView {
 
@@ -40,11 +42,11 @@ public interface SearchAdapterContract {
 
     interface Presenter extends IAdapterPresenter<View> {
 
-        void setResults(RealmResults<Entry> entries);
+        void setResults(List<Entry> entries);
 
         void onItemClick(int adapterPosition);
 
-        void attachListener(SearchAdapterPresenter.Listener listener);
+        void attachListener(EntriesAdapterPresenter.Listener listener);
 
         void removeListener();
 

@@ -16,4 +16,6 @@ public interface IPresenter {
 
     void onDestroy();
 
+    void onBack();
+
 }

@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.newlistdialog;
 
 import com.halfplatepoha.jisho.base.BaseView;
 import com.halfplatepoha.jisho.base.IPresenter;

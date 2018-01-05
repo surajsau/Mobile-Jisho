@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.newlistdialog;
 
 /**
  * Created by surjo on 04/01/18.

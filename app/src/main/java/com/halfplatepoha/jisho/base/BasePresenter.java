@@ -31,4 +31,8 @@ public abstract class BasePresenter<V extends BaseView> implements IPresenter {
         view = null;
     }
 
+    @Override
+    public void onBack() {
+        view.finishScreen();
+    }
 }

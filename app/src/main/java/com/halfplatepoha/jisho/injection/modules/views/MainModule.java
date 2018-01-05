@@ -3,7 +3,7 @@ package com.halfplatepoha.jisho.injection.modules.views;
 import android.app.Activity;
 
 import com.halfplatepoha.jisho.base.BaseActivityModule;
-import com.halfplatepoha.jisho.lists.ListsFragment;
+import com.halfplatepoha.jisho.lists.listsfragment.ListsFragment;
 import com.halfplatepoha.jisho.history.HistoryFragment;
 import com.halfplatepoha.jisho.home.MainActivity;
 import com.halfplatepoha.jisho.home.MainContract;
@@ -44,7 +44,7 @@ public abstract class MainModule {
     @FragmentScope
     abstract HistoryFragment historyFragment();
 
-    @ContributesAndroidInjector(modules = ListModule.class)
+    @ContributesAndroidInjector(modules = ListsModule.class)
     @FragmentScope
     abstract ListsFragment favoriteFragment();
 

@@ -2,9 +2,7 @@ package com.halfplatepoha.jisho.v2.search;
 
 import com.halfplatepoha.jisho.base.BaseAdapterPresenter;
 import com.halfplatepoha.jisho.jdb.Entry;
-import com.halfplatepoha.jisho.jdb.Gloss;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,24 +13,24 @@ import io.realm.RealmResults;
  * Created by surjo on 21/12/17.
  */
 
-public class SearchAdapterPresenter extends BaseAdapterPresenter<SearchAdapterContract.View> implements SearchAdapterContract.Presenter {
+public class EntriesAdapterPresenter extends BaseAdapterPresenter<EntriesAdapterContract.View> implements EntriesAdapterContract.Presenter {
 
     public static final int TYPE_VERTICAL = 1;
     public static final int TYPE_HORIZONTAL = 2;
 
-    RealmResults<Entry> entries;
+    List<Entry> entries;
 
     private Listener listener;
 
     private int itemViewType = TYPE_HORIZONTAL;
 
     @Inject
-    public SearchAdapterPresenter() {
+    public EntriesAdapterPresenter() {
         super();
     }
 
     @Override
-    public void setResults(RealmResults<Entry> entries) {
+    public void setResults(List<Entry> entries) {
         this.entries = entries;
         adapterInterface.dataSetChanged();
     }
@@ -54,7 +52,7 @@ public class SearchAdapterPresenter extends BaseAdapterPresenter<SearchAdapterCo
     }
 
     @Override
-    public void onBind(SearchAdapterContract.View viewHolder, int position) {
+    public void onBind(EntriesAdapterContract.View viewHolder, int position) {
 
         Entry entry = entries.get(position);
         viewHolder.setJapanese(entry.japanese);
@@ -76,12 +74,12 @@ public class SearchAdapterPresenter extends BaseAdapterPresenter<SearchAdapterCo
         else
             viewHolder.hideCommon();
 
-        if(viewHolder instanceof SearchAdapterContract.HorizontalView) {
+        if(viewHolder instanceof EntriesAdapterContract.HorizontalView) {
             if (entry.furigana != null && entry.furigana.length() != 0) {
-                ((SearchAdapterContract.HorizontalView)viewHolder).showFurigana();
-                ((SearchAdapterContract.HorizontalView)viewHolder).setFurigana(entry.furigana);
+                ((EntriesAdapterContract.HorizontalView)viewHolder).showFurigana();
+                ((EntriesAdapterContract.HorizontalView)viewHolder).setFurigana(entry.furigana);
             } else {
-                ((SearchAdapterContract.HorizontalView)viewHolder).hideFurigana();
+                ((EntriesAdapterContract.HorizontalView)viewHolder).hideFurigana();
             }
         }
     }

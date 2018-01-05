@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.listsfragment;
 
 /**
  * Created by surjo on 03/01/18.

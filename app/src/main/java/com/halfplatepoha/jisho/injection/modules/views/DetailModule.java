@@ -14,7 +14,6 @@ import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapterPresenter;
 import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapter;
 import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapterContract;
 import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapterPresenter;
-import com.halfplatepoha.jisho.v2.search.SearchAdapterContract;
 
 import javax.inject.Named;
 

@@ -37,24 +37,23 @@
         <activity
             android:name=".details.DetailsAcitivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name=".lists.ListsActivity"
+            android:name=".lists.listactivity.ListsActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".SingleFragmentActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name=".UpdateDBService"/>
+        <service android:name=".UpdateDBService" />
 
-        <!--<service android:name=".DownloadService" />-->
-        <!--<service android:name=".KanjiStrokesService" />-->
+        <!-- <service android:name=".DownloadService" /> -->
+        <!-- <service android:name=".KanjiStrokesService" /> -->
 
         <activity
             android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".v2.detail.DetailsActivity"></activity>
+        <activity android:name=".v2.detail.DetailsActivity" />
+        <activity android:name=".lists.listdetails.ListDetailActivity"></activity>
     </application>
 
 </manifest>

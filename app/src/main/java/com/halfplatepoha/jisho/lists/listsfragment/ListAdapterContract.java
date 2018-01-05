@@ -1,12 +1,10 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.listsfragment;
 
 import com.halfplatepoha.jisho.base.BaseViewholderView;
 import com.halfplatepoha.jisho.base.IAdapterPresenter;
 import com.halfplatepoha.jisho.jdb.JishoList;
 
 import java.util.List;
-
-import io.realm.RealmResults;
 
 /**
  * Created by surjo on 03/01/18.

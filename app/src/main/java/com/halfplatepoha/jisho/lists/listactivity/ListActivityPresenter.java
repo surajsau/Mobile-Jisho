@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.listactivity;
 
 import com.halfplatepoha.jisho.base.BasePresenter;
 

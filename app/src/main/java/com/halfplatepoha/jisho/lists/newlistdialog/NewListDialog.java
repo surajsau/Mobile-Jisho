@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.newlistdialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

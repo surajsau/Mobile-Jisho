@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.listsfragment;
 
 import com.halfplatepoha.jisho.base.BaseView;
 import com.halfplatepoha.jisho.base.IPresenter;
@@ -14,6 +14,9 @@ public interface ListContract {
         void hideZeroState();
 
         void showZeroState();
+
+        void openListDetailsScreen(String listName);
+
     }
 
     interface Presenter extends IPresenter {

@@ -1,13 +1,12 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.listsfragment;
 
 import com.halfplatepoha.jisho.base.BasePresenter;
 import com.halfplatepoha.jisho.jdb.JishoList;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -19,19 +18,26 @@ import io.realm.RealmResults;
 public class ListsPresenter extends BasePresenter<ListContract.View> implements ListContract.Presenter,
         ListAdapterPresenter.Listener {
 
+    public static final int MODE_ADD_LIST = 1;
+    public static final int MODE_OPEN_LIST = 2;
+
     private ListAdapterContract.Presenter listAdapterPresenter;
 
     private ListContract.Bus eventBus;
 
     private Realm realm;
 
+    private int listMode;
+
     @Inject
     public ListsPresenter(ListContract.View view,
                           ListContract.Bus eventBus,
-                          ListAdapterContract.Presenter listAdapterPresenter) {
+                          ListAdapterContract.Presenter listAdapterPresenter,
+                          @Named(ListsFragment.KEY_LIST_MODE) int listMode) {
         super(view);
         this.eventBus = eventBus;
         this.listAdapterPresenter = listAdapterPresenter;
+        this.listMode = listMode;
     }
 
     @Override
@@ -60,10 +66,18 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
 
     @Override
     public void onListSelected(String listName) {
-        ListName ln = new ListName();
-        ln.name = listName;
+        switch (listMode) {
+            case MODE_ADD_LIST:
+                ListName ln = new ListName();
+                ln.name = listName;
 
-        eventBus.pushListName(ln);
+                eventBus.pushListName(ln);
+                break;
+
+            case MODE_OPEN_LIST:
+                view.openListDetailsScreen(listName);
+                break;
+        }
     }
 
     @Override

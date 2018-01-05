@@ -13,7 +13,7 @@ import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseActivity;
 import com.halfplatepoha.jisho.jdb.Sentence;
 import com.halfplatepoha.jisho.kanjidetail.KanjiDetailFragment;
-import com.halfplatepoha.jisho.lists.ListsActivity;
+import com.halfplatepoha.jisho.lists.listactivity.ListsActivity;
 import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapter;
 import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapter;
 

@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.listsfragment;
 
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -9,8 +9,6 @@ import android.widget.TextView;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseAdapter;
 import com.halfplatepoha.jisho.base.BaseViewholder;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -59,7 +57,7 @@ public class ListsAdapter extends BaseAdapter<ListAdapterContract.Presenter,List
 
         @Override
         public void setSelectedBackground(int bg) {
-            row.setBackgroundResource(bg);
+            row.setBackgroundColor(bg);
         }
 
         @OnClick(R.id.row_list)

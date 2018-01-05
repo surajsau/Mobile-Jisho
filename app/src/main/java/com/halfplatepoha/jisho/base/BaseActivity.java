@@ -19,6 +19,7 @@ import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -105,6 +106,12 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
             presenter.onDestroy();
 
         super.onDestroy();
+    }
+
+    @Nullable
+    @OnClick(R.id.back)
+    public void clickBack() {
+        presenter.onBack();
     }
 
     @Override

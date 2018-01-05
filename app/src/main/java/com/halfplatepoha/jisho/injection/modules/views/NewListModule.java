@@ -1,10 +1,9 @@
 package com.halfplatepoha.jisho.injection.modules.views;
 
 import com.halfplatepoha.jisho.injection.DialogScope;
-import com.halfplatepoha.jisho.injection.FragmentScope;
-import com.halfplatepoha.jisho.lists.NewListDialog;
-import com.halfplatepoha.jisho.lists.NewListDialogContract;
-import com.halfplatepoha.jisho.lists.NewListDialogPresenter;
+import com.halfplatepoha.jisho.lists.newlistdialog.NewListDialog;
+import com.halfplatepoha.jisho.lists.newlistdialog.NewListDialogContract;
+import com.halfplatepoha.jisho.lists.newlistdialog.NewListDialogPresenter;
 
 import dagger.Binds;
 import dagger.Module;

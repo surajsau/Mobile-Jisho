@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.listsfragment;
 
 import com.halfplatepoha.jisho.base.BaseAdapterPresenter;
 import com.halfplatepoha.jisho.jdb.JishoList;
@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import io.realm.RealmResults;
 
 /**
  * Created by surjo on 03/01/18.

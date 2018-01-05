@@ -22,9 +22,7 @@ import com.halfplatepoha.jisho.v2.detail.DetailsActivity;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import io.realm.Realm;
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 /**
  * Created by surjo on 20/12/17.
@@ -54,7 +52,7 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     View verticalSpace;
 
     @Inject
-    SearchOfflineAdapter searchAdapter;
+    EntriesAdapter searchAdapter;
 
     private Realm jdbRealm;
 
@@ -114,7 +112,7 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
 
     @Override
     public void changeSearchListOrientation(int currentOrientation) {
-        if(currentOrientation == SearchAdapterPresenter.TYPE_VERTICAL)
+        if(currentOrientation == EntriesAdapterPresenter.TYPE_VERTICAL)
             rlWords.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         else
             rlWords.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

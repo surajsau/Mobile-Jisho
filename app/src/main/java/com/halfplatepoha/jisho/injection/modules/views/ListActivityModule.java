@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.injection.modules.views;
 
 import android.app.Activity;
 
@@ -6,8 +6,13 @@ import com.halfplatepoha.jisho.base.BaseActivityModule;
 import com.halfplatepoha.jisho.injection.ActivityScope;
 import com.halfplatepoha.jisho.injection.DialogScope;
 import com.halfplatepoha.jisho.injection.FragmentScope;
-import com.halfplatepoha.jisho.injection.modules.views.ListModule;
+import com.halfplatepoha.jisho.injection.modules.views.ListsModule;
 import com.halfplatepoha.jisho.injection.modules.views.NewListModule;
+import com.halfplatepoha.jisho.lists.listactivity.ListActivityContract;
+import com.halfplatepoha.jisho.lists.listactivity.ListActivityPresenter;
+import com.halfplatepoha.jisho.lists.listactivity.ListsActivity;
+import com.halfplatepoha.jisho.lists.listsfragment.ListsFragment;
+import com.halfplatepoha.jisho.lists.newlistdialog.NewListDialog;
 
 import dagger.Binds;
 import dagger.Module;
@@ -32,7 +37,7 @@ public abstract class ListActivityModule {
     @ActivityScope
     abstract ListActivityContract.Presenter presenter(ListActivityPresenter presenter);
 
-    @ContributesAndroidInjector(modules = {ListModule.class})
+    @ContributesAndroidInjector(modules = {ListsModule.class})
     @FragmentScope
     abstract ListsFragment listsFragment();
 

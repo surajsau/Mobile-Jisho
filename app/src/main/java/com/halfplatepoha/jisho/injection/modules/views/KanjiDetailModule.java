@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.injection.modules;
+package com.halfplatepoha.jisho.injection.modules.views;
 
 import com.halfplatepoha.jisho.injection.DialogScope;
 import com.halfplatepoha.jisho.kanjidetail.KanjiDetailContract;

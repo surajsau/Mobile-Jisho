@@ -1,11 +1,13 @@
-package com.halfplatepoha.jisho.lists;
+package com.halfplatepoha.jisho.lists.listactivity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseActivity;
+import com.halfplatepoha.jisho.lists.listsfragment.ListName;
+import com.halfplatepoha.jisho.lists.listsfragment.ListsFragment;
+import com.halfplatepoha.jisho.lists.listsfragment.ListsPresenter;
+import com.halfplatepoha.jisho.lists.newlistdialog.NewListDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -30,7 +32,7 @@ public class ListsActivity extends BaseActivity<ListActivityContract.Presenter> 
     public void openListFragment() {
 
         supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, new ListsFragment())
+                .add(R.id.fragmentContainer, ListsFragment.getInstance(ListsPresenter.MODE_ADD_LIST))
                 .commit();
 
     }

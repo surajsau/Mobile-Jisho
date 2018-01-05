@@ -4,12 +4,12 @@ import android.support.v4.app.Fragment;
 
 import com.halfplatepoha.jisho.base.BaseFragmentModule;
 import com.halfplatepoha.jisho.injection.FragmentScope;
-import com.halfplatepoha.jisho.lists.ListAdapterContract;
-import com.halfplatepoha.jisho.lists.ListAdapterPresenter;
-import com.halfplatepoha.jisho.lists.ListContract;
-import com.halfplatepoha.jisho.lists.ListsAdapter;
-import com.halfplatepoha.jisho.lists.ListsFragment;
-import com.halfplatepoha.jisho.lists.ListsPresenter;
+import com.halfplatepoha.jisho.lists.listsfragment.ListAdapterContract;
+import com.halfplatepoha.jisho.lists.listsfragment.ListAdapterPresenter;
+import com.halfplatepoha.jisho.lists.listsfragment.ListContract;
+import com.halfplatepoha.jisho.lists.listsfragment.ListsAdapter;
+import com.halfplatepoha.jisho.lists.listsfragment.ListsFragment;
+import com.halfplatepoha.jisho.lists.listsfragment.ListsPresenter;
 
 import javax.inject.Named;
 
@@ -22,7 +22,7 @@ import dagger.Provides;
  */
 
 @Module(includes = BaseFragmentModule.class)
-public abstract class ListModule {
+public abstract class ListsModule {
 
     @Named(BaseFragmentModule.FRAGMENT)
     @Binds
@@ -49,5 +49,14 @@ public abstract class ListModule {
     @FragmentScope
     static ListsAdapter listAdapter(ListAdapterContract.Presenter presenter) {
         return new ListsAdapter(presenter);
+    }
+
+    @Named(ListsFragment.KEY_LIST_MODE)
+    @Provides
+    @FragmentScope
+    static int listMode(ListsFragment fragment) {
+        if(fragment.getArguments() != null)
+            return fragment.getArguments().getInt(ListsFragment.KEY_LIST_MODE, ListsPresenter.MODE_OPEN_LIST);
+        return ListsPresenter.MODE_OPEN_LIST;
     }
 }
