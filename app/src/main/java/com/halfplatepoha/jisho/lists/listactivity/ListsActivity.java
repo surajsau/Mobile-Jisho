@@ -3,12 +3,11 @@ package com.halfplatepoha.jisho.lists.listactivity;
 import android.content.Intent;
 
 import com.halfplatepoha.jisho.R;
-import com.halfplatepoha.jisho.base.BaseActivity;
 import com.halfplatepoha.jisho.base.BaseFragmentActivity;
 import com.halfplatepoha.jisho.lists.listsfragment.ListName;
 import com.halfplatepoha.jisho.lists.listsfragment.ListsFragment;
 import com.halfplatepoha.jisho.lists.listsfragment.ListsPresenter;
-import com.halfplatepoha.jisho.lists.newlistdialog.NewListDialog;
+import com.halfplatepoha.jisho.lists.newlistdialog.ListNameDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -24,6 +23,8 @@ public class ListsActivity extends BaseFragmentActivity<ListActivityContract.Pre
 
     public static final String RESULT_LIST_NAME = "list_name";
 
+    private ListsFragment listsFragment;
+
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_lists;
@@ -32,8 +33,11 @@ public class ListsActivity extends BaseFragmentActivity<ListActivityContract.Pre
     @Override
     public void openListFragment() {
 
+        if(listsFragment == null)
+            listsFragment = ListsFragment.getInstance(ListsPresenter.MODE_ADD_LIST);
+
         supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, ListsFragment.getInstance(ListsPresenter.MODE_ADD_LIST))
+                .add(R.id.fragmentContainer, listsFragment)
                 .commit();
 
     }
@@ -64,7 +68,7 @@ public class ListsActivity extends BaseFragmentActivity<ListActivityContract.Pre
 
     @OnClick(R.id.btnAddToList)
     public void clickAddListName() {
-        new NewListDialog().show(supportFragmentManager, NewListDialog.TAG);
+        listsFragment.addListName();
     }
 
 }

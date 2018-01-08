@@ -7,6 +7,7 @@ import com.halfplatepoha.jisho.jdb.Schema;
 import javax.inject.Inject;
 
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
@@ -42,8 +43,11 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         RealmResults<Entry> entries = realm.where(Entry.class)
                 .equalTo(Schema.Entry.JAPANESE, searchString)
                 .or()
+                .contains(Schema.Entry.JAPANESE, searchString)
+                .or()
                 .contains(Schema.Entry.FURIGANA, searchString)
-                .sort(Schema.Entry.COMMON, Sort.ASCENDING)
+                .or()
+                .equalTo(Schema.Entry.FURIGANA, searchString)
                 .findAll();
 
         view.hideSpinner();

@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 
 import com.halfplatepoha.jisho.base.BaseActivityModule;
 import com.halfplatepoha.jisho.injection.ActivityScope;
+import com.halfplatepoha.jisho.injection.DialogScope;
+import com.halfplatepoha.jisho.kanjidetail.KanjiDetailFragment;
 import com.halfplatepoha.jisho.v2.detail.DetailsActivity;
 import com.halfplatepoha.jisho.v2.detail.DetailsContract;
 import com.halfplatepoha.jisho.v2.detail.DetailsPresenter;
@@ -20,6 +22,7 @@ import javax.inject.Named;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import dagger.android.ContributesAndroidInjector;
 
 /**
  * Created by surjo on 28/12/17.
@@ -74,4 +77,8 @@ public abstract class DetailModule {
     static String furigana(DetailsActivity activity) {
         return activity.getIntent().getStringExtra(DetailsActivity.KEY_FURIGANA);
     }
+
+    @ContributesAndroidInjector(modules =  {KanjiDetailModule.class})
+    @DialogScope
+    abstract KanjiDetailFragment kanjiDetailFragment();
 }

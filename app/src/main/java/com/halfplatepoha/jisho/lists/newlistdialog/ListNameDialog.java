@@ -1,7 +1,6 @@
 package com.halfplatepoha.jisho.lists.newlistdialog;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.EditText;
 
 import com.halfplatepoha.jisho.R;
@@ -16,21 +15,27 @@ import butterknife.OnClick;
  * Created by surjo on 03/01/18.
  */
 
-public class NewListDialog extends BaseDialog<NewListDialogContract.Presenter> implements NewListDialogContract.View, NewListDialogContract.Bus {
+public class ListNameDialog extends BaseDialog<NewListDialogContract.Presenter> implements NewListDialogContract.View, NewListDialogContract.Bus {
 
-    public static final String TAG = NewListDialog.class.getSimpleName();
+    public static final String TAG = ListNameDialog.class.getSimpleName();
+
+    private static final String KEY_LIST_NAME = "list_name";
 
     @BindView(R.id.etListName)
     EditText etListName;
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.dlg_new_list;
+    public static ListNameDialog getInstance(String listName) {
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_LIST_NAME, listName);
+        ListNameDialog dlg = new ListNameDialog();
+        dlg.setArguments(bundle);
+
+        return dlg;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.dlg_new_list;
     }
 
     @OnClick(R.id.btnAddListName)

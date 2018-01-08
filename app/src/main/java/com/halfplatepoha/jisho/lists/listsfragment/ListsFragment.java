@@ -9,6 +9,7 @@ import android.view.View;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseFragment;
 import com.halfplatepoha.jisho.lists.listdetails.ListDetailActivity;
+import com.halfplatepoha.jisho.lists.newlistdialog.ListNameDialog;
 import com.halfplatepoha.jisho.lists.newlistdialog.NewListName;
 
 import org.greenrobot.eventbus.EventBus;
@@ -18,6 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class ListsFragment extends BaseFragment<ListContract.Presenter> implements
         ListContract.View, ListContract.Bus {
@@ -29,6 +31,15 @@ public class ListsFragment extends BaseFragment<ListContract.Presenter> implemen
 
     @BindView(R.id.list_zero_state)
     View listZeroState;
+
+    @BindView(R.id.editView)
+    View editView;
+
+    @BindView(R.id.btnEditList)
+    View btnEditList;
+
+    @BindView(R.id.header)
+    View header;
 
     @Inject
     ListsAdapter listsAdapter;
@@ -51,7 +62,7 @@ public class ListsFragment extends BaseFragment<ListContract.Presenter> implemen
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_favorite;
+        return R.layout.fragment_lists;
     }
 
     @Override
@@ -87,7 +98,48 @@ public class ListsFragment extends BaseFragment<ListContract.Presenter> implemen
     }
 
     @Override
+    public void showEditView() {
+        editView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideEditView() {
+        editView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showEditListView() {
+        btnEditList.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideEditListView() {
+        btnEditList.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideHeader() {
+
+    }
+
+    @Override
     public void pushListName(ListName ln) {
         EventBus.getDefault().post(ln);
+    }
+
+    @OnClick(R.id.btnDelete)
+    public void clickDelete() {
+        presenter.clickDelete();
+    }
+
+    @OnClick(R.id.btnEditList)
+    public void clickEdit() {
+        presenter.clickEdit();
+    }
+
+    @OnClick(R.id.btnAddNewList)
+    public void addListName() {
+        if(presenter != null)
+            presenter.addNewList();
     }
 }

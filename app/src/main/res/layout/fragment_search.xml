@@ -78,6 +78,12 @@
             tools:listitem="@layout/row_word_horizontal"
             tools:visibility="gone"/>
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
         <TextView android:id="@+id/tvError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

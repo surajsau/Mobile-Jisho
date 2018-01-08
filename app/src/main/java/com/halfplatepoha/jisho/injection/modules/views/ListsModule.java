@@ -3,6 +3,7 @@ package com.halfplatepoha.jisho.injection.modules.views;
 import android.support.v4.app.Fragment;
 
 import com.halfplatepoha.jisho.base.BaseFragmentModule;
+import com.halfplatepoha.jisho.injection.DialogScope;
 import com.halfplatepoha.jisho.injection.FragmentScope;
 import com.halfplatepoha.jisho.lists.listsfragment.ListAdapterContract;
 import com.halfplatepoha.jisho.lists.listsfragment.ListAdapterPresenter;
@@ -10,12 +11,14 @@ import com.halfplatepoha.jisho.lists.listsfragment.ListContract;
 import com.halfplatepoha.jisho.lists.listsfragment.ListsAdapter;
 import com.halfplatepoha.jisho.lists.listsfragment.ListsFragment;
 import com.halfplatepoha.jisho.lists.listsfragment.ListsPresenter;
+import com.halfplatepoha.jisho.lists.newlistdialog.ListNameDialog;
 
 import javax.inject.Named;
 
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import dagger.android.ContributesAndroidInjector;
 
 /**
  * Created by surjo on 03/01/18.

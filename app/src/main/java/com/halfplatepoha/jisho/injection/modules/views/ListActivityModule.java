@@ -6,13 +6,11 @@ import com.halfplatepoha.jisho.base.BaseActivityModule;
 import com.halfplatepoha.jisho.injection.ActivityScope;
 import com.halfplatepoha.jisho.injection.DialogScope;
 import com.halfplatepoha.jisho.injection.FragmentScope;
-import com.halfplatepoha.jisho.injection.modules.views.ListsModule;
-import com.halfplatepoha.jisho.injection.modules.views.NewListModule;
 import com.halfplatepoha.jisho.lists.listactivity.ListActivityContract;
 import com.halfplatepoha.jisho.lists.listactivity.ListActivityPresenter;
 import com.halfplatepoha.jisho.lists.listactivity.ListsActivity;
 import com.halfplatepoha.jisho.lists.listsfragment.ListsFragment;
-import com.halfplatepoha.jisho.lists.newlistdialog.NewListDialog;
+import com.halfplatepoha.jisho.lists.newlistdialog.ListNameDialog;
 
 import dagger.Binds;
 import dagger.Module;
@@ -41,8 +39,8 @@ public abstract class ListActivityModule {
     @FragmentScope
     abstract ListsFragment listsFragment();
 
-    @ContributesAndroidInjector(modules = {NewListModule.class})
+    @ContributesAndroidInjector(modules = {ListNameModule.class})
     @DialogScope
-    abstract NewListDialog newListDialog();
+    abstract ListNameDialog newListDialog();
 
 }

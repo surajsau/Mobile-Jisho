@@ -1,7 +1,7 @@
 package com.halfplatepoha.jisho.injection.modules.views;
 
 import com.halfplatepoha.jisho.injection.DialogScope;
-import com.halfplatepoha.jisho.lists.newlistdialog.NewListDialog;
+import com.halfplatepoha.jisho.lists.newlistdialog.ListNameDialog;
 import com.halfplatepoha.jisho.lists.newlistdialog.NewListDialogContract;
 import com.halfplatepoha.jisho.lists.newlistdialog.NewListDialogPresenter;
 
@@ -13,7 +13,7 @@ import dagger.Module;
  */
 
 @Module
-public abstract class NewListModule {
+public abstract class ListNameModule {
 
     @Binds
     @DialogScope
@@ -21,10 +21,10 @@ public abstract class NewListModule {
 
     @Binds
     @DialogScope
-    abstract NewListDialogContract.View view(NewListDialog dialog);
+    abstract NewListDialogContract.View view(ListNameDialog dialog);
 
     @Binds
     @DialogScope
-    abstract NewListDialogContract.Bus bus(NewListDialog dialog);
+    abstract NewListDialogContract.Bus bus(ListNameDialog dialog);
 
 }

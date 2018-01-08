@@ -17,11 +17,28 @@ public interface ListContract {
 
         void openListDetailsScreen(String listName);
 
+        void showEditView();
+
+        void hideEditView();
+
+        void showEditListView();
+
+        void hideEditListView();
+
+        void hideHeader();
+
     }
 
     interface Presenter extends IPresenter {
 
         void onNewListName(String name);
+
+        void clickDelete();
+
+        void clickEdit();
+
+        void addNewList();
+
     }
 
     interface Bus {

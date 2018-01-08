@@ -96,9 +96,11 @@ public class EntriesAdapterPresenter extends BaseAdapterPresenter<EntriesAdapter
 
     @Override
     public void setItemViewType(int itemViewType) {
-        this.itemViewType = itemViewType;
-        adapterInterface.itemRangeRemoved(0, entries.size());
-        adapterInterface.itemRangeInserted(0, entries.size());
+        if(entries != null) {
+            this.itemViewType = itemViewType;
+            adapterInterface.itemRangeRemoved(0, entries.size());
+            adapterInterface.itemRangeInserted(0, entries.size());
+        }
     }
 
     public interface Listener {

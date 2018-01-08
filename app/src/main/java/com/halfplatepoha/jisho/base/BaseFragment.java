@@ -40,6 +40,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
 
     @Named(BaseFragmentModule.CHILD_FRAGMENT_MANAGER)
     @Inject
+    protected
     FragmentManager mChildFragmentManager;
 
     @Override

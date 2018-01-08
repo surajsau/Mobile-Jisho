@@ -2,7 +2,9 @@ package com.halfplatepoha.jisho.lists.listsfragment;
 
 import com.halfplatepoha.jisho.base.BasePresenter;
 import com.halfplatepoha.jisho.jdb.JishoList;
+import com.halfplatepoha.jisho.jdb.Schema;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,6 +24,8 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
     public static final int MODE_OPEN_LIST = 2;
 
     private ListAdapterContract.Presenter listAdapterPresenter;
+
+    private int selectedListCount;
 
     private ListContract.Bus eventBus;
 
@@ -53,15 +57,39 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
     public void onResume() {
         super.onResume();
 
+        if(listMode == MODE_ADD_LIST) {
+            view.hideHeader();
+        }
+
         RealmResults<JishoList> results = realm.where(JishoList.class).findAll();
 
         if(results != null && !results.isEmpty()) {
             view.hideZeroState();
-            List<JishoList> lists = realm.copyFromRealm(results);
-            listAdapterPresenter.addLists(lists);
+            listAdapterPresenter.addLists(getListObjects(results));
         } else {
             view.showZeroState();
         }
+    }
+
+    @Override
+    public void onListNameChanged(String finalName, String originalName) {
+
+        view.hideKeyboard();
+
+        JishoList list = realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, originalName).findFirst();
+
+        realm.beginTransaction();
+
+        if(list != null) {
+            list.name = finalName;
+        } else {
+            list = realm.createObject(JishoList.class);
+            list.name = finalName;
+        }
+
+        realm.insertOrUpdate(list);
+
+        realm.commitTransaction();
     }
 
     @Override
@@ -81,6 +109,41 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
     }
 
     @Override
+    public void onListItemLongClick(String listName) {
+        if(selectedListCount == 0) {
+            view.showEditView();
+            listAdapterPresenter.showSelection();
+        }
+
+        selectedListCount += 1;
+    }
+
+    @Override
+    public void onListItemChecked(String name, boolean isSelected) {
+        if(isSelected)
+            selectedListCount += 1;
+        else
+            selectedListCount -= 1;
+
+        if(selectedListCount == 0) {
+            view.hideEditView();
+        } else if(selectedListCount == 1) {
+            view.showEditListView();
+        } else {
+            view.hideEditListView();
+        }
+    }
+
+    @Override
+    public void removeList(String name) {
+        realm.beginTransaction();
+
+        realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, name).findAll().deleteAllFromRealm();
+
+        realm.commitTransaction();
+    }
+
+    @Override
     public void onNewListName(String name) {
         realm.beginTransaction();
 
@@ -91,8 +154,42 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
 
         realm.commitTransaction();
 
-        listAdapterPresenter.addList(newList);
+        listAdapterPresenter.addList(ListObject.fromJishoList(newList));
 
         onListSelected(name);
+    }
+
+    @Override
+    public void clickDelete() {
+        listAdapterPresenter.deleteSelectedItems();
+    }
+
+    @Override
+    public void clickEdit() {
+        listAdapterPresenter.editListName();
+    }
+
+    @Override
+    public void addNewList() {
+        if(listAdapterPresenter != null) {
+
+            long count = realm.where(JishoList.class).contains(Schema.JishoList.NAME, "New List #").count();
+
+            ListObject listObject = new ListObject();
+            listObject.isNameChange = true;
+            listObject.name = "New List #" + count;
+            listAdapterPresenter.addList(listObject);
+        }
+    }
+
+    private List<ListObject> getListObjects(RealmResults<JishoList> lists) {
+
+        List<ListObject> listObjects = new ArrayList<>();
+
+        for(JishoList jishoList : lists) {
+            listObjects.add(ListObject.fromJishoList(jishoList));
+        }
+
+        return listObjects;
     }
 }

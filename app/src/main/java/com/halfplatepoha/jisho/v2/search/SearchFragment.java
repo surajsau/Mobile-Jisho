@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.base.BaseFragment;
@@ -48,19 +50,11 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     @BindView(R.id.tvError)
     TextView tvError;
 
-    @BindView(R.id.verticalView)
-    View verticalSpace;
+    @BindView(R.id.loader)
+    LottieAnimationView loader;
 
     @Inject
     EntriesAdapter searchAdapter;
-
-    private Realm jdbRealm;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        jdbRealm = Realm.getDefaultInstance();
-    }
 
     @Override
     protected int getLayoutRes() {
@@ -70,6 +64,10 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        loader.setRepeatMode(LottieDrawable.INFINITE);
+        loader.setAnimation("loader.json");
+
         etSearch.setOnEditorActionListener(this);
         etSearch.addTextChangedListener(this);
 
@@ -83,6 +81,7 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
             Analytics.getInstance().recordSearch(etSearch.getText().toString());
 
             presenter.search(v.getText().toString());
+            hideKeyboard();
             return true;
         }
         return false;
@@ -92,7 +91,9 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {}
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        presenter.search(s.toString());
+    }
 
     @Override
     public void afterTextChanged(Editable s) {}
@@ -104,10 +105,13 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
 
     @Override
     public void showSpinner() {
+        loader.setVisibility(View.VISIBLE);
+        loader.playAnimation();
     }
 
     @Override
     public void hideSpinner() {
+        loader.setVisibility(View.GONE);
     }
 
     @Override
@@ -120,12 +124,12 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
 
     @Override
     public void showVerticalSpace() {
-        verticalSpace.setVisibility(View.VISIBLE);
+//        verticalSpace.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideVerticalSpace() {
-        verticalSpace.setVisibility(View.GONE);
+//        verticalSpace.setVisibility(View.GONE);
     }
 
 }
