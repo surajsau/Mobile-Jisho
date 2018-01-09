@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import com.halfplatepoha.jisho.base.BaseActivityModule;
 import com.halfplatepoha.jisho.injection.ActivityScope;
-import com.halfplatepoha.jisho.injection.DialogScope;
 import com.halfplatepoha.jisho.kanji.KanjiDetailActivity;
 import com.halfplatepoha.jisho.kanji.KanjiDetailContract;
 import com.halfplatepoha.jisho.kanji.KanjiDetailPresenter;

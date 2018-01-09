@@ -1,5 +1,9 @@
 package com.halfplatepoha.jisho.base;
 
+import android.view.ViewGroup;
+
+import com.halfplatepoha.jisho.kanji.KanjiNode;
+
 /**
  * Created by surjo on 20/12/17.
  */

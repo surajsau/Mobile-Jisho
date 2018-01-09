@@ -24,9 +24,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@null"
-            app:srcCompat="@drawable/fav"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            app:srcCompat="@drawable/fav"
+            tools:visibility="visible" />
 
         <ImageButton
             android:id="@+id/btnAddToList"
@@ -36,9 +36,9 @@
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@id/btnFav"
             android:background="@null"
-            app:srcCompat="@drawable/ic_add_to_list"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            app:srcCompat="@drawable/ic_add_to_list"
+            tools:visibility="visible" />
 
         <ImageButton
             android:id="@+id/back"
@@ -46,9 +46,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:background="@null"
-            app:srcCompat="@drawable/ic_back"
+            android:padding="16dp"
             android:rotation="180"
-            android:padding="16dp"/>
+            app:srcCompat="@drawable/ic_back" />
 
     </RelativeLayout>
 
@@ -62,10 +62,10 @@
             android:id="@+id/tvKanji"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
             android:layout_centerVertical="true"
-            android:textSize="84sp"
             android:padding="16dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="84sp"
             tools:text="月" />
 
         <LinearLayout
@@ -73,8 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <com.github.badoualy.kanjistroke.KanjiStrokeView
                 android:id="@+id/ivKanjiPlay"
@@ -118,71 +118,77 @@
             android:layout_margin="16dp"
             android:orientation="vertical">
 
-            <LinearLayout android:id="@+id/japanese"
-                android:orientation="horizontal"
+            <LinearLayout
+                android:id="@+id/japanese"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:visibility="gone"
                 tools:visibility="visible">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/flag_japan"/>
+                    app:srcCompat="@drawable/flag_japan" />
 
-                <TextView android:id="@+id/tvJapaneseReading"
+                <TextView
+                    android:id="@+id/tvJapaneseReading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Sample text"
                     android:layout_marginLeft="10dp"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    tools:text="Sample text" />
 
             </LinearLayout>
 
-            <LinearLayout android:id="@+id/korean"
-                android:orientation="horizontal"
+            <LinearLayout
+                android:id="@+id/korean"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:visibility="gone"
                 tools:visibility="visible">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/flag_south_korea"/>
+                    app:srcCompat="@drawable/flag_south_korea" />
 
-                <TextView android:id="@+id/tvKoreanReading"
+                <TextView
+                    android:id="@+id/tvKoreanReading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Sample text"
                     android:layout_marginLeft="10dp"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    tools:text="Sample text" />
 
             </LinearLayout>
 
-            <LinearLayout android:id="@+id/chinese"
-                android:orientation="horizontal"
+            <LinearLayout
+                android:id="@+id/chinese"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:visibility="gone"
                 tools:visibility="visible">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/flag_china"/>
+                    app:srcCompat="@drawable/flag_china" />
 
-                <TextView android:id="@+id/tvChineseReading"
+                <TextView
+                    android:id="@+id/tvChineseReading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Sample text"
                     android:layout_marginLeft="10dp"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    tools:text="Sample text" />
 
             </LinearLayout>
 
@@ -207,14 +213,18 @@
             android:text="C O M P O N E N T S"
             android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tvComponents"
-            android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvComponentsHeader"
-            android:layout_margin="10dp"
-            android:textSize="18sp"
-            tools:text="つき；ゲツ" />
+            android:layout_below="@id/tvComponentsHeader">
+
+            <LinearLayout
+                android:id="@+id/nodeComponentsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </ScrollView>
 
     </RelativeLayout>
 
