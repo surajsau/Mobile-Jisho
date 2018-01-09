@@ -102,7 +102,7 @@ public class DetailsActivity extends BaseFragmentActivity<DetailsContract.Presen
     }
 
     @Override
-    public void openKanjiDialog(String kanjiLiteral) {
+    public void openKanjiDetails(String kanjiLiteral) {
         KanjiDetailFragment kanjiDetailFragment = KanjiDetailFragment.getInstance(kanjiLiteral);
         kanjiDetailFragment.show(supportFragmentManager, KANJI_DETAIL_TAG);
     }
@@ -116,6 +116,16 @@ public class DetailsActivity extends BaseFragmentActivity<DetailsContract.Presen
     public void openListsScreenForResults() {
         Intent intent = new Intent(this, ListsActivity.class);
         startActivityForResult(intent, REQUEST_LIST_NAME);
+    }
+
+    @Override
+    public void setPos(String pos) {
+        tvPos.setText(pos);
+    }
+
+    @Override
+    public void setGloss(String gloss) {
+        tvMeaning.setText(gloss);
     }
 
     @OnClick(R.id.btnKanjiPlay)

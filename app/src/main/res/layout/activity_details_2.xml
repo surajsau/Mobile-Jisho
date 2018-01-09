@@ -116,17 +116,10 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rlKanji"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryVeryLight" />
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:visibility="visible">
 
@@ -135,18 +128,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/sensesContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:visibility="visible"
-                tools:visibility="visible" />
-
             <RelativeLayout
+                android:id="@+id/meaningContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -162,12 +145,40 @@
                     android:text="M E A N I N G"
                     android:textSize="12sp" />
 
-                <TextView android:id="@+id/tvMeaning"
+                <TextView
+                    android:id="@+id/tvMeaning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="association, socializing, socialising, fellowship"
                     android:layout_below="@id/tvMeaningsHeader"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="10dp"
+                    android:text="association, socializing, socialising, fellowship" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/kanjiContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvKanjiHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:padding="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="K A N J I S"
+                    android:textSize="12sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rlKanji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/tvKanjiHeader"/>
 
             </RelativeLayout>
 
@@ -176,11 +187,13 @@
                 android:layout_height="20dp"
                 android:clickable="false" />
 
-            <RelativeLayout android:id="@+id/examplesHeader"
+            <RelativeLayout
+                android:id="@+id/examplesHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView android:id="@+id/tvExamplesHeader"
+                <TextView
+                    android:id="@+id/tvExamplesHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

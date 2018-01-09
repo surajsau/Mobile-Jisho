@@ -119,7 +119,7 @@ public class ListsFragment extends BaseFragment<ListContract.Presenter> implemen
 
     @Override
     public void hideHeader() {
-
+        header.setVisibility(View.GONE);
     }
 
     @Override

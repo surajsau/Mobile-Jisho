@@ -43,6 +43,12 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
 
     private SentenceAdapterContract.Presenter sentenceAdapterPresenter;
 
+    private RealmResults<Sentence> sentences;
+
+    private StringBuilder pos;
+
+    private StringBuilder glosses;
+
     @Inject
     public DetailsPresenter(DetailsContract.View view,
                             Realm realm,
@@ -76,13 +82,57 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
         entry = detailQuery.findFirst();
 
         if(entry != null) {
-            view.setJapanese(japanese);
+            sentences = realm.where(Sentence.class)
+                    .contains(Schema.Sentence.SENTENCE, entry.japanese)
+                    .or()
+                    .contains(Schema.Sentence.SENTENCE, entry.furigana)
+                    .and()
+                    .equalTo(Schema.Sentence.SPLITS + "." + Schema.Split.KEYWORD, entry.japanese)
+                    .or()
+                    .equalTo(Schema.Sentence.SPLITS + "." + Schema.Split.KEYWORD, entry.furigana)
+                    .findAll();
 
-            if(furigana != null && furigana.length() > 0) {
-                view.showFurigana();
-                view.setFurigana(furigana);
+            if(entry.pos != null) {
+                pos = new StringBuilder("");
+                pos.append(entry.pos.get(0));
+
+                for (int i = 1; i < entry.pos.size(); i++) {
+                    pos.append(", ").append(entry.pos.get(i));
+                }
             }
+
+            if(entry.glosses != null) {
+                glosses = new StringBuilder("");
+                glosses.append(entry.glosses.get(0).english);
+
+                for(int i=0; i<entry.glosses.size(); i++) {
+                    glosses.append(", ").append(entry.glosses.get(i).english);
+                }
+            }
+
         }
+
+    }
+
+    @Override
+    public void onResume() {
+        populate();
+    }
+
+    private void populate() {
+        view.setJapanese(japanese);
+
+        if(furigana != null && furigana.length() > 0) {
+            view.showFurigana();
+            view.setFurigana(furigana);
+        }
+
+        if(sentences != null) {
+            sentenceAdapterPresenter.setSentences(realm.copyFromRealm(sentences));
+        }
+
+        view.setPos(pos.toString());
+        view.setGloss(glosses.toString());
     }
 
     @Override
@@ -140,7 +190,7 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
 
     @Override
     public void onItemClick(String kanjiLiteral) {
-        view.openKanjiDialog(kanjiLiteral);
+        view.openKanjiDetails(kanjiLiteral);
     }
 
     @Override

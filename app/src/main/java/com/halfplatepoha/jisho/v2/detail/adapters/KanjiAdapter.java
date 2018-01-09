@@ -45,5 +45,6 @@ public class KanjiAdapter extends BaseAdapter<KanjiAdapterContract.Presenter, Ka
         public void setKanji(String kanji) {
             tvKanji.setText(kanji);
         }
+
     }
 }

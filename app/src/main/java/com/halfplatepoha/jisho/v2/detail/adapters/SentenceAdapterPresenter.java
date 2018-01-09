@@ -3,9 +3,9 @@ package com.halfplatepoha.jisho.v2.detail.adapters;
 import com.halfplatepoha.jisho.base.BaseAdapterPresenter;
 import com.halfplatepoha.jisho.jdb.Sentence;
 
-import javax.inject.Inject;
+import java.util.List;
 
-import io.realm.RealmResults;
+import javax.inject.Inject;
 
 /**
  * Created by surjo on 28/12/17.
@@ -13,7 +13,7 @@ import io.realm.RealmResults;
 
 public class SentenceAdapterPresenter extends BaseAdapterPresenter<SentenceAdapterContract.View> implements SentenceAdapterContract.Presenter {
 
-    private RealmResults<Sentence> sentences;
+    private List<Sentence> sentences;
 
     private String keyword;
 
@@ -46,7 +46,7 @@ public class SentenceAdapterPresenter extends BaseAdapterPresenter<SentenceAdapt
     }
 
     @Override
-    public void setSentences(RealmResults<Sentence> sentences) {
+    public void setSentences(List<Sentence> sentences) {
         this.sentences = sentences;
         adapterInterface.itemRangeInserted(0, this.sentences.size());
     }

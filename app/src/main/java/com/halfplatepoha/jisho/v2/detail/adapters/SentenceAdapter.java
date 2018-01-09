@@ -27,10 +27,10 @@ public class SentenceAdapter extends BaseAdapter<SentenceAdapterContract.Present
 
     @Override
     protected SentenceViewHolder createVH(ViewGroup parent, int viewType) {
-        return new SentenceViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_sense, parent, false), presenter);
+        return new SentenceViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_sentence, parent, false), presenter);
     }
 
-    public static class SentenceViewHolder extends BaseViewholder<SentenceAdapterContract.Presenter> {
+    public static class SentenceViewHolder extends BaseViewholder<SentenceAdapterContract.Presenter> implements SentenceAdapterContract.View {
 
         @BindView(R.id.tvOriginalSentence)
         TextView tvOriginalSentence;
@@ -47,5 +47,14 @@ public class SentenceAdapter extends BaseAdapter<SentenceAdapterContract.Present
             presenter.onItemClick(getAdapterPosition());
         }
 
+        @Override
+        public void setEnglish(String english) {
+            tvEnglish.setText(english);
+        }
+
+        @Override
+        public void setOriginal(String sentence) {
+            tvOriginalSentence.setText(sentence);
+        }
     }
 }

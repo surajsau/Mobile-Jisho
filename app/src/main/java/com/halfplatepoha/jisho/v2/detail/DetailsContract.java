@@ -18,12 +18,15 @@ public interface DetailsContract {
 
         void setFurigana(String furigana);
 
-        void openKanjiDialog(String kanjiLiteral);
+        void openKanjiDetails(String kanjiLiteral);
 
         void openSentenceDetail(Sentence sentence);
 
         void openListsScreenForResults();
 
+        void setPos(String pos);
+
+        void setGloss(String gloss);
     }
 
     interface Presenter extends IPresenter {

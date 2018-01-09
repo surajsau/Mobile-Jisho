@@ -7,7 +7,7 @@ package com.halfplatepoha.jisho.jdb;
 public interface Schema {
 
     interface Entry {
-        String ENTRY = "Entry";
+        String TABLE_NAME = "Entry";
         String ENTRY_SEQ = "entrySeq";
         String JAPANESE = "japanese";
         String POS = "pos";
@@ -23,8 +23,24 @@ public interface Schema {
     }
 
     interface JishoList {
-        String JISHOLIST = "JishoList";
+        String TABLE_NAME = "JishoList";
         String NAME = "name";
         String ENTRIES = "entries";
+    }
+
+    interface Sentence {
+        String TABLE_NAME = "Sentence";
+        String SENTENCE = "sentence";
+        String SPLITS = "splits";
+        String ENGLISH = "english";
+    }
+
+    interface Split {
+        String TABLE_NAME = "Split";
+        String KEYWORD = "keyword";
+        String SENSE = "sense";
+        String SENTENCE_FORM = "sentenceForm";
+        String IS_GOOD = "isGood";
+        String READING = "reading";
     }
 }

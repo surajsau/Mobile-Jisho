@@ -53,7 +53,8 @@
             android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".v2.detail.DetailsActivity" />
-        <activity android:name=".lists.listdetails.ListDetailActivity"></activity>
+        <activity android:name=".lists.listdetails.ListDetailActivity" />
+        <activity android:name=".kanji.KanjiDetailActivity"></activity>
     </application>
 
 </manifest>

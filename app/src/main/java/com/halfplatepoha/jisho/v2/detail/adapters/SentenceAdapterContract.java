@@ -4,7 +4,7 @@ import com.halfplatepoha.jisho.base.BaseViewholderView;
 import com.halfplatepoha.jisho.base.IAdapterPresenter;
 import com.halfplatepoha.jisho.jdb.Sentence;
 
-import io.realm.RealmResults;
+import java.util.List;
 
 /**
  * Created by surjo on 28/12/17.
@@ -26,7 +26,7 @@ public interface SentenceAdapterContract {
 
         void removeListener();
 
-        void setSentences(RealmResults<Sentence> sentences);
+        void setSentences(List<Sentence> sentences);
 
         void setKeyword(String keyword);
 
