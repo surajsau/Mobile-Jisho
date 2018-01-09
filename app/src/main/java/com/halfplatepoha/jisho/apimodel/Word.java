@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.model;
+package com.halfplatepoha.jisho.apimodel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.halfplatepoha.jisho.db.FavJapanese;

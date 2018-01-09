@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import com.halfplatepoha.jisho.base.BaseActivityModule;
 import com.halfplatepoha.jisho.injection.ActivityScope;
 import com.halfplatepoha.jisho.injection.DialogScope;
-import com.halfplatepoha.jisho.kanjidetail.KanjiDetailFragment;
 import com.halfplatepoha.jisho.v2.detail.DetailsActivity;
 import com.halfplatepoha.jisho.v2.detail.DetailsContract;
 import com.halfplatepoha.jisho.v2.detail.DetailsPresenter;
@@ -47,20 +46,10 @@ public abstract class DetailModule {
     @ActivityScope
     abstract KanjiAdapterContract.Presenter kanjiAdapterContract(KanjiAdapterPresenter kanjiAdapterPresenter);
 
-    @Binds
-    @ActivityScope
-    abstract SentenceAdapterContract.Presenter sentenceAdapterContract(SentenceAdapterPresenter sentenceAdapterPresenter);
-
     @Provides
     @ActivityScope
     static KanjiAdapter kanjiAdapter(KanjiAdapterContract.Presenter presenter) {
         return new KanjiAdapter(presenter);
-    }
-
-    @Provides
-    @ActivityScope
-    static SentenceAdapter sentenceAdapter(SentenceAdapterContract.Presenter presenter) {
-        return new SentenceAdapter(presenter);
     }
 
     @Named(DetailsActivity.KEY_JAPANESE)
@@ -78,7 +67,4 @@ public abstract class DetailModule {
         return activity.getIntent().getStringExtra(DetailsActivity.KEY_FURIGANA);
     }
 
-    @ContributesAndroidInjector(modules =  {KanjiDetailModule.class})
-    @DialogScope
-    abstract KanjiDetailFragment kanjiDetailFragment();
 }

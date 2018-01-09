@@ -3,6 +3,8 @@ package com.halfplatepoha.jisho.v2.detail;
 import android.support.annotation.Nullable;
 
 import com.halfplatepoha.jisho.base.BasePresenter;
+import com.halfplatepoha.jisho.data.DataProvider;
+import com.halfplatepoha.jisho.data.IDataProvider;
 import com.halfplatepoha.jisho.jdb.Entry;
 import com.halfplatepoha.jisho.jdb.JishoList;
 import com.halfplatepoha.jisho.jdb.Schema;
@@ -27,10 +29,7 @@ import io.realm.RealmResults;
  */
 
 public class DetailsPresenter extends BasePresenter<DetailsContract.View> implements DetailsContract.Presenter,
-        KanjiAdapterPresenter.Listener,
-        SentenceAdapterPresenter.Listener {
-
-    private Realm realm;
+        KanjiAdapterPresenter.Listener {
 
     private String japanese;
 
@@ -41,27 +40,27 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
 
     private KanjiAdapterContract.Presenter kanjiAdapterPresenter;
 
-    private SentenceAdapterContract.Presenter sentenceAdapterPresenter;
-
-    private RealmResults<Sentence> sentences;
+    private List<String> kanjis;
 
     private StringBuilder pos;
 
     private StringBuilder glosses;
 
+    long sentenceCount;
+
+    private IDataProvider dataProvider;
+
     @Inject
     public DetailsPresenter(DetailsContract.View view,
-                            Realm realm,
                             KanjiAdapterContract.Presenter kanjiAdapterPresenter,
-                            SentenceAdapterContract.Presenter sentenceAdapterPresenter,
                             @Named(DetailsActivity.KEY_JAPANESE) String japanese,
-                            @Nullable @Named(DetailsActivity.KEY_FURIGANA) String furigana) {
+                            @Nullable @Named(DetailsActivity.KEY_FURIGANA) String furigana,
+                            IDataProvider dataProvider) {
         super(view);
-        this.realm = realm;
         this.japanese = japanese;
         this.furigana = furigana;
         this.kanjiAdapterPresenter = kanjiAdapterPresenter;
-        this.sentenceAdapterPresenter = sentenceAdapterPresenter;
+        this.dataProvider = dataProvider;
     }
 
     @Override
@@ -69,28 +68,10 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
         super.onCreate();
 
         kanjiAdapterPresenter.attachListener(this);
-        sentenceAdapterPresenter.attachListener(this);
 
-        RealmQuery<Entry> detailQuery = realm.where(Entry.class)
-                .equalTo(Schema.Entry.JAPANESE, japanese);
-
-        if(furigana != null) {
-            detailQuery = detailQuery.and()
-                    .equalTo(Schema.Entry.FURIGANA, furigana);
-        }
-
-        entry = detailQuery.findFirst();
+        entry = dataProvider.getEntry(japanese, furigana);
 
         if(entry != null) {
-            sentences = realm.where(Sentence.class)
-                    .contains(Schema.Sentence.SENTENCE, entry.japanese)
-                    .or()
-                    .contains(Schema.Sentence.SENTENCE, entry.furigana)
-                    .and()
-                    .equalTo(Schema.Sentence.SPLITS + "." + Schema.Split.KEYWORD, entry.japanese)
-                    .or()
-                    .equalTo(Schema.Sentence.SPLITS + "." + Schema.Split.KEYWORD, entry.furigana)
-                    .findAll();
 
             if(entry.pos != null) {
                 pos = new StringBuilder("");
@@ -110,13 +91,14 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
                 }
             }
 
+            kanjis = Utils.kanjiList(entry.japanese);
+
+            sentenceCount = dataProvider.sentencesCount(entry.japanese, entry.furigana);
+
         }
 
-    }
-
-    @Override
-    public void onResume() {
         populate();
+
     }
 
     private void populate() {
@@ -127,12 +109,18 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
             view.setFurigana(furigana);
         }
 
-        if(sentences != null) {
-            sentenceAdapterPresenter.setSentences(realm.copyFromRealm(sentences));
-        }
-
         view.setPos(pos.toString());
         view.setGloss(glosses.toString());
+
+        if(kanjis != null) {
+            view.showKanjiContainer();
+            kanjiAdapterPresenter.setKanjis(kanjis);
+        }
+
+        if(sentenceCount > 0) {
+            view.showExamplesContainer();
+            view.setExamplesCount(sentenceCount);
+        }
     }
 
     @Override
@@ -142,15 +130,8 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
     }
 
     @Override
-    public void clickExamples() {
-        RealmResults<Sentence> sentences = realm.where(Sentence.class).equalTo("splits.keyword", entry.japanese).findAll();
-
-        if(sentences != null && !sentences.isEmpty()) {
-            sentenceAdapterPresenter.setKeyword(entry.japanese);
-            sentenceAdapterPresenter.setSentences(sentences);
-        } else {
-            //TODO: hide sentence recycler
-        }
+    public void clickExamplesContainer() {
+        view.openSentencesScreen(entry.japanese, entry.furigana);
     }
 
     @Override
@@ -165,27 +146,13 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
 
     @Override
     public void onListNameResultReceived(String listName) {
-
-        JishoList list = realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, listName).findFirst();
-
-        realm.beginTransaction();
-
-        if(list == null) {
-            list = realm.createObject(JishoList.class);
-            list.name = listName;
-        }
-
-        list.entries.add(entry);
-
-        realm.commitTransaction();
-
+        dataProvider.addEntryToList(entry, listName);
     }
 
     @Override
     public void onStop() {
         super.onStop();
         kanjiAdapterPresenter.removeListener();
-        sentenceAdapterPresenter.removeListener();
     }
 
     @Override
@@ -193,8 +160,4 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
         view.openKanjiDetails(kanjiLiteral);
     }
 
-    @Override
-    public void onItemClick(Sentence sentence) {
-        view.openSentenceDetail(sentence);
-    }
 }

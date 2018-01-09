@@ -20,7 +20,8 @@
     <ImageButton android:id="@+id/back"
         android:layout_width="?android:actionBarSize"
         android:layout_height="?android:actionBarSize"
-        app:srcCompat="@drawable/back"
+        app:srcCompat="@drawable/ic_back"
+        android:rotation="180"
         android:background="@null"/>
 
     <LinearLayout android:layout_width="match_parent"
@@ -157,10 +158,19 @@
             android:paddingTop="10dp"
             android:text="License information" />
 
+        <Button android:id="@+id/btnExportDB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:background="@color/colorPrimaryLight"
+            android:text="Export DB"
+            android:textColor="@color/white"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="v2.0"
+            android:text="v3.0"
             android:layout_gravity="center_horizontal"
             android:padding="16dp"
             android:textSize="10sp"/>

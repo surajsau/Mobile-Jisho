@@ -10,13 +10,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
-import com.halfplatepoha.jisho.base.BaseActivity;
 import com.halfplatepoha.jisho.base.BaseFragmentActivity;
-import com.halfplatepoha.jisho.jdb.Sentence;
-import com.halfplatepoha.jisho.kanjidetail.KanjiDetailFragment;
+import com.halfplatepoha.jisho.kanji.KanjiDetailActivity;
 import com.halfplatepoha.jisho.lists.listactivity.ListsActivity;
+import com.halfplatepoha.jisho.sentences.SentencesActivity;
 import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapter;
-import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapter;
 
 import javax.inject.Inject;
 
@@ -48,20 +46,20 @@ public class DetailsActivity extends BaseFragmentActivity<DetailsContract.Presen
     @BindView(R.id.rlKanji)
     RecyclerView rlKanji;
 
-    @BindView(R.id.rlSentences)
-    RecyclerView rlSentences;
-
     @BindView(R.id.tvExamplesCount)
     TextView tvExamplesCount;
 
     @BindView(R.id.tvPos)
     TextView tvPos;
 
-    @Inject
-    KanjiAdapter kanjiAdapter;
+    @BindView(R.id.kanjiContainer)
+    View kanjiContainer;
+
+    @BindView(R.id.examplesContainer)
+    View examplesContainer;
 
     @Inject
-    SentenceAdapter sentenceAdapter;
+    KanjiAdapter kanjiAdapter;
 
     public static Intent getLaunchIntent(Context context, String japanese, String furigana) {
         Intent intent = new Intent(context, DetailsActivity.class);
@@ -81,9 +79,6 @@ public class DetailsActivity extends BaseFragmentActivity<DetailsContract.Presen
 
         rlKanji.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rlKanji.setAdapter(kanjiAdapter);
-
-        rlSentences.setLayoutManager(new LinearLayoutManager(this));
-        rlSentences.setAdapter(sentenceAdapter);
     }
 
     @Override
@@ -103,13 +98,7 @@ public class DetailsActivity extends BaseFragmentActivity<DetailsContract.Presen
 
     @Override
     public void openKanjiDetails(String kanjiLiteral) {
-        KanjiDetailFragment kanjiDetailFragment = KanjiDetailFragment.getInstance(kanjiLiteral);
-        kanjiDetailFragment.show(supportFragmentManager, KANJI_DETAIL_TAG);
-    }
-
-    @Override
-    public void openSentenceDetail(Sentence sentence) {
-
+        startActivity(KanjiDetailActivity.getIntent(this, kanjiLiteral));
     }
 
     @Override
@@ -128,9 +117,29 @@ public class DetailsActivity extends BaseFragmentActivity<DetailsContract.Presen
         tvMeaning.setText(gloss);
     }
 
-    @OnClick(R.id.btnKanjiPlay)
-    public void clickKanjiPlay() {
-        presenter.clickKanjiPlay();
+    @Override
+    public void showKanjiContainer() {
+        kanjiContainer.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void openSentencesScreen(String japanese, String furigana) {
+        startActivity(SentencesActivity.getIntent(this, japanese, furigana));
+    }
+
+    @Override
+    public void setExamplesCount(long count) {
+        tvExamplesCount.setText(count + "");
+    }
+
+    @Override
+    public void showExamplesContainer() {
+        examplesContainer.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.examplesContainer)
+    public void clickExamplesContainer() {
+        presenter.clickExamplesContainer();
     }
 
     @OnClick(R.id.btnAddNote)

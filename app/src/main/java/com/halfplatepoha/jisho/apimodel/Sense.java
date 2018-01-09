@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.model;
+package com.halfplatepoha.jisho.apimodel;
 
 import android.text.TextUtils;
 

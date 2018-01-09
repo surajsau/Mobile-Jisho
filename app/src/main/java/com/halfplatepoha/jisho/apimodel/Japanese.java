@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.model;
+package com.halfplatepoha.jisho.apimodel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -9,18 +9,9 @@ import java.io.Serializable;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Source implements Serializable {
-
-    private String language;
+public class Japanese implements Serializable {
     private String word;
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
+    private String reading;
 
     public String getWord() {
         return word;
@@ -28,5 +19,13 @@ public class Source implements Serializable {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    public String getReading() {
+        return reading;
+    }
+
+    public void setReading(String reading) {
+        this.reading = reading;
     }
 }

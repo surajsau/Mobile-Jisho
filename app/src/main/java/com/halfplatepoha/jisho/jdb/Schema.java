@@ -43,4 +43,19 @@ public interface Schema {
         String IS_GOOD = "isGood";
         String READING = "reading";
     }
+
+    interface Kanji {
+        String TABLE_NAME = "Kanji";
+        String CODEPOINTS = "codepoints";
+        String DICNUMBERS = "dicNumbers";
+        String FREQ = "freq";
+        String GRADE = "grade";
+        String LITERAL = "literal";
+        String MEANINGS = "meanings";
+        String QUERY_CODES = "queryCodes";
+        String READINGS = "readings";
+        String STROKE_COUNT = "strokeCount";
+        String STROKES = "strokes";
+        String ELEMENTS = "elements";
+    }
 }

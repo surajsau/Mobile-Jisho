@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.halfplatepoha.jisho.model.Japanese;
+import com.halfplatepoha.jisho.apimodel.Japanese;
 
 import java.util.ArrayList;
 

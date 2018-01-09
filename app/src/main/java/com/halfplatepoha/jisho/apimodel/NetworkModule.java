@@ -1,4 +1,4 @@
-package com.halfplatepoha.jisho.model;
+package com.halfplatepoha.jisho.apimodel;
 
 import com.halfplatepoha.jisho.BuildConfig;
 import com.halfplatepoha.jisho.utils.IConstants;

@@ -2,7 +2,7 @@ package com.halfplatepoha.jisho.search;
 
 import com.halfplatepoha.jisho.base.BaseView;
 import com.halfplatepoha.jisho.base.IPresenter;
-import com.halfplatepoha.jisho.model.Word;
+import com.halfplatepoha.jisho.apimodel.Word;
 
 /**
  * Created by surjo on 20/12/17.

@@ -13,9 +13,9 @@ import android.widget.TextView;
 import com.halfplatepoha.jisho.JishoPreference;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.analytics.Analytics;
-import com.halfplatepoha.jisho.model.Japanese;
-import com.halfplatepoha.jisho.model.Sense;
-import com.halfplatepoha.jisho.model.Word;
+import com.halfplatepoha.jisho.apimodel.Japanese;
+import com.halfplatepoha.jisho.apimodel.Sense;
+import com.halfplatepoha.jisho.apimodel.Word;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.viewholders.SearchResultSenseViewHolder;
 

@@ -192,7 +192,7 @@
             android:layout_width="?android:actionBarSize"
             android:layout_height="?android:actionBarSize"
             android:background="@null"
-            app:srcCompat="@drawable/back_arrow" />
+            app:srcCompat="@drawable/ic_back" />
 
         <ImageButton
             android:id="@+id/btnFav"

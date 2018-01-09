@@ -20,26 +20,33 @@ public interface DetailsContract {
 
         void openKanjiDetails(String kanjiLiteral);
 
-        void openSentenceDetail(Sentence sentence);
-
         void openListsScreenForResults();
 
         void setPos(String pos);
 
         void setGloss(String gloss);
+
+        void showKanjiContainer();
+
+        void openSentencesScreen(String japanese, String furigana);
+
+        void setExamplesCount(long count);
+
+        void showExamplesContainer();
+
     }
 
     interface Presenter extends IPresenter {
 
         void clickKanjiPlay();
 
-        void clickExamples();
-
         void clickAddNote();
 
         void onListNameResultReceived(String listName);
 
         void clickAddToList();
+
+        void clickExamplesContainer();
 
     }
 }

@@ -23,6 +23,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@null"
+            android:padding="16dp"
             app:srcCompat="@drawable/fav" />
 
         <ImageButton
@@ -30,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
+            android:padding="16dp"
             android:layout_toLeftOf="@id/btnFav"
             android:background="@null"
             app:srcCompat="@drawable/ic_add_to_list" />
@@ -41,7 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:background="@null"
-            app:srcCompat="@drawable/back" />
+            android:rotation="180"
+            android:padding="16dp"
+            app:srcCompat="@drawable/ic_back" />
 
     </RelativeLayout>
 
@@ -126,7 +129,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="16dp">
 
             <RelativeLayout
                 android:id="@+id/meaningContainer"
@@ -150,7 +154,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvMeaningsHeader"
-                    android:layout_margin="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:text="association, socializing, socialising, fellowship" />
 
             </RelativeLayout>
@@ -158,7 +164,9 @@
             <RelativeLayout
                 android:id="@+id/kanjiContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/tvKanjiHeader"
@@ -169,7 +177,6 @@
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:padding="10dp"
-                    android:layout_marginBottom="10dp"
                     android:text="K A N J I S"
                     android:textSize="12sp" />
 
@@ -177,7 +184,6 @@
                     android:id="@+id/rlKanji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_below="@id/tvKanjiHeader"/>
 
             </RelativeLayout>
@@ -188,9 +194,11 @@
                 android:clickable="false" />
 
             <RelativeLayout
-                android:id="@+id/examplesHeader"
+                android:id="@+id/examplesContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/tvExamplesHeader"
@@ -200,8 +208,14 @@
                     android:background="@color/colorPrimaryVeryLight"
                     android:minHeight="0dp"
                     android:minWidth="0dp"
-                    android:padding="10dp"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="24dp"
+                    android:paddingRight="24dp"
+                    android:paddingLeft="48dp"
                     android:text="E X A M P L E S"
+                    android:drawableRight="@drawable/ic_next"
+                    android:drawablePadding="16dp"
+                    android:gravity="center_vertical"
                     android:textSize="12sp" />
 
                 <TextView
@@ -213,7 +227,7 @@
                     android:layout_toLeftOf="@id/tvExamplesHeader"
                     android:rotation="-90"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     tools:text="25" />
 
             </RelativeLayout>
@@ -222,12 +236,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:clickable="false" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rlSentences"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/row_sentence" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

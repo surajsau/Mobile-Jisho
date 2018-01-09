@@ -1,7 +1,7 @@
 package com.halfplatepoha.jisho.injection.modules;
 
 import com.halfplatepoha.jisho.BuildConfig;
-import com.halfplatepoha.jisho.model.SearchApi;
+import com.halfplatepoha.jisho.apimodel.SearchApi;
 import com.halfplatepoha.jisho.utils.IConstants;
 
 import dagger.Module;

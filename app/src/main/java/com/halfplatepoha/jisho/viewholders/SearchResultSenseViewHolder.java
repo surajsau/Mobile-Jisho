@@ -1,13 +1,12 @@
 package com.halfplatepoha.jisho.viewholders;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
-import com.halfplatepoha.jisho.model.Sense;
+import com.halfplatepoha.jisho.apimodel.Sense;
 import com.halfplatepoha.jisho.utils.Utils;
 
 import butterknife.BindView;

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.halfplatepoha.jisho.BuildConfig;
 import com.halfplatepoha.jisho.Download;
 import com.halfplatepoha.jisho.DownloadService;
 import com.halfplatepoha.jisho.JishoPreference;
@@ -27,9 +29,12 @@ import com.halfplatepoha.jisho.base.BaseFragmentActivity;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import io.realm.Realm;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -57,11 +62,18 @@ public class SettingsActivity extends BaseFragmentActivity<SettingsContract.Pres
     @BindView(R.id.btnUpdate)
     View downloadButton;
 
+    @BindView(R.id.btnExportDB)
+    View btnExportDB;
+
+    private Realm realm;
+
     private Snackbar downloadSnackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        realm = Realm.getDefaultInstance();
 
         boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
 
@@ -77,6 +89,8 @@ public class SettingsActivity extends BaseFragmentActivity<SettingsContract.Pres
             offlineView.setVisibility(View.GONE);
             offlineWarning.setVisibility(View.GONE);
         }
+
+        btnExportDB.setVisibility(BuildConfig.DEBUG ? View.VISIBLE : View.GONE);
 
         downloadSnackbar = Snackbar.make(background, "Beginning download...", Snackbar.LENGTH_INDEFINITE);
 
@@ -189,5 +203,17 @@ public class SettingsActivity extends BaseFragmentActivity<SettingsContract.Pres
             }
         }
     };
+
+    @OnClick(R.id.btnExportDB)
+    public void exportDB() {
+        final File file = new File(Environment.getExternalStorageDirectory().getPath().concat("/jdb.realm"));
+        if (file.exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            file.delete();
+        }
+
+        realm.writeCopyTo(file);
+        shortToast("Success export realm file");
+    }
 
 }
