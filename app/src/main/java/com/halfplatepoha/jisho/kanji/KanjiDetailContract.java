@@ -27,16 +27,21 @@ public interface KanjiDetailContract {
 
         void showKorean();
 
-        void showJapanese();
+        void showKunyomi();
+
+        void showOnyomi();
 
         void setKoreanReading(String reading);
 
-        void setJapaneseReading(String reading);
+        void setKunReading(String kunyomi);
 
         void buildNode(KanjiNode node, ViewGroup parent, int childPosition, int totalChildrenOfParent);
 
         ViewGroup getComponentsRoot();
 
+        void setKanji(String literal);
+
+        void setOnReading(String onyomi);
     }
 
     interface Presenter extends IPresenter {

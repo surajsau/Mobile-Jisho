@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 
 /**
  * Created by surjo on 09/01/18.
@@ -47,81 +48,102 @@ public class KanjiDetailPresenter extends BasePresenter<KanjiDetailContract.View
 
         if(kanjiResult != null) {
             view.setKanjiStrokes(kanjiResult.strokes);
+            view.setKanji(kanji);
 
             if(kanjiResult.readings != null) {
 
                 StringBuilder pinyin = new StringBuilder("");
                 StringBuilder korean = new StringBuilder("");
-                StringBuilder japanese = new StringBuilder("");
+                StringBuilder kunyomi = new StringBuilder("");
+                StringBuilder onyomi = new StringBuilder("");
 
                 for(Reading reading : kanjiResult.readings) {
                     if(Reading.PINYIN.equals(reading.type)) {
-                        view.showPinyin();
                         pinyin.append(reading.reading).append(" ");
                     } else if(Reading.HANGUL.equals(reading.type) || Reading.KOREAN_ROMAJI.equals(reading.type)) {
-                        view.showKorean();
                         korean.append(reading.reading).append(" ");
-                    } else if(Reading.KUNYOMI.equals(reading.type) || Reading.ONYOMI.equals(reading.type)) {
-                        view.showJapanese();
-                        japanese.append(reading.reading).append(" ");
+                    } else if(Reading.KUNYOMI.equals(reading.type)) {
+                        kunyomi.append(reading.reading).append(" ");
+                    } else if(Reading.ONYOMI.equals(reading.type)) {
+                        onyomi.append(reading.reading).append(" ");
                     }
                 }
 
-                view.setJapaneseReading(japanese.toString());
-                view.setKoreanReading(korean.toString());
-                view.setPinyinReading(pinyin.toString());
+                if(!"".equals(kunyomi.toString())) {
+                    view.showKunyomi();
+                    view.setKunReading(kunyomi.toString());
+                }
 
+                if(!"".equals(onyomi.toString())) {
+                    view.showOnyomi();
+                    view.setOnReading(onyomi.toString());
+                }
+
+                if(!"".equals(korean.toString())) {
+                    view.showKorean();
+                    view.setKoreanReading(korean.toString());
+                }
+
+                if(!"".equals(pinyin.toString())) {
+                    view.showPinyin();
+                    view.setPinyinReading(pinyin.toString());
+                }
             }
 
-            if(kanjiResult.elements != null) {
-                KanjiNode root = new KanjiNode(kanji, 1);
+//            populateComponents(kanjiResult.elements);
+        }
+    }
 
-                kanjiNodeStack.push(root);
+    //TODO: implement this properly
+    private void populateComponents(RealmList<KanjiElement> elements) {
+        if(elements != null) {
+            KanjiNode root = new KanjiNode(kanji, 1);
 
-                int index = 0;
+            kanjiNodeStack.push(root);
 
-                while(kanjiNodeStack.size() > 0 && index != kanjiResult.elements.size()) {
-                    KanjiElement element = kanjiResult.elements.get(index);
+            int index = 0;
 
-                    KanjiNode node = new KanjiNode(element.element, element.depth);
+            while(kanjiNodeStack.size() > 0 && index != elements.size()) {
+                KanjiElement element = elements.get(index);
 
-                    if(element.depth < kanjiNodeStack.peek().getDepth()) {
-                        KanjiNode peek = kanjiNodeStack.pop();
-                        List<KanjiNode> childs = new ArrayList<>();
+                KanjiNode node = new KanjiNode(element.element, element.depth);
 
-                        childs.add(peek);
+                if(element.depth < kanjiNodeStack.peek().getDepth()) {
+                    KanjiNode peek = kanjiNodeStack.pop();
+                    List<KanjiNode> childs = new ArrayList<>();
 
-                        while(kanjiNodeStack.size() > 0 && peek.getDepth() == kanjiNodeStack.peek().getDepth()) {
-                            childs.add(kanjiNodeStack.pop());
-                        }
+                    childs.add(peek);
 
-                        kanjiNodeStack.peek().addChildNodes(childs);
+                    while(kanjiNodeStack.size() > 0 && peek.getDepth() == kanjiNodeStack.peek().getDepth()) {
+                        childs.add(kanjiNodeStack.pop());
                     }
 
-                    kanjiNodeStack.push(node);
-                    index++;
+                    kanjiNodeStack.peek().addChildNodes(childs);
                 }
 
-                if(!kanjiNodeStack.empty()) {
-                    while(kanjiNodeStack.size() != 1) {
-                        KanjiNode peek = kanjiNodeStack.pop();
-                        List<KanjiNode> childs = new ArrayList<>();
-
-                        childs.add(peek);
-
-                        while(kanjiNodeStack.size() > 0 && peek.getDepth() == kanjiNodeStack.peek().getDepth()) {
-                            childs.add(kanjiNodeStack.pop());
-                        }
-
-                        kanjiNodeStack.peek().addChildNodes(childs);
-                    }
-                }
-
-                List<KanjiNode> tree = new ArrayList<>();
-                tree.add(kanjiNodeStack.peek());
-
-                view.buildNode(kanjiNodeStack.peek(), view.getComponentsRoot(), 0, 0);
+                kanjiNodeStack.push(node);
+                index++;
             }
+
+            if(!kanjiNodeStack.empty()) {
+                while(kanjiNodeStack.size() != 1) {
+                    KanjiNode peek = kanjiNodeStack.pop();
+                    List<KanjiNode> childs = new ArrayList<>();
+
+                    childs.add(peek);
+
+                    while(kanjiNodeStack.size() > 0 && peek.getDepth() == kanjiNodeStack.peek().getDepth()) {
+                        childs.add(kanjiNodeStack.pop());
+                    }
+
+                    kanjiNodeStack.peek().addChildNodes(childs);
+                }
+            }
+
+            List<KanjiNode> tree = new ArrayList<>();
+            tree.add(kanjiNodeStack.peek());
+
+            view.buildNode(kanjiNodeStack.peek(), view.getComponentsRoot(), 0, 0);
         }
     }
 

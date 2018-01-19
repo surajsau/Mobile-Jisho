@@ -28,17 +28,29 @@ public class KanjiDetailActivity extends BaseActivity<KanjiDetailContract.Presen
     @BindView(R.id.ivKanjiPlay)
     KanjiStrokeView ivKanjiPlay;
 
+    @BindView(R.id.tvKanji)
+    TextView tvKanji;
+
+    @BindView(R.id.kun)
+    View kun;
+
+    @BindView(R.id.on)
+    View on;
+
     @BindView(R.id.japanese)
     View japanese;
+
+    @BindView(R.id.tvKunReading)
+    TextView tvKunReading;
+
+    @BindView(R.id.tvOnReading)
+    TextView tvOnReading;
 
     @BindView(R.id.korean)
     View korean;
 
     @BindView(R.id.chinese)
     View chinese;
-
-    @BindView(R.id.tvJapaneseReading)
-    TextView tvJapaneseReading;
 
     @BindView(R.id.tvKoreanReading)
     TextView tvKoreanReading;
@@ -97,8 +109,13 @@ public class KanjiDetailActivity extends BaseActivity<KanjiDetailContract.Presen
     }
 
     @Override
-    public void showJapanese() {
-        japanese.setVisibility(View.VISIBLE);
+    public void showKunyomi() {
+        kun.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showOnyomi() {
+        on.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -107,47 +124,57 @@ public class KanjiDetailActivity extends BaseActivity<KanjiDetailContract.Presen
     }
 
     @Override
-    public void setJapaneseReading(String reading) {
-        tvJapaneseReading.setText(reading);
+    public void setKunReading(String reading) {
+        tvKunReading.setText(reading);
     }
 
     @Override
     public void buildNode(KanjiNode node, ViewGroup parent, int childPosition, int totalChildrenOfParent) {
 
-        Log.e("COMPONENT", node.getElement());
-
-        View kanjiNodeView = LayoutInflater.from(this).inflate(R.layout.row_kanji_node, parent, true);
-        TextView tvKanjiNode = kanjiNodeView.findViewById(R.id.tvKanjiNode);
-        View firstDash = kanjiNodeView.findViewById(R.id.verticalDashFirst);
-        View middleDash = kanjiNodeView.findViewById(R.id.verticalDashMiddle);
-        View lastDash = kanjiNodeView.findViewById(R.id.verticalDashLast);
-        View beforeDash = kanjiNodeView.findViewById(R.id.dashBefore);
-        View afterDash = kanjiNodeView.findViewById(R.id.dashAfter);
-        LinearLayout childContainer = kanjiNodeView.findViewById(R.id.childContainer);
-
-        if(node.isRoot())
-            beforeDash.setVisibility(View.GONE);
-
-        if(node.isLeaf())
-            afterDash.setVisibility(View.GONE);
-
-        if(!node.isRoot()) {
-            if (childPosition == 0)
-                firstDash.setVisibility(View.VISIBLE);
-            else if (childPosition > 0 && childPosition < totalChildrenOfParent - 1)
-                middleDash.setVisibility(View.VISIBLE);
-            else if (childPosition == totalChildrenOfParent - 1)
-                lastDash.setVisibility(View.VISIBLE);
-        }
-
-        tvKanjiNode.setText(node.getElement());
-
-        presenter.buildFurther(node, childContainer);
+//        Log.e("COMPONENT", node.getElement());
+//
+//        View kanjiNodeView = LayoutInflater.from(this).inflate(R.layout.row_kanji_node, parent, true);
+//        TextView tvKanjiNode = kanjiNodeView.findViewById(R.id.tvKanjiNode);
+//        View firstDash = kanjiNodeView.findViewById(R.id.verticalDashFirst);
+//        View middleDash = kanjiNodeView.findViewById(R.id.verticalDashMiddle);
+//        View lastDash = kanjiNodeView.findViewById(R.id.verticalDashLast);
+//        View beforeDash = kanjiNodeView.findViewById(R.id.dashBefore);
+//        View afterDash = kanjiNodeView.findViewById(R.id.dashAfter);
+//        LinearLayout childContainer = kanjiNodeView.findViewById(R.id.childContainer);
+//
+//        if(node.isRoot())
+//            beforeDash.setVisibility(View.GONE);
+//
+//        if(node.isLeaf())
+//            afterDash.setVisibility(View.GONE);
+//
+//        if(!node.isRoot()) {
+//            if (childPosition == 0)
+//                firstDash.setVisibility(View.VISIBLE);
+//            else if (childPosition > 0 && childPosition < totalChildrenOfParent - 1)
+//                middleDash.setVisibility(View.VISIBLE);
+//            else if (childPosition == totalChildrenOfParent - 1)
+//                lastDash.setVisibility(View.VISIBLE);
+//        }
+//
+//        tvKanjiNode.setText(node.getElement());
+//
+//        presenter.buildFurther(node, childContainer);
     }
 
     @Override
     public ViewGroup getComponentsRoot() {
         return nodeComponentsContainer;
+    }
+
+    @Override
+    public void setKanji(String literal) {
+        tvKanji.setText(literal);
+    }
+
+    @Override
+    public void setOnReading(String onyomi) {
+        tvOnReading.setText(onyomi);
     }
 
     @OnClick(R.id.ivKanjiPlay)

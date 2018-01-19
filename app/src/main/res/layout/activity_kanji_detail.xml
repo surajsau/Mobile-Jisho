@@ -81,16 +81,131 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp" />
 
-            <Button
+            <TextView
                 android:id="@+id/btnAddNote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="16dp"
                 android:background="@color/colorPrimaryVeryLight"
-                android:text="+ note"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary" />
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:padding="10dp"
+                android:text="+ n o t e "
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
 
         </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/japanese"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvJapaneseReadingHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorPrimaryVeryLight"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="10dp"
+            android:text="R E A D I N G S"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:id="@+id/kun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvJapaneseReadingHeader"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:srcCompat="@drawable/flag_japan" />
+
+            <TextView
+                android:id="@+id/tvKunReading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                tools:text="Sample text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/on"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/kun"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:srcCompat="@drawable/flag_japan" />
+
+            <TextView
+                android:id="@+id/tvOnReading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                tools:text="Sample text" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/meaning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvMeaningHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorPrimaryVeryLight"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="10dp"
+            android:text="M E A N I N G S"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvMeaning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvMeaningHeader"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp"
+            android:textSize="16sp"
+            tools:text="Sample text" />
 
     </RelativeLayout>
 
@@ -107,7 +222,7 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:padding="10dp"
-            android:text="R E A D I N G S"
+            android:text="O T H E R S"
             android:textSize="12sp" />
 
         <LinearLayout
@@ -117,30 +232,6 @@
             android:layout_below="@id/tvReadingsHeader"
             android:layout_margin="16dp"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/japanese"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/flag_japan" />
-
-                <TextView
-                    android:id="@+id/tvJapaneseReading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="16sp"
-                    tools:text="Sample text" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/korean"
@@ -196,10 +287,12 @@
 
     </RelativeLayout>
 
+    <!-- todo: complete components -->
     <RelativeLayout
         android:id="@+id/componentsContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tvComponentsHeader"
