@@ -7,14 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
+import com.halfplatepoha.jisho.apimodel.Word;
 import com.halfplatepoha.jisho.base.BaseFragmentActivity;
-import com.halfplatepoha.jisho.kanji.KanjiDetailActivity;
+import com.halfplatepoha.jisho.v2.kanji.KanjiDetailActivity;
 import com.halfplatepoha.jisho.lists.listactivity.ListsActivity;
-import com.halfplatepoha.jisho.sentences.SentencesActivity;
+import com.halfplatepoha.jisho.v2.sentences.SentencesActivity;
 import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapter;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import javax.inject.Inject;
 
@@ -35,22 +36,22 @@ public class DetailsActivity extends BaseFragmentActivity<DetailsContract.Presen
     private static final String KANJI_DETAIL_TAG = "kanji_detail";
 
     @BindView(R.id.tvJapanese)
-    TextView tvJapanese;
+    CustomTextView tvJapanese;
 
     @BindView(R.id.tvJapaneseReading)
-    TextView tvJapaneseReading;
+    CustomTextView tvJapaneseReading;
 
     @BindView(R.id.tvMeaning)
-    TextView tvMeaning;
+    CustomTextView tvMeaning;
 
     @BindView(R.id.rlKanji)
     RecyclerView rlKanji;
 
     @BindView(R.id.tvExamplesCount)
-    TextView tvExamplesCount;
+    CustomTextView tvExamplesCount;
 
     @BindView(R.id.tvPos)
-    TextView tvPos;
+    CustomTextView tvPos;
 
     @BindView(R.id.kanjiContainer)
     View kanjiContainer;
@@ -77,7 +78,7 @@ public class DetailsActivity extends BaseFragmentActivity<DetailsContract.Presen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        rlKanji.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rlKanji.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rlKanji.setAdapter(kanjiAdapter);
     }
 

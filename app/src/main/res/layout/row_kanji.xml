@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="5dp"
-    android:padding="10dp"
+    android:paddingBottom="16dp"
     android:id="@+id/row_kanji">
 
-    <TextView android:id="@+id/tvKanji"
+    <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvKanji"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="行"
-        android:textSize="18sp"
-        android:layout_gravity="center_vertical"/>
+        tools:text="幽"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"/>
 
-</LinearLayout>
+    <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvKanjiMeaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tvKanji"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="seclude, confine to a room, depp, profound, secluded, faint, dark, tranquil, calm"
+        android:layout_marginLeft="10dp"/>
+
+</RelativeLayout>

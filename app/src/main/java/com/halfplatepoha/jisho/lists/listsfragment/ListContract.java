@@ -27,6 +27,13 @@ public interface ListContract {
 
         void hideHeader();
 
+        void hideAddList();
+
+        void hideTitle();
+
+        void showTitle();
+
+        void showAddList();
     }
 
     interface Presenter extends IPresenter {

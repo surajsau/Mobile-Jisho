@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
     android:background="@color/white">
 
     <View android:id="@+id/verticalView"
@@ -32,9 +31,9 @@
             android:paddingBottom="5dp"
             android:paddingRight="5dp"
             android:paddingTop="5dp"
-            app:srcCompat="@drawable/search" />
+            app:srcCompat="@drawable/tab_search" />
 
-        <EditText
+        <com.halfplatepoha.jisho.view.CustomEditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,15 +66,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/searchContainer"
-        android:layout_marginTop="10dp">
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchContainer">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rlWords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/row_word_horizontal"
+            tools:listitem="@layout/row_word_vertical"
             tools:visibility="gone"/>
 
         <com.airbnb.lottie.LottieAnimationView
@@ -84,17 +82,155 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"/>
 
-        <TextView android:id="@+id/tvError"
+        <LinearLayout android:id="@+id/network_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryLight"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"
+            tools:visibility="gone"
+            android:layout_centerInParent="true">
+
+            <ImageView app:srcCompat="@drawable/no_internet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
+
+            <com.halfplatepoha.jisho.view.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="@string/no_internet"
+                android:layout_marginTop="10dp"/>
+
+            <com.halfplatepoha.jisho.view.CustomTextView
+                android:id="@+id/btnSwitchToOffline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimaryVeryLight"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/switch_to_offline"/>
+
+        </LinearLayout>
+
+        <RelativeLayout android:id="@+id/zero_online_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"
+            tools:visibility="gone"
+            android:layout_centerInParent="true">
+
+            <ImageView android:id="@+id/ivOnlineNoResult"
+                app:srcCompat="@drawable/zero_search_online"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"/>
+
+            <com.halfplatepoha.jisho.view.CustomTextView
+                android:id="@+id/tvOnlineNoResultError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivOnlineNoResult"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:text="@string/no_result_error"
+                android:layout_marginTop="10dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tvOnlineNoResultError">
+
+                <com.halfplatepoha.jisho.view.CustomTextView
+                    android:id="@+id/btnTryOffline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/try_offline"/>
+
+                <com.halfplatepoha.jisho.view.CustomTextView
+                    android:id="@+id/btnReportOnline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/report"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout android:id="@+id/zero_offline_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginTop="30dp"
             android:visibility="gone"
             tools:visibility="visible"
-            tools:drawableTop="@drawable/no_internet"
-            tools:text="@string/no_internet"/>
+            android:layout_centerInParent="true">
+
+            <ImageView app:srcCompat="@drawable/zero_search_offline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
+
+            <com.halfplatepoha.jisho.view.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="@string/no_result_error_offline"
+                android:layout_marginTop="10dp"/>
+
+            <com.halfplatepoha.jisho.view.CustomTextView
+                android:id="@+id/btnReportOffline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimaryVeryLight"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/report"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>

@@ -54,8 +54,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".v2.detail.DetailsActivity" />
         <activity android:name=".lists.listdetails.ListDetailActivity" />
-        <activity android:name=".kanji.KanjiDetailActivity" />
-        <activity android:name=".sentences.SentencesActivity"></activity>
+        <activity android:name=".v2.kanji.KanjiDetailActivity" />
+        <activity android:name=".v2.sentences.SentencesActivity"></activity>
     </application>
 
 </manifest>

@@ -18,6 +18,7 @@ import com.halfplatepoha.jisho.jdb.KanjiElement;
 import com.halfplatepoha.jisho.jdb.Meaning;
 import com.halfplatepoha.jisho.jdb.QueryCode;
 import com.halfplatepoha.jisho.jdb.Reading;
+import com.halfplatepoha.jisho.jdb.Schema;
 import com.halfplatepoha.jisho.jdb.Sentence;
 import com.halfplatepoha.jisho.jdb.Split;
 import com.halfplatepoha.jisho.jdb.transfermodel.GCodepoint;
@@ -56,6 +57,8 @@ public class UpdateDBService extends Service {
     private static final int KANJIDIC_LIMIT = 13;
     private static final int TANAKA_LIMIT = 14;
     private static final int EDICT_LIMIT = 27;
+
+    private static final int TOTAL = KANJIDIC_LIMIT + TANAKA_LIMIT + EDICT_LIMIT + 1;
 
     private Realm realm;
 
@@ -96,252 +99,244 @@ public class UpdateDBService extends Service {
     }
 
     private void consumeKanjiDic(final int count) {
-        new ReadFileTask<>(getApplicationContext(), GKanji[].class, new ReadFileTask.Listener<GKanji>() {
-            @Override
-            public void onResult(GKanji[] kanjis) {
-                Log.e("CONSUME", String.format(KANJIDIC, count));
-                realm.beginTransaction();
+        new ReadFileTask<>(getApplicationContext(), GKanji[].class, kanjis -> {
+            Log.e("CONSUME", String.format(KANJIDIC, count));
+            realm.beginTransaction();
 
-                for (GKanji gKanji : kanjis) {
-                    Kanji kanji = realm.createObject(Kanji.class);
+            for (GKanji gKanji : kanjis) {
+                Kanji kanji = realm.createObject(Kanji.class);
 
-                    kanji.freq = gKanji.freq;
-                    kanji.grade = gKanji.grade;
-                    kanji.strokeCount = gKanji.strokeCount;
-                    kanji.literal = gKanji.literal;
+                kanji.freq = gKanji.freq;
+                kanji.grade = gKanji.grade;
+                kanji.strokeCount = gKanji.strokeCount;
+                kanji.literal = gKanji.literal;
 
-                    if(gKanji.dicNumbers != null) {
-                        for (GDicNumber gDicNumber : gKanji.dicNumbers) {
-                            DicNumber dicNumber = realm.createObject(DicNumber.class);
-                            dicNumber.dicRef = gDicNumber.dicRef;
-                            dicNumber.drType = gDicNumber.drType;
+                if(gKanji.dicNumbers != null) {
+                    for (GDicNumber gDicNumber : gKanji.dicNumbers) {
+                        DicNumber dicNumber = realm.createObject(DicNumber.class);
+                        dicNumber.dicRef = gDicNumber.dicRef;
+                        dicNumber.drType = gDicNumber.drType;
 
-                            kanji.dicNumbers.add(dicNumber);
-                        }
+                        kanji.dicNumbers.add(dicNumber);
                     }
-
-                    if(gKanji.codepoints != null) {
-                        for (GCodepoint gCodepoint : gKanji.codepoints) {
-                            Codepoint codepoint = realm.createObject(Codepoint.class);
-                            codepoint.cpType = gCodepoint.cpType;
-                            codepoint.cpValue = gCodepoint.cpValue;
-
-                            kanji.codepoints.add(codepoint);
-                        }
-                    }
-
-                    if(gKanji.meanings != null) {
-                        for (GMeaning gMeaning : gKanji.meanings) {
-                            Meaning meaning = realm.createObject(Meaning.class);
-                            meaning.meaning = gMeaning.meaning;
-                            meaning.lang = gMeaning.lang;
-
-                            kanji.meanings.add(meaning);
-                        }
-                    }
-
-                    if(gKanji.readings != null) {
-                        for (GReading gReading : gKanji.readings) {
-                            Reading reading = realm.createObject(Reading.class);
-                            reading.reading = gReading.reading;
-                            reading.type = gReading.type;
-
-                            kanji.readings.add(reading);
-                        }
-                    }
-
-                    if(gKanji.queryCodes != null) {
-                        for (GQueryCode gQueryCode : gKanji.queryCodes) {
-                            QueryCode queryCode = realm.createObject(QueryCode.class);
-                            queryCode.qCode = gQueryCode.qCode;
-                            queryCode.qcType = gQueryCode.qcType;
-
-                            kanji.queryCodes.add(queryCode);
-                        }
-                    }
-
-                    realm.insertOrUpdate(kanji);
                 }
 
-                realm.commitTransaction();
+                if(gKanji.codepoints != null) {
+                    for (GCodepoint gCodepoint : gKanji.codepoints) {
+                        Codepoint codepoint = realm.createObject(Codepoint.class);
+                        codepoint.cpType = gCodepoint.cpType;
+                        codepoint.cpValue = gCodepoint.cpValue;
 
-                int nextCount = count + 1;
-
-                conversionProgress++;
-
-                updateProgress();
-
-                if(nextCount <= KANJIDIC_LIMIT) {
-                    consumeKanjiDic(nextCount);
-                } else {
-                    consumeKanjiStroke();
+                        kanji.codepoints.add(codepoint);
+                    }
                 }
+
+                if(gKanji.meanings != null) {
+                    for (GMeaning gMeaning : gKanji.meanings) {
+                        Meaning meaning = realm.createObject(Meaning.class);
+                        meaning.meaning = gMeaning.meaning;
+                        meaning.lang = gMeaning.lang;
+
+                        kanji.meanings.add(meaning);
+                    }
+                }
+
+                if(gKanji.readings != null) {
+                    for (GReading gReading : gKanji.readings) {
+                        Reading reading = realm.createObject(Reading.class);
+                        reading.reading = gReading.reading;
+                        reading.type = gReading.type;
+
+                        kanji.readings.add(reading);
+                    }
+                }
+
+                if(gKanji.queryCodes != null) {
+                    for (GQueryCode gQueryCode : gKanji.queryCodes) {
+                        QueryCode queryCode = realm.createObject(QueryCode.class);
+                        queryCode.qCode = gQueryCode.qCode;
+                        queryCode.qcType = gQueryCode.qcType;
+
+                        kanji.queryCodes.add(queryCode);
+                    }
+                }
+
+                realm.insertOrUpdate(kanji);
+            }
+
+            realm.commitTransaction();
+
+            int nextCount = count + 1;
+
+            updateProgress();
+
+            if(nextCount <= KANJIDIC_LIMIT) {
+                consumeKanjiDic(nextCount);
+            } else {
+                consumeKanjiStroke();
             }
         }).execute(String.format(KANJIDIC, count));
     }
 
     private void consumeKanjiStroke() {
-        new ReadFileTask<>(this, GStrokes[].class, new ReadFileTask.Listener<GStrokes>() {
-            @Override
-            public void onResult(GStrokes[] result) {
-                Log.e("CONSUME", "KanjiStrokes");
-                realm.beginTransaction();
+        new ReadFileTask<>(this, GStrokes[].class, result -> {
+            Log.e("CONSUME", "KanjiStrokes");
+            realm.beginTransaction();
 
-                for(GStrokes gStroke : result) {
-                    Kanji kanji = realm.where(Kanji.class).equalTo("literal", gStroke.name).findFirst();
+            for(GStrokes gStroke : result) {
+                Kanji kanji = realm.where(Kanji.class).equalTo("literal", gStroke.name).findFirst();
 
-                    if(kanji != null) {
-                        for(GElement gElement : gStroke.elements) {
-                            KanjiElement element = realm.createObject(KanjiElement.class);
-                            element.depth = gElement.depth;
-                            element.element = gElement.element;
+                if(kanji != null) {
+                    for(GElement gElement : gStroke.elements) {
+                        KanjiElement element = realm.createObject(KanjiElement.class);
+                        element.depth = gElement.depth;
+                        element.element = gElement.element;
 
-                            kanji.elements.add(element);
-                        }
-
-                        for(String gPaths : gStroke.paths) {
-                            kanji.strokes.add(gPaths);
-                        }
-
-                        realm.insertOrUpdate(kanji);
+                        kanji.elements.add(element);
                     }
+
+                    for(String gPaths : gStroke.paths) {
+                        kanji.strokes.add(gPaths);
+                    }
+
+                    realm.insertOrUpdate(kanji);
                 }
-
-                updateProgress();
-
-                realm.commitTransaction();
             }
+
+            updateProgress();
+
+            realm.commitTransaction();
         }).execute("kanji.json");
     }
 
     private void consumeEdict(final int count) {
-        new ReadFileTask<>(getApplicationContext(), GEntry[].class, new ReadFileTask.Listener<GEntry>() {
-            @Override
-            public void onResult(GEntry[] gEntries) {
-                Log.e("CONSUME", String.format(EDICT, count));
-                realm.beginTransaction();
+        new ReadFileTask<>(getApplicationContext(), GEntry[].class, gEntries -> {
+            Log.e("CONSUME", String.format(EDICT, count));
+            realm.beginTransaction();
 
-                for(GEntry gEntry : gEntries) {
-                    Entry entry = realm.createObject(Entry.class);
+            for(GEntry gEntry : gEntries) {
+                Entry existingEntry = realm.where(Entry.class).equalTo(Schema.Entry.JAPANESE, gEntry.japanese).findFirst();
 
-                    entry.japanese = gEntry.japanese;
-                    entry.furigana = gEntry.furigana;
-                    entry.entrySeq = gEntry.entrySeq;
-                    entry.common = gEntry.common;
+                Entry entry = realm.createObject(Entry.class);
 
-                    if(gEntry.glosses != null) {
-                        for(GGloss gGloss : gEntry.glosses) {
-                            Gloss gloss = realm.createObject(Gloss.class);
-                            gloss.english = gGloss.english;
-                            gloss.field = gGloss.field;
-                            gloss.common = gGloss.common;
+                entry.japanese = gEntry.japanese;
+                entry.furigana = gEntry.furigana;
+                entry.entrySeq = gEntry.entrySeq;
+                entry.common = gEntry.common;
 
-                            if(gGloss.related != null) {
-                                for(String glossRelated : gGloss.related) {
-                                    gloss.related.add(glossRelated);
-                                }
+                if(gEntry.glosses != null) {
+                    for(GGloss gGloss : gEntry.glosses) {
+                        Gloss gloss = realm.createObject(Gloss.class);
+                        gloss.english = gGloss.english;
+                        gloss.field = gGloss.field;
+                        gloss.common = gGloss.common;
+
+                        if(gGloss.related != null) {
+                            for(String glossRelated : gGloss.related) {
+                                gloss.related.add(glossRelated);
                             }
+                        }
 
-                            if(gGloss.tags != null) {
-                                for(String glossTag : gGloss.tags) {
-                                    gloss.tags.add(glossTag);
-                                }
+                        if(gGloss.tags != null) {
+                            for(String glossTag : gGloss.tags) {
+                                gloss.tags.add(glossTag);
                             }
-
-                            entry.glosses.add(gloss);
                         }
-                    }
 
-                    if(gEntry.tags != null) {
-                        for (String tag : gEntry.tags) {
-                            entry.tags.add(tag);
-                        }
+                        entry.glosses.add(gloss);
                     }
+                }
 
-                    if(gEntry.dialects != null) {
-                        for (String dialect : gEntry.dialects) {
-                            entry.dialects.add(dialect);
-                        }
+                if(gEntry.tags != null) {
+                    for (String tag : gEntry.tags) {
+                        entry.tags.add(tag);
                     }
+                }
 
-                    if(gEntry.fields != null) {
-                        for (String field : gEntry.fields) {
-                            entry.fields.add(field);
-                        }
+                if(gEntry.dialects != null) {
+                    for (String dialect : gEntry.dialects) {
+                        entry.dialects.add(dialect);
                     }
+                }
 
-                    if(gEntry.kanaTags != null) {
-                        for (String kanatag : gEntry.kanaTags) {
-                            entry.kanaTags.add(kanatag);
-                        }
+                if(gEntry.fields != null) {
+                    for (String field : gEntry.fields) {
+                        entry.fields.add(field);
                     }
+                }
 
-                    if(gEntry.kanjiTags != null) {
-                        for (String kanjitag : gEntry.kanjiTags) {
-                            entry.kanjiTags.add(kanjitag);
-                        }
+                if(gEntry.kanaTags != null) {
+                    for (String kanatag : gEntry.kanaTags) {
+                        entry.kanaTags.add(kanatag);
                     }
+                }
 
-                    if(gEntry.pos != null) {
-                        for (String pos : gEntry.pos) {
-                            entry.pos.add(pos);
-                        }
+                if(gEntry.kanjiTags != null) {
+                    for (String kanjitag : gEntry.kanjiTags) {
+                        entry.kanjiTags.add(kanjitag);
                     }
+                }
 
+                if(gEntry.pos != null) {
+                    for (String pos : gEntry.pos) {
+                        entry.pos.add(pos);
+                    }
+                }
+
+                //--add entry to related if entry already exists
+                if(existingEntry != null)
+                    existingEntry.related.add(entry);
+                else
                     realm.insertOrUpdate(entry);
-                }
+            }
 
-                realm.commitTransaction();
+            realm.commitTransaction();
 
-                int nextCount = count + 1;
+            int nextCount = count + 1;
 
-                updateProgress();
+            updateProgress();
 
-                if(nextCount <= EDICT_LIMIT) {
-                    consumeEdict(nextCount);
-                }
+            if(nextCount <= EDICT_LIMIT) {
+                consumeEdict(nextCount);
             }
         }).execute(String.format(EDICT, count));
     }
 
     private void consumeTanaka(final int count) {
-        new ReadFileTask<>(getApplicationContext(), GSentence[].class, new ReadFileTask.Listener<GSentence>() {
-            @Override
-            public void onResult(GSentence[] gSentences) {
-                Log.e("CONSUME", String.format(TANAKA, count));
-                realm.beginTransaction();
+        new ReadFileTask<>(getApplicationContext(), GSentence[].class, gSentences -> {
+            Log.e("CONSUME", String.format(TANAKA, count));
+            realm.beginTransaction();
 
-                for(GSentence gSentence : gSentences) {
-                    Sentence sentence = realm.createObject(Sentence.class);
+            for(GSentence gSentence : gSentences) {
+                Sentence sentence = realm.createObject(Sentence.class);
 
-                    sentence.sentence = gSentence.sentence;
-                    sentence.english = gSentence.english;
+                sentence.sentence = gSentence.sentence;
+                sentence.english = gSentence.english;
 
-                    if(gSentence.splits != null) {
-                        for(GSplit gSplit : gSentence.splits) {
-                            Split split = realm.createObject(Split.class);
-                            split.isGood = gSplit.isGood;
-                            split.keyword = gSplit.keyword;
-                            split.reading = gSplit.reading;
-                            split.sentenceForm = gSplit.sentenceForm;
-                            split.sense = gSplit.sense;
+                if(gSentence.splits != null) {
+                    for(GSplit gSplit : gSentence.splits) {
+                        Split split = realm.createObject(Split.class);
+                        split.isGood = gSplit.isGood;
+                        split.keyword = gSplit.keyword;
+                        split.reading = gSplit.reading;
+                        split.sentenceForm = gSplit.sentenceForm;
+                        split.sense = gSplit.sense;
 
-                            sentence.splits.add(split);
-                        }
+                        sentence.splits.add(split);
                     }
-
-                    realm.insertOrUpdate(sentence);
                 }
 
-                realm.commitTransaction();
+                realm.insertOrUpdate(sentence);
+            }
 
-                int nextCount = count + 1;
+            realm.commitTransaction();
 
-                updateProgress();
+            int nextCount = count + 1;
 
-                if(nextCount <= TANAKA_LIMIT) {
-                    consumeTanaka(nextCount);
-                }
+            updateProgress();
+
+            if(nextCount <= TANAKA_LIMIT) {
+                consumeTanaka(nextCount);
             }
         }).execute(String.format(TANAKA, count));
     }
@@ -349,15 +344,15 @@ public class UpdateDBService extends Service {
     private void updateProgress() {
         conversionProgress++;
 
-        int percentage = (conversionProgress % (KANJIDIC_LIMIT + TANAKA_LIMIT + EDICT_LIMIT + 1));
+        float percentage = (conversionProgress * 100.f) / TOTAL;
 
         sendIntent(percentage);
-        notificationBuilder.setProgress((KANJIDIC_LIMIT + TANAKA_LIMIT + EDICT_LIMIT + 1), conversionProgress,false);
+        notificationBuilder.setProgress(TOTAL, conversionProgress,false);
         notificationBuilder.setContentText("Updating offline "+ percentage +" %");
         notificationManager.notify(0, notificationBuilder.build());
     }
 
-    private void sendIntent(int percentage){
+    private void sendIntent(float percentage){
         Intent intent = new Intent(IConstants.UPDATE_BROADCAST_FILTER);
         intent.putExtra(KEY_PROGRESS, percentage);
         sendBroadcast(intent);

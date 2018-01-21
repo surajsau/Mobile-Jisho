@@ -2,11 +2,8 @@ package com.halfplatepoha.jisho.v2.search;
 
 import com.halfplatepoha.jisho.base.BaseViewholderView;
 import com.halfplatepoha.jisho.base.IAdapterPresenter;
-import com.halfplatepoha.jisho.jdb.Entry;
 
 import java.util.List;
-
-import io.realm.RealmResults;
 
 /**
  * Created by surjo on 21/12/17.
@@ -23,6 +20,8 @@ public interface EntriesAdapterContract {
         void hideCommon();
 
         void setSense(String sense);
+
+        void setTag(String tag);
 
     }
 
@@ -42,9 +41,9 @@ public interface EntriesAdapterContract {
 
     interface Presenter extends IAdapterPresenter<View> {
 
-        void setResults(List<Entry> entries);
+        void setResults(List<EntryModel> entries);
 
-        void onItemClick(int adapterPosition);
+        void onItemClick(String tag);
 
         void attachListener(EntriesAdapterPresenter.Listener listener);
 

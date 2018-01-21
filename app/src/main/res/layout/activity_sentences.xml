@@ -5,41 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.halfplatepoha.jisho.sentences.SentencesActivity">
+    android:background="@color/white"
+    tools:context=".v2.sentences.SentencesActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingBottom="16dp"
         android:paddingRight="16dp"
-        android:paddingTop="16dp">
+        android:paddingTop="16dp"
+        android:background="@color/colorPrimaryVeryLight">
 
         <ImageButton
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:background="@null"
             android:rotation="180"
             android:padding="16dp"
             app:srcCompat="@drawable/ic_back" />
 
-    </RelativeLayout>
+        <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvEntry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="嘘"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:padding="16dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="16dp"/>
 
-    <TextView android:id="@+id/tvEntry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="嘘"
-        android:layout_centerInParent="true"
-        android:textSize="30sp"
-        android:paddingLeft="16dp"
-        android:textColor="@color/colorPrimary"/>
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rlSentences"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/row_sentence" />
+        tools:listitem="@layout/row_sentence"
+        android:paddingTop="32dp"
+        android:paddingBottom="32dp"
+        android:clipToPadding="false"/>
 
 </LinearLayout>

@@ -30,7 +30,7 @@
         tools:visibility="visible"
         android:orientation="vertical">
 
-        <TextView
+        <com.halfplatepoha.jisho.view.CustomTextView
             android:id="@+id/tvJapanese"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:textSize="24sp"
             tools:text="気をつけて" />
 
-        <TextView
+        <com.halfplatepoha.jisho.view.CustomTextView
             android:id="@+id/tvHiragana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                         android:visibility="visible"
                         tools:visibility="visible" />
 
-                    <TextView
+                    <com.halfplatepoha.jisho.view.CustomTextView
                         android:id="@+id/tvKanjis"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                         android:layout_marginRight="16dp"
                         android:orientation="horizontal" />
 
-                    <TextView
+                    <com.halfplatepoha.jisho.view.CustomTextView
                         android:id="@+id/tvOtherForms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
         android:background="@color/colorPrimary"
         tools:alpha="1.0">
 
-        <TextView android:id="@+id/tvExtraJapanese"
+        <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvExtraJapanese"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="気をつけて"
@@ -169,7 +169,7 @@
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"/>
 
-        <TextView android:id="@+id/tvExtraHiragana"
+        <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvExtraHiragana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="きをつけて"
@@ -200,7 +200,7 @@
             android:layout_height="?android:actionBarSize"
             android:layout_alignParentRight="true"
             android:background="@null"
-            app:srcCompat="@drawable/unfav"
+            app:srcCompat="@drawable/tab_list"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 

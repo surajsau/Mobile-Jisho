@@ -13,7 +13,6 @@
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:paddingBottom="16dp"
-        android:paddingRight="16dp"
         android:paddingTop="16dp">
 
         <ImageButton
@@ -31,9 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:padding="16dp"
             android:layout_toLeftOf="@id/btnFav"
             android:background="@null"
+            android:padding="16dp"
             app:srcCompat="@drawable/ic_add_to_list" />
 
         <ImageButton
@@ -42,8 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:background="@null"
-            android:rotation="180"
             android:padding="16dp"
+            android:rotation="180"
             app:srcCompat="@drawable/ic_back" />
 
     </RelativeLayout>
@@ -60,22 +59,22 @@
             android:orientation="vertical"
             android:paddingLeft="16dp">
 
-            <TextView
+            <com.halfplatepoha.jisho.view.CustomTextView
                 android:id="@+id/tvJapaneseReading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="かさいほうちき" />
 
-            <TextView
+            <com.halfplatepoha.jisho.view.CustomTextView
                 android:id="@+id/tvJapanese"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvJapaneseReading"
                 android:textColor="@color/colorPrimary"
-                android:textSize="23sp"
+                android:textSize="26sp"
                 tools:text="火災報知器" />
 
-            <TextView
+            <com.halfplatepoha.jisho.view.CustomTextView
                 android:id="@+id/tvPos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,32 +89,19 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <com.halfplatepoha.jisho.view.CustomTextView
+            android:id="@+id/btnAddNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btnKanjiPlay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:background="@color/colorPrimaryVeryLight"
-                android:rotation="90"
-                app:srcCompat="@drawable/forward" />
-
-            <Button
-                android:id="@+id/btnAddNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryVeryLight"
-                android:text="+ note"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary" />
-
-        </LinearLayout>
+            android:text=" + n o t e "
+            android:background="@color/colorPrimaryVeryLight"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="10dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"/>
 
     </RelativeLayout>
 
@@ -137,7 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.halfplatepoha.jisho.view.CustomTextView
                     android:id="@+id/tvMeaningsHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,14 +135,15 @@
                     android:text="M E A N I N G"
                     android:textSize="12sp" />
 
-                <TextView
+                <com.halfplatepoha.jisho.view.CustomTextView
                     android:id="@+id/tvMeaning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvMeaningsHeader"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_toLeftOf="@id/tvMeaningsHeader"
                     android:text="association, socializing, socialising, fellowship" />
 
             </RelativeLayout>
@@ -168,7 +155,7 @@
                 android:visibility="gone"
                 tools:visibility="visible">
 
-                <TextView
+                <com.halfplatepoha.jisho.view.CustomTextView
                     android:id="@+id/tvKanjiHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -182,9 +169,11 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rlKanji"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvKanjiHeader"/>
+                    android:layout_below="@id/tvKanjiHeader"
+                    android:layout_toLeftOf="@id/tvKanjiHeader"
+                    />
 
             </RelativeLayout>
 
@@ -200,25 +189,25 @@
                 android:visibility="gone"
                 tools:visibility="visible">
 
-                <TextView
+                <com.halfplatepoha.jisho.view.CustomTextView
                     android:id="@+id/tvExamplesHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:background="@color/colorPrimaryVeryLight"
+                    android:drawablePadding="16dp"
+                    android:drawableRight="@drawable/ic_next"
+                    android:gravity="center_vertical"
                     android:minHeight="0dp"
                     android:minWidth="0dp"
-                    android:paddingTop="24dp"
                     android:paddingBottom="24dp"
-                    android:paddingRight="24dp"
                     android:paddingLeft="48dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="24dp"
                     android:text="E X A M P L E S"
-                    android:drawableRight="@drawable/ic_next"
-                    android:drawablePadding="16dp"
-                    android:gravity="center_vertical"
                     android:textSize="12sp" />
 
-                <TextView
+                <com.halfplatepoha.jisho.view.CustomTextView
                     android:id="@+id/tvExamplesCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

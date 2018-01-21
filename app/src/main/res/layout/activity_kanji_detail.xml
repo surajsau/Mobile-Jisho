@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.halfplatepoha.jisho.kanji.KanjiDetailActivity">
+    android:background="@color/white"
+    tools:context=".v2.kanji.KanjiDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,7 +14,8 @@
         android:orientation="horizontal"
         android:paddingBottom="16dp"
         android:paddingRight="16dp"
-        android:paddingTop="16dp">
+        android:paddingTop="16dp"
+        android:background="@color/colorPrimaryVeryLight">
 
         <!-- WHAT TO DO WITH FAV and ADD TO LIST -->
 
@@ -52,273 +54,273 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp">
-
-        <TextView
-            android:id="@+id/tvKanji"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="16dp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="84sp"
-            tools:text="月" />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.github.badoualy.kanjistroke.KanjiStrokeView
-                android:id="@+id/ivKanjiPlay"
-                android:layout_width="60dp"
-                android:layout_height="60dp" />
-
-            <TextView
-                android:id="@+id/btnAddNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginLeft="16dp"
-                android:background="@color/colorPrimaryVeryLight"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:padding="10dp"
-                android:text="+ n o t e "
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/japanese"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvJapaneseReadingHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:background="@color/colorPrimaryVeryLight"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="10dp"
-            android:text="R E A D I N G S"
-            android:textSize="12sp" />
-
-        <LinearLayout
-            android:id="@+id/kun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvJapaneseReadingHeader"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:srcCompat="@drawable/flag_japan" />
-
-            <TextView
-                android:id="@+id/tvKunReading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                tools:text="Sample text" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/on"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/kun"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="8dp"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:srcCompat="@drawable/flag_japan" />
-
-            <TextView
-                android:id="@+id/tvOnReading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                tools:text="Sample text" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/meaning"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvMeaningHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:background="@color/colorPrimaryVeryLight"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="10dp"
-            android:text="M E A N I N G S"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tvMeaning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvMeaningHeader"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp"
-            android:textSize="16sp"
-            tools:text="Sample text" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvReadingsHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:background="@color/colorPrimaryVeryLight"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="10dp"
-            android:text="O T H E R S"
-            android:textSize="12sp" />
-
-        <LinearLayout
-            android:id="@+id/readingsContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvReadingsHeader"
-            android:layout_margin="16dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/korean"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp">
 
-                <ImageView
+                <com.halfplatepoha.jisho.view.CustomTextView
+                    android:id="@+id/tvKanji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/flag_south_korea" />
+                    android:layout_centerVertical="true"
+                    android:padding="16dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="84sp"
+                    tools:text="月" />
 
-                <TextView
-                    android:id="@+id/tvKoreanReading"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.github.badoualy.kanjistroke.KanjiStrokeView
+                        android:id="@+id/ivKanjiPlay"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp" />
+
+                    <com.halfplatepoha.jisho.view.CustomTextView
+                        android:id="@+id/btnAddNote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginLeft="16dp"
+                        android:background="@color/colorPrimaryVeryLight"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="10dp"
+                        android:text="+ n o t e "
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/japanese"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.halfplatepoha.jisho.view.CustomTextView
+                    android:id="@+id/tvJapaneseReadingHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:padding="10dp"
+                    android:text="R E A D I N G S"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:id="@+id/kun"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvJapaneseReadingHeader"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="16dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <com.halfplatepoha.jisho.view.CustomTextView
+                        android:id="@+id/tvKunReading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        tools:text="Sample text" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/on"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/kun"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="16dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="8dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <com.halfplatepoha.jisho.view.CustomTextView
+                        android:id="@+id/tvOnReading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        tools:text="Sample text" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/meaning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.halfplatepoha.jisho.view.CustomTextView
+                    android:id="@+id/tvMeaningHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:padding="10dp"
+                    android:text="M E A N I N G S"
+                    android:textSize="12sp" />
+
+                <com.halfplatepoha.jisho.view.CustomTextView
+                    android:id="@+id/tvMeaning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvMeaningHeader"
+                    android:paddingBottom="16dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="16dp"
                     android:textSize="16sp"
                     tools:text="Sample text" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/chinese"
+            <RelativeLayout
+                android:id="@+id/others"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:layout_height="wrap_content">
 
-                <ImageView
+                <com.halfplatepoha.jisho.view.CustomTextView
+                    android:id="@+id/tvReadingsHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/flag_china" />
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:padding="10dp"
+                    android:text="O T H E R S"
+                    android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/tvChineseReading"
+                <LinearLayout
+                    android:id="@+id/readingsContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="16sp"
-                    tools:text="Sample text" />
+                    android:layout_below="@id/tvReadingsHeader"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/korean"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/flag_south_korea" />
+
+                        <com.halfplatepoha.jisho.view.CustomTextView
+                            android:id="@+id/tvKoreanReading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="16sp"
+                            tools:text="Sample text" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/chinese"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/flag_china" />
+
+                        <com.halfplatepoha.jisho.view.CustomTextView
+                            android:id="@+id/tvChineseReading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="16sp"
+                            tools:text="Sample text" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- todo: complete components -->
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/componentsContainer"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="gone">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tvComponentsHeader"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:background="@color/colorPrimaryVeryLight"-->
+            <!--android:minHeight="0dp"-->
+            <!--android:minWidth="0dp"-->
+            <!--android:padding="10dp"-->
+            <!--android:text="C O M P O N E N T S"-->
+            <!--android:textSize="12sp" />-->
+
+            <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/tvComponentsHeader">-->
+
+            <!--<LinearLayout-->
+            <!--android:id="@+id/nodeComponentsContainer"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical" />-->
+
+            <!--</ScrollView>-->
+
+            <!--</RelativeLayout>-->
         </LinearLayout>
-
-    </RelativeLayout>
-
-    <!-- todo: complete components -->
-    <RelativeLayout
-        android:id="@+id/componentsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/tvComponentsHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:background="@color/colorPrimaryVeryLight"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="10dp"
-            android:text="C O M P O N E N T S"
-            android:textSize="12sp" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvComponentsHeader">
-
-            <LinearLayout
-                android:id="@+id/nodeComponentsContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-
-        </ScrollView>
-
-    </RelativeLayout>
+    </ScrollView>
 
 </LinearLayout>

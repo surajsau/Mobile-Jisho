@@ -13,14 +13,14 @@
         android:padding="10dp"
         android:gravity="center">
 
-        <TextView
+        <com.halfplatepoha.jisho.view.CustomTextView
             android:id="@+id/tvHiragana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="きをつけて"
             android:textColor="@color/colorPrimaryLight"/>
 
-        <TextView
+        <com.halfplatepoha.jisho.view.CustomTextView
             android:id="@+id/tvJapanese"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

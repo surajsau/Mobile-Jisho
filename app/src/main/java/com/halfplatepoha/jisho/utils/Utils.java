@@ -2,6 +2,7 @@ package com.halfplatepoha.jisho.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -54,7 +55,8 @@ public class Utils {
         return sb.toString();
     }
 
-    public static ArrayList<String> kanjiList(String string) {
+    @NonNull
+    public static String[] kanjiList(String string) {
         ArrayList<String> kanjis = new ArrayList<>();
         if(!TextUtils.isEmpty(string)) {
             for(char c : string.toCharArray()) {
@@ -63,7 +65,7 @@ public class Utils {
             }
         }
 
-        return kanjis;
+        return kanjis.toArray(new String[kanjis.size()]);
     }
 
 

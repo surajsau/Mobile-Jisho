@@ -12,6 +12,7 @@ import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseActivity;
 import com.halfplatepoha.jisho.v2.detail.DetailsActivity;
 import com.halfplatepoha.jisho.v2.search.EntriesAdapter;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import javax.inject.Inject;
 
@@ -22,7 +23,7 @@ public class ListDetailActivity extends BaseActivity<ListDetailContract.Presente
     public static final String KEY_LIST_NAME = "list_name";
 
     @BindView(R.id.tvListTitle)
-    TextView tvListTitle;
+    CustomTextView tvListTitle;
 
     @BindView(R.id.rlEntries)
     RecyclerView rlEntries;

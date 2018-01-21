@@ -26,6 +26,7 @@ public class SentenceAdapterPresenter extends BaseAdapterPresenter<SentenceAdapt
 
     @Override
     public void onBind(SentenceAdapterContract.View viewHolder, int position) {
+        viewHolder.setTag(sentences.get(position).sentence);
         viewHolder.setOriginal(sentences.get(position).sentence);
         viewHolder.setEnglish(sentences.get(position).english);
     }
@@ -57,12 +58,12 @@ public class SentenceAdapterPresenter extends BaseAdapterPresenter<SentenceAdapt
     }
 
     @Override
-    public void onItemClick(int adapterPosition) {
+    public void onItemClick(String tag) {
         if(listener != null)
-            listener.onItemClick(sentences.get(adapterPosition));
+            listener.onItemClick(tag);
     }
 
     public interface Listener {
-        void onItemClick(Sentence sentence);
+        void onItemClick(String sentence);
     }
 }

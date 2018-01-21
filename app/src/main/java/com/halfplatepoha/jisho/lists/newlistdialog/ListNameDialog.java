@@ -5,6 +5,7 @@ import android.widget.EditText;
 
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseDialog;
+import com.halfplatepoha.jisho.view.CustomEditText;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -22,7 +23,7 @@ public class ListNameDialog extends BaseDialog<NewListDialogContract.Presenter> 
     private static final String KEY_LIST_NAME = "list_name";
 
     @BindView(R.id.etListName)
-    EditText etListName;
+    CustomEditText etListName;
 
     public static ListNameDialog getInstance(String listName) {
         Bundle bundle = new Bundle();

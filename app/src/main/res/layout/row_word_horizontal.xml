@@ -24,14 +24,14 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
+        <com.halfplatepoha.jisho.view.CustomTextView
             android:id="@+id/tvFurigana"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="きをつけて"
             android:textColor="@color/colorPrimaryLight"/>
 
-        <TextView
+        <com.halfplatepoha.jisho.view.CustomTextView
             android:id="@+id/tvJapanese"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             tools:text="気をつけて"
             android:textColor="@color/colorPrimary"/>
 
-        <TextView
+        <com.halfplatepoha.jisho.view.CustomTextView
             android:id="@+id/tvSense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

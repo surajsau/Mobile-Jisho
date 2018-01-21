@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.halfplatepoha.jisho.injection.ActivityScope;
+import com.halfplatepoha.jisho.v2.injection.ActivityScope;
 
 import javax.inject.Named;
 

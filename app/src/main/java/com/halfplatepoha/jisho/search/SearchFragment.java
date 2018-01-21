@@ -75,7 +75,7 @@
 //    MaterialProgressBar progress;
 //
 //    @BindView(R.id.tvError)
-//    TextView tvError;
+//    CustomTextView tvError;
 //
 //    @BindView(R.id.swtchOffline)
 //    SwitchButton swtchOffline;

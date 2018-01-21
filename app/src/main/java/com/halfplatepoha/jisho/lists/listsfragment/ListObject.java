@@ -12,10 +12,10 @@ public class ListObject {
     public boolean isSelected;
     public boolean isNameChange;
 
-    public static ListObject fromJishoList(JishoList jishoList) {
-        if(jishoList != null) {
+    public static ListObject fromJishoListName(String name) {
+        if(name != null) {
             ListObject listObject = new ListObject();
-            listObject.name = jishoList.name;
+            listObject.name = name;
             return listObject;
         }
         return null;

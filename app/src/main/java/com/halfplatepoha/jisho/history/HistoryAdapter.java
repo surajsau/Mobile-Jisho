@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.analytics.Analytics;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import java.util.ArrayList;
 
@@ -64,7 +65,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     public class HistoryViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvHistory)
-        TextView tvHistory;
+        CustomTextView tvHistory;
 
         public HistoryViewHolder(View itemView) {
             super(itemView);

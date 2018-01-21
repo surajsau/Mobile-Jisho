@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.apimodel.Japanese;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import java.util.ArrayList;
 
@@ -66,10 +67,10 @@ public class OtherFormsAdapter extends RecyclerView.Adapter<OtherFormsAdapter.Ot
     public class OtherFormsViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvHiragana)
-        TextView tvHiragana;
+        CustomTextView tvHiragana;
 
         @BindView(R.id.tvJapanese)
-        TextView tvJapanese;
+        CustomTextView tvJapanese;
 
         public OtherFormsViewHolder(View itemView) {
             super(itemView);

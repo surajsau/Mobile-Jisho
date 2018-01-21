@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView android:text="Finally the feature many of you wanted is here! This is the first version of offline mode so there may be less information. If you find any, do let us know.\n\nThanks and spread the word!"
+    <com.halfplatepoha.jisho.view.CustomTextView android:text="Finally the feature many of you wanted is here! This is the first version of offline mode so there may be less information. If you find any, do let us know.\n\nThanks and spread the word!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

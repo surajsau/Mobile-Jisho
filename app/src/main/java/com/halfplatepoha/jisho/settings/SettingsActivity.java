@@ -28,6 +28,7 @@ import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.base.BaseFragmentActivity;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import java.io.File;
 
@@ -57,7 +58,7 @@ public class SettingsActivity extends BaseFragmentActivity<SettingsContract.Pres
     View offlineWarning;
 
     @BindView(R.id.tvDownloading)
-    TextView tvDownloading;
+    CustomTextView tvDownloading;
 
     @BindView(R.id.btnUpdate)
     View downloadButton;

@@ -14,6 +14,8 @@ public interface KanjiAdapterContract {
     interface View extends BaseViewholderView {
 
         void setKanji(String kanji);
+
+        void setMeaning(String meaning);
     }
 
     interface Presenter extends IAdapterPresenter<View> {
@@ -24,7 +26,7 @@ public interface KanjiAdapterContract {
 
         void onItemClick(int position);
 
-        void setKanjis(List<String> kanjis);
+        void setKanjis(List<KanjiModel> kanjis);
 
     }
 

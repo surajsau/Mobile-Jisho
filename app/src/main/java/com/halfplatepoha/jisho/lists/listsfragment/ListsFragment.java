@@ -41,6 +41,12 @@ public class ListsFragment extends BaseFragment<ListContract.Presenter> implemen
     @BindView(R.id.header)
     View header;
 
+    @BindView(R.id.tvListTitle)
+    View tvListTitle;
+
+    @BindView(R.id.btnAddNewList)
+    View btnAddNewList;
+
     @Inject
     ListsAdapter listsAdapter;
 
@@ -120,6 +126,26 @@ public class ListsFragment extends BaseFragment<ListContract.Presenter> implemen
     @Override
     public void hideHeader() {
         header.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideAddList() {
+        btnAddNewList.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideTitle() {
+        tvListTitle.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showTitle() {
+        tvListTitle.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showAddList() {
+        btnAddNewList.setVisibility(View.VISIBLE);
     }
 
     @Override

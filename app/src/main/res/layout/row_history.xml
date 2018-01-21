@@ -8,7 +8,7 @@
     android:layout_marginBottom="5dp"
     android:id="@+id/history">
 
-    <TextView android:id="@+id/tvHistory"
+    <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="thanks"

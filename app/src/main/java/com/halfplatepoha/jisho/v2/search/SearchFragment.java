@@ -1,5 +1,6 @@
 package com.halfplatepoha.jisho.v2.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,25 +19,28 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.analytics.Analytics;
+import com.halfplatepoha.jisho.apimodel.Word;
 import com.halfplatepoha.jisho.base.BaseFragment;
+import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.v2.detail.DetailsActivity;
+import com.halfplatepoha.jisho.view.CustomEditText;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.realm.Realm;
+import butterknife.OnClick;
 
 /**
  * Created by surjo on 20/12/17.
  */
 
-public class SearchFragment extends BaseFragment<SearchContract.Presenter> implements SearchContract.View, TextView.OnEditorActionListener, TextWatcher {
+public class SearchFragment extends BaseFragment<SearchContract.Presenter> implements SearchContract.View, TextView.OnEditorActionListener, TextWatcher, SwitchToOfflineDialog.Listener {
 
     public static final String EXTRA_SEARCH_STRING = "extra_search_string";
     public static final String EXTRA_SOURCE = "extra_source";
 
     @BindView(R.id.etSearch)
-    EditText etSearch;
+    CustomEditText etSearch;
 
     @BindView(R.id.rlWords)
     RecyclerView rlWords;
@@ -47,8 +51,8 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     @BindView(R.id.ivSearch)
     ImageView ivSearch;
 
-    @BindView(R.id.tvError)
-    TextView tvError;
+    @BindView(R.id.zero_offline_search)
+    View zeroOfflineSearch;
 
     @BindView(R.id.loader)
     LottieAnimationView loader;
@@ -122,6 +126,11 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
             rlWords.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
     }
 
+    @OnClick(R.id.btnReportOffline)
+    public void clickOffline() {
+        presenter.report(etSearch.text());
+    }
+
     @Override
     public void showVerticalSpace() {
 //        verticalSpace.setVisibility(View.VISIBLE);
@@ -132,4 +141,33 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
 //        verticalSpace.setVisibility(View.GONE);
     }
 
+    @Override
+    public void openGmailForError(String title) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.putExtra(Intent.EXTRA_EMAIL, IConstants.DEVELOPER_EMAIL);
+        intent.putExtra(Intent.EXTRA_SUBJECT, title);
+        startActivity(intent);
+    }
+
+    @Override
+    public void hideZeroOffline() {
+        zeroOfflineSearch.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showZeroOffline() {
+        zeroOfflineSearch.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showOfflineSwitchConfirmation() {
+        SwitchToOfflineDialog dlg = new SwitchToOfflineDialog();
+        dlg.setListener(this);
+        dlg.show(mChildFragmentManager, SwitchToOfflineDialog.TAG);
+    }
+
+    @Override
+    public void onConfirm() {
+        presenter.onOfflineSwitchConfirm(etSearch.text());
+    }
 }

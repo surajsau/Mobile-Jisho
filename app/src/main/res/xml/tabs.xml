@@ -2,19 +2,18 @@
 <tabs>
     <tab
         id="@+id/tab_search"
-        icon="@drawable/search"
+        icon="@drawable/tab_search"
         title="Search" />
     <tab
         id="@+id/tab_lists"
-        icon="@drawable/unfav"
+        icon="@drawable/tab_list"
         title="Lists" />
     <tab
         id="@+id/tab_history"
-        icon="@drawable/history"
+        icon="@drawable/tab_history"
         title="History" />
     <tab
         id="@+id/tab_options"
-        icon="@drawable/options"
-        title="Options"
-        barColorWhenSelected="@color/white"/>
+        icon="@drawable/tab_settings"
+        title="Options"/>
 </tabs>

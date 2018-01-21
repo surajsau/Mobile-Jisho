@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.analytics.Analytics;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,7 +82,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
     public class DrawerViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvTitle)
-        TextView tvTitle;
+        CustomTextView tvTitle;
 
         public DrawerViewHolder(View itemView) {
             super(itemView);

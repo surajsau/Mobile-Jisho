@@ -1,9 +1,5 @@
 package com.halfplatepoha.jisho.base;
 
-import android.view.ViewGroup;
-
-import com.halfplatepoha.jisho.kanji.KanjiNode;
-
 /**
  * Created by surjo on 20/12/17.
  */
@@ -11,6 +7,8 @@ import com.halfplatepoha.jisho.kanji.KanjiNode;
 public interface IPresenter {
 
     void onCreate();
+
+    void onStart();
 
     void onResume();
 

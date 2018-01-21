@@ -6,7 +6,7 @@
     tools:background="@drawable/dark_background"
     tools:context="com.halfplatepoha.jisho.AboutFragment">
 
-    <TextView android:text="@string/about_string"
+    <com.halfplatepoha.jisho.view.CustomTextView android:text="@string/about_string"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
@@ -16,7 +16,7 @@
         android:padding="5dp"
         android:layout_centerHorizontal="true"/>
 
-    <TextView android:text="@string/email_me"
+    <com.halfplatepoha.jisho.view.CustomTextView android:text="@string/email_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
@@ -43,7 +43,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/query"/>
 
-    <TextView android:text="頑張って！"
+    <com.halfplatepoha.jisho.view.CustomTextView android:text="頑張って！"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

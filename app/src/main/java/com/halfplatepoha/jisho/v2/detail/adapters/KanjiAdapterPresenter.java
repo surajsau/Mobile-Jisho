@@ -1,6 +1,7 @@
 package com.halfplatepoha.jisho.v2.detail.adapters;
 
 import com.halfplatepoha.jisho.base.BaseAdapterPresenter;
+import com.halfplatepoha.jisho.jdb.Kanji;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import javax.inject.Inject;
 
 public class KanjiAdapterPresenter extends BaseAdapterPresenter<KanjiAdapterContract.View> implements KanjiAdapterContract.Presenter {
 
-    private List<String> kanjis;
+    private List<KanjiModel> kanjis;
 
     private Listener listener;
 
@@ -23,7 +24,18 @@ public class KanjiAdapterPresenter extends BaseAdapterPresenter<KanjiAdapterCont
 
     @Override
     public void onBind(KanjiAdapterContract.View viewHolder, int position) {
-        viewHolder.setKanji(kanjis.get(position));
+        KanjiModel kanji = kanjis.get(position);
+        viewHolder.setKanji(kanji.literal);
+
+        if(kanji.meanings != null && !kanji.meanings.isEmpty()) {
+            StringBuilder meanings = new StringBuilder(kanji.meanings.get(0).meaning);
+            for(int i=1; i<kanji.meanings.size(); i++) {
+                if(kanji.meanings.get(i).lang == null)
+                    meanings.append(", ").append(kanji.meanings.get(i).meaning);
+            }
+
+            viewHolder.setMeaning(meanings.toString());
+        }
     }
 
     @Override
@@ -44,11 +56,11 @@ public class KanjiAdapterPresenter extends BaseAdapterPresenter<KanjiAdapterCont
     @Override
     public void onItemClick(int position) {
         if(listener != null)
-            listener.onItemClick(kanjis.get(position));
+            listener.onItemClick(kanjis.get(position).literal);
     }
 
     @Override
-    public void setKanjis(List<String> kanjis) {
+    public void setKanjis(List<KanjiModel> kanjis) {
         this.kanjis = kanjis;
         adapterInterface.itemRangeInserted(0, this.kanjis.size());
     }

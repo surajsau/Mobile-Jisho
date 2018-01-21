@@ -7,7 +7,7 @@
     tools:background="@color/colorPrimary"
     android:padding="16dp">
 
-    <TextView
+    <com.halfplatepoha.jisho.view.CustomTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/license_text"

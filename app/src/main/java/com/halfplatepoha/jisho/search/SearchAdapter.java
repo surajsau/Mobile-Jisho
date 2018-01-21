@@ -17,6 +17,7 @@ import com.halfplatepoha.jisho.apimodel.Japanese;
 import com.halfplatepoha.jisho.apimodel.Sense;
 import com.halfplatepoha.jisho.apimodel.Word;
 import com.halfplatepoha.jisho.utils.IConstants;
+import com.halfplatepoha.jisho.view.CustomTextView;
 import com.halfplatepoha.jisho.viewholders.SearchResultSenseViewHolder;
 
 import java.util.ArrayList;
@@ -115,19 +116,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
     public class MainViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvJapanese)
-        TextView tvJapanese;
+        CustomTextView tvJapanese;
 
         @BindView(R.id.ivCommon)
         ImageView ivCommon;
 
         @BindView(R.id.tvHiragana)
-        TextView tvHiragana;
+        CustomTextView tvHiragana;
 
         @BindView(R.id.sensesContainer)
         LinearLayout sensesContainer;
 
         @BindView(R.id.tvOtherForms)
-        TextView tvOtherForms;
+        CustomTextView tvOtherForms;
 
         public MainViewHolder(View itemView) {
             super(itemView);

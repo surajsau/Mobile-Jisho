@@ -12,6 +12,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseAdapter;
 import com.halfplatepoha.jisho.base.BaseViewholder;
+import com.halfplatepoha.jisho.view.CustomEditText;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,7 +37,7 @@ public class ListsAdapter extends BaseAdapter<ListAdapterContract.Presenter,List
     public static class ListViewHolder extends BaseViewholder<ListAdapterContract.Presenter> implements ListAdapterContract.View {
 
         @BindView(R.id.etListName)
-        EditText etListName;
+        CustomEditText etListName;
 
         @BindView(R.id.row_list)
         View row;
@@ -131,7 +132,7 @@ public class ListsAdapter extends BaseAdapter<ListAdapterContract.Presenter,List
 
         @OnClick(R.id.btnDone)
         public void clickDone() {
-            presenter.onListNameChanged(etListName.getText().toString(), getAdapterPosition());
+            presenter.onListNameChanged(etListName.text(), getAdapterPosition());
         }
 
         @OnFocusChange(R.id.etListName)

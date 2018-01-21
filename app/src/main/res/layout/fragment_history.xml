@@ -4,7 +4,27 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.halfplatepoha.jisho.lists.listsfragment.ListsFragment">
+
+    <RelativeLayout android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/colorPrimaryVeryLight"
+        android:padding="16dp"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+        <com.halfplatepoha.jisho.view.CustomTextView
+            android:id="@+id/tvHistoryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/text_history"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="36sp" />
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rlHistory"

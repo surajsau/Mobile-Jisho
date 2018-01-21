@@ -1,8 +1,8 @@
 package com.halfplatepoha.jisho.lists.listsfragment;
 
 import com.halfplatepoha.jisho.base.BasePresenter;
+import com.halfplatepoha.jisho.v2.data.IDataProvider;
 import com.halfplatepoha.jisho.jdb.JishoList;
-import com.halfplatepoha.jisho.jdb.Schema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
 
 /**
@@ -29,27 +28,26 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
 
     private ListContract.Bus eventBus;
 
-    private Realm realm;
-
     private int listMode;
+
+    private IDataProvider dataProvider;
 
     @Inject
     public ListsPresenter(ListContract.View view,
                           ListContract.Bus eventBus,
                           ListAdapterContract.Presenter listAdapterPresenter,
+                          IDataProvider dataProvider,
                           @Named(ListsFragment.KEY_LIST_MODE) int listMode) {
         super(view);
         this.eventBus = eventBus;
         this.listAdapterPresenter = listAdapterPresenter;
         this.listMode = listMode;
+        this.dataProvider = dataProvider;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        realm = Realm.getDefaultInstance();
-
         listAdapterPresenter.addListener(this);
     }
 
@@ -61,7 +59,7 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
             view.hideHeader();
         }
 
-        RealmResults<JishoList> results = realm.where(JishoList.class).findAll();
+        RealmResults<JishoList> results = dataProvider.getAllJishoLists();
 
         if(results != null && !results.isEmpty()) {
             view.hideZeroState();
@@ -76,20 +74,7 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
 
         view.hideKeyboard();
 
-        JishoList list = realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, originalName).findFirst();
-
-        realm.beginTransaction();
-
-        if(list != null) {
-            list.name = finalName;
-        } else {
-            list = realm.createObject(JishoList.class);
-            list.name = finalName;
-        }
-
-        realm.insertOrUpdate(list);
-
-        realm.commitTransaction();
+        dataProvider.changeListName(originalName, finalName);
     }
 
     @Override
@@ -112,6 +97,8 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
     public void onListItemLongClick(String listName) {
         if(selectedListCount == 0) {
             view.showEditView();
+            view.hideTitle();
+            view.hideAddList();
             listAdapterPresenter.showSelection();
         }
 
@@ -127,6 +114,8 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
 
         if(selectedListCount == 0) {
             view.hideEditView();
+            view.showTitle();
+            view.showAddList();
         } else if(selectedListCount == 1) {
             view.showEditListView();
         } else {
@@ -136,25 +125,17 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
 
     @Override
     public void removeList(String name) {
-        realm.beginTransaction();
 
-        realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, name).findAll().deleteAllFromRealm();
+        dataProvider.deleteList(name);
 
-        realm.commitTransaction();
     }
 
     @Override
     public void onNewListName(String name) {
-        realm.beginTransaction();
 
-        JishoList newList = realm.createObject(JishoList.class);
-        newList.name = name;
+        dataProvider.createNewList(name);
 
-        realm.insertOrUpdate(newList);
-
-        realm.commitTransaction();
-
-        listAdapterPresenter.addList(ListObject.fromJishoList(newList));
+        listAdapterPresenter.addList(ListObject.fromJishoListName(name));
 
         onListSelected(name);
     }
@@ -173,7 +154,7 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
     public void addNewList() {
         if(listAdapterPresenter != null) {
 
-            long count = realm.where(JishoList.class).contains(Schema.JishoList.NAME, "New List #").count();
+            long count = dataProvider.getNewJishoListEntryCount();
 
             ListObject listObject = new ListObject();
             listObject.isNameChange = true;
@@ -187,7 +168,7 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
         List<ListObject> listObjects = new ArrayList<>();
 
         for(JishoList jishoList : lists) {
-            listObjects.add(ListObject.fromJishoList(jishoList));
+            listObjects.add(ListObject.fromJishoListName(jishoList.name));
         }
 
         return listObjects;

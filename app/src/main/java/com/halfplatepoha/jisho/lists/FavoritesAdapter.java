@@ -12,6 +12,7 @@ import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.db.FavJapanese;
 import com.halfplatepoha.jisho.db.FavouriteWord;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import java.util.ArrayList;
 
@@ -77,10 +78,10 @@ public class FavoritesAdapter  extends RecyclerView.Adapter<FavoritesAdapter.Fav
     public class FavoritesViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvHiragana)
-        TextView tvHiragana;
+        CustomTextView tvHiragana;
 
         @BindView(R.id.tvJapanese)
-        TextView tvJapanese;
+        CustomTextView tvJapanese;
 
 //        @BindView(R.id.ivCommon)
 //        ImageView ivCommon;

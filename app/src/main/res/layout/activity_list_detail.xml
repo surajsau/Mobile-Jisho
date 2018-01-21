@@ -15,7 +15,7 @@
         android:paddingRight="16dp"
         android:paddingTop="16dp">
 
-        <TextView android:id="@+id/tvListTitle"
+        <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -29,7 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:background="@null"
-            app:srcCompat="@drawable/back" />
+            app:srcCompat="@drawable/ic_back"
+            android:rotation="180"
+            android:padding="16dp"/>
 
     </RelativeLayout>
 

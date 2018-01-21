@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <ImageView android:id="@+id/ivSwitchToOffline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/switch_to_offline"/>
+
+    <com.halfplatepoha.jisho.view.CustomTextView
+        android:id="@+id/tvSwitchToOffline"
+        android:text="Your search mode will switched to offline. Do you confirm?"
+        android:layout_below="@id/ivSwitchToOffline"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/tvSwitchToOffline"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp">
+
+        <Button android:id="@+id/btnCancel"
+            android:background="@color/colorPrimaryVeryLight"
+            android:layout_width="wrap_content"
+            android:text="Cancel"
+            android:textColor="@color/colorPrimaryLight"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content" />
+
+        <Button android:id="@+id/btnConfirm"
+            android:background="@color/colorPrimaryLight"
+            android:layout_width="wrap_content"
+            android:text="Confirm"
+            android:textColor="@color/colorPrimaryVeryLight"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</RelativeLayout>

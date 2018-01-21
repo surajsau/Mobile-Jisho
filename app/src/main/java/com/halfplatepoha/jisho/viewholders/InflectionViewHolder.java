@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.utils.VerbInflection;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import butterknife.BindView;
 
@@ -17,13 +18,13 @@ import butterknife.BindView;
 public class InflectionViewHolder extends BaseViewHolder<VerbInflection> {
 
     @BindView(R.id.tvPositive)
-    TextView tvPositive;
+    CustomTextView tvPositive;
 
     @BindView(R.id.tvNegative)
-    TextView tvNegative;
+    CustomTextView tvNegative;
 
     @BindView(R.id.tvTense)
-    TextView tvTense;
+    CustomTextView tvTense;
 
     public InflectionViewHolder(Context context, ViewGroup parent, VerbInflection verbInflection) {
         super(context, parent, verbInflection);

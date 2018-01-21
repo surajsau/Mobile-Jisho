@@ -10,6 +10,7 @@ import com.halfplatepoha.jisho.apimodel.Sense;
 import com.halfplatepoha.jisho.utils.Utils;
 import com.halfplatepoha.jisho.utils.VerbInflection;
 import com.halfplatepoha.jisho.utils.VerbInflectionUtils;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import java.util.ArrayList;
 
@@ -23,25 +24,25 @@ import butterknife.OnClick;
 public class SenseViewHolder extends BaseViewHolder<Sense> {
 
     @BindView(R.id.tvInfo)
-    TextView tvInfo;
+    CustomTextView tvInfo;
 
     @BindView(R.id.tvSeeAlso)
-    TextView tvSeeAlso;
+    CustomTextView tvSeeAlso;
 
     @BindView(R.id.tvSensePoS)
-    TextView tvSensePoS;
+    CustomTextView tvSensePoS;
 
     @BindView(R.id.tvSense)
-    TextView tvSense;
+    CustomTextView tvSense;
 
     @BindView(R.id.tvLink)
-    TextView tvLink;
+    CustomTextView tvLink;
 
     @BindView(R.id.tvTags)
-    TextView tvTags;
+    CustomTextView tvTags;
 
     @BindView(R.id.tvInflection)
-    TextView tvInflection;
+    CustomTextView tvInflection;
 
     private SenseActionListener senseActionListener;
 

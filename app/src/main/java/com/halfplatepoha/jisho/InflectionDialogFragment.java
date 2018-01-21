@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.utils.VerbInflection;
+import com.halfplatepoha.jisho.view.CustomTextView;
 import com.halfplatepoha.jisho.viewholders.InflectionViewHolder;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class InflectionDialogFragment extends DialogFragment {
     private String primaryString;
 
     @BindView(R.id.tvPrimaryString)
-    TextView tvPrimaryString;
+    CustomTextView tvPrimaryString;
 
     @BindView(R.id.inflectionsContainer)
     LinearLayout inflectionsContainer;

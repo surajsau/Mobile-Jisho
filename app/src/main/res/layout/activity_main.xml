@@ -24,7 +24,7 @@
         android:layout_alignParentBottom="true"
         app:bb_tabXmlResource="@xml/tabs" />
 
-    <TextView android:id="@+id/tvDownloadProgress"
+    <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvDownloadProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Downloading 25%"

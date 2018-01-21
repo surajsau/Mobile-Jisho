@@ -30,7 +30,8 @@
         tools:visibility="visible"
         android:layout_toRightOf="@id/ivListIcon"/>
 
-    <EditText android:id="@+id/etListName"
+    <com.halfplatepoha.jisho.view.CustomEditText
+        android:id="@+id/etListName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

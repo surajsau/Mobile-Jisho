@@ -7,7 +7,7 @@
     android:padding="10dp"
     android:id="@+id/drawerItem">
 
-    <TextView android:id="@+id/tvTitle"
+    <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Home"

@@ -18,6 +18,8 @@ public interface SentenceAdapterContract {
 
         void setOriginal(String sentence);
 
+        void setTag(String sentence);
+
     }
 
     interface Presenter extends IAdapterPresenter<View> {
@@ -30,7 +32,7 @@ public interface SentenceAdapterContract {
 
         void setKeyword(String keyword);
 
-        void onItemClick(int adapterPosition);
+        void onItemClick(String tag);
     }
 
 }

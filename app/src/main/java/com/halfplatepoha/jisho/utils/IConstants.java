@@ -35,6 +35,8 @@ public interface IConstants {
     String EDRDG = "http://www.edrdg.org/";
     String EDRDG_LICENSE = "http://www.edrdg.org/edrdg/licence.html";
 
+    String DEVELOPER_EMAIL = "i@surajsau.in";
+
     int MAX_DOWNLOAD_RETRY = 3;
 
     int TYPE_KANJI = 1;

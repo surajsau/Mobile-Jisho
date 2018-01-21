@@ -1,0 +1,56 @@
+package com.halfplatepoha.jisho.v2.injection.modules.views;
+
+import android.app.Activity;
+
+import com.halfplatepoha.jisho.base.BaseActivityModule;
+import com.halfplatepoha.jisho.lists.listsfragment.ListsFragment;
+import com.halfplatepoha.jisho.history.HistoryFragment;
+import com.halfplatepoha.jisho.home.MainActivity;
+import com.halfplatepoha.jisho.home.MainContract;
+import com.halfplatepoha.jisho.home.MainPresenter;
+import com.halfplatepoha.jisho.v2.injection.ActivityScope;
+import com.halfplatepoha.jisho.v2.injection.FragmentScope;
+import com.halfplatepoha.jisho.v2.injection.modules.HistoryModule;
+import com.halfplatepoha.jisho.v2.search.SearchFragment;
+import com.halfplatepoha.jisho.v2.settings.SettingsFragment;
+
+import dagger.Binds;
+import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
+
+/**
+ * Created by surjo on 20/12/17.
+ */
+
+@Module(includes = BaseActivityModule.class)
+public abstract class MainModule {
+
+    @Binds
+    @ActivityScope
+    abstract Activity activity(MainActivity activity);
+
+    @Binds
+    @ActivityScope
+    abstract MainContract.View view(MainActivity activity);
+
+    @Binds
+    @ActivityScope
+    abstract MainContract.Presenter presenter(MainPresenter presenter);
+
+    @ContributesAndroidInjector(modules = SearchModule.class)
+    @FragmentScope
+    abstract SearchFragment searchFragment();
+
+    @ContributesAndroidInjector(modules = HistoryModule.class)
+    @FragmentScope
+    abstract HistoryFragment historyFragment();
+
+    @ContributesAndroidInjector(modules = ListsModule.class)
+    @FragmentScope
+    abstract ListsFragment favoriteFragment();
+
+    @ContributesAndroidInjector(modules = SettingsModule.class)
+    @FragmentScope
+    abstract SettingsFragment settingsFragment();
+
+}

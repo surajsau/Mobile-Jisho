@@ -29,6 +29,8 @@ import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.UIUtils;
 import com.halfplatepoha.jisho.utils.Utils;
 import com.halfplatepoha.jisho.v2.search.SearchFragment;
+import com.halfplatepoha.jisho.v2.settings.SettingsFragment;
+import com.halfplatepoha.jisho.view.CustomTextView;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -38,8 +40,7 @@ import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends BaseFragmentActivity<MainContract.Presenter> implements MainContract.View,
-        HistoryFragment.HistoryFragmentActionListener,
-        OnTabSelectListener, OnTabReselectListener {
+        HistoryFragment.HistoryFragmentActionListener, OnTabSelectListener {
 
     private static final String[] STORAGE_PERMS = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private static final int REQ_PERM_STORAGE = 103;
@@ -49,13 +50,15 @@ public class MainActivity extends BaseFragmentActivity<MainContract.Presenter> i
     BottomBar bottomBar;
 
     @BindView(R.id.tvDownloadProgress)
-    TextView tvDownloadProgress;
+    CustomTextView tvDownloadProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         String fcmRegId = FirebaseInstanceId.getInstance().getToken();
+
+        bottomBar.setOnTabSelectListener(this);
 
         if(Utils.isFileDowloaded()) {
             checkForStorageReadWritePermissions();
@@ -67,14 +70,13 @@ public class MainActivity extends BaseFragmentActivity<MainContract.Presenter> i
                     new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                            bottomBar.selectTabAtPosition(3, true);
                         }
                     });
-            JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
-        }
 
-        bottomBar.setOnTabSelectListener(this);
-        bottomBar.setOnTabReselectListener(this);
+            JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
+
+        }
     }
 
     private void checkForStorageReadWritePermissions() {
@@ -195,16 +197,8 @@ public class MainActivity extends BaseFragmentActivity<MainContract.Presenter> i
                 break;
 
             case R.id.tab_options:
-                startActivity(new Intent(this, SettingsActivity.class));
-                break;
-        }
-    }
-
-    @Override
-    public void onTabReSelected(@IdRes int tabId) {
-        switch (tabId) {
-            case R.id.tab_options:
-                startActivity(new Intent(this, SettingsActivity.class));
+                SettingsFragment settingsFragment = new SettingsFragment();
+                openFragment(settingsFragment);
                 break;
         }
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.base.BaseFragment;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +22,7 @@ public class SingleFragmentActivity extends AppCompatActivity {
     private static final String EXTRA_FRAG_TITLE = "frag_title";
 
     @BindView(R.id.tvTitle)
-    TextView tvTitle;
+    CustomTextView tvTitle;
 
     public static Intent getLaunchIntent(Context context, int fragmentType, String title) {
         Intent intent = new Intent(context, SingleFragmentActivity.class);

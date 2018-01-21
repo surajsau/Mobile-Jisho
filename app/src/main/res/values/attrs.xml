@@ -36,4 +36,14 @@
         <attr name="svStrokeWidth" format="dimension"/>
         <attr name="svFingerRadius" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomView">
+        <attr name="custom_font" format="string"/>
+        <attr name="textStyle" format="integer"/>
+        <attr name="drawableLeftCompat" format="reference"/>
+        <attr name="drawableRightCompat" format="reference"/>
+        <attr name="drawableTopCompat" format="reference"/>
+        <attr name="drawableBottomCompat" format="reference"/>
+        <attr name="backgroundCompat" format="reference"/>
+    </declare-styleable>
 </resources>

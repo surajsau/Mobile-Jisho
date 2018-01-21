@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseAdapter;
 import com.halfplatepoha.jisho.base.BaseViewholder;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,7 +31,10 @@ public class KanjiAdapter extends BaseAdapter<KanjiAdapterContract.Presenter, Ka
     public static class KanjiViewHolder extends BaseViewholder<KanjiAdapterContract.Presenter> implements KanjiAdapterContract.View {
 
         @BindView(R.id.tvKanji)
-        TextView tvKanji;
+        CustomTextView tvKanji;
+
+        @BindView(R.id.tvKanjiMeaning)
+        CustomTextView tvKanjiMeaning;
 
         public KanjiViewHolder(View itemView, KanjiAdapterContract.Presenter presenter) {
             super(itemView, presenter);
@@ -44,6 +48,11 @@ public class KanjiAdapter extends BaseAdapter<KanjiAdapterContract.Presenter, Ka
         @Override
         public void setKanji(String kanji) {
             tvKanji.setText(kanji);
+        }
+
+        @Override
+        public void setMeaning(String meaning) {
+            tvKanjiMeaning.setText(meaning);
         }
 
     }

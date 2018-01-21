@@ -31,6 +31,8 @@ public class Entry extends RealmObject {
 
     public RealmList<String> kanaTags;
 
+    public RealmList<Entry> related;
+
     public String note;
 
 }

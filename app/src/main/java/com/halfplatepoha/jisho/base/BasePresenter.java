@@ -18,6 +18,9 @@ public abstract class BasePresenter<V extends BaseView> implements IPresenter {
     public void onCreate() {}
 
     @Override
+    public void onStart() {}
+
+    @Override
     public void onResume() {}
 
     @Override

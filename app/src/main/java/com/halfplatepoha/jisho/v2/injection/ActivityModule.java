@@ -1,0 +1,56 @@
+package com.halfplatepoha.jisho.v2.injection;
+
+import com.halfplatepoha.jisho.home.MainActivity;
+import com.halfplatepoha.jisho.v2.injection.modules.views.DetailsModule;
+import com.halfplatepoha.jisho.v2.injection.modules.views.KanjiDetailModule;
+import com.halfplatepoha.jisho.v2.injection.modules.views.ListDetailModule;
+import com.halfplatepoha.jisho.v2.injection.modules.views.MainModule;
+import com.halfplatepoha.jisho.v2.injection.modules.SettingsModule;
+import com.halfplatepoha.jisho.v2.injection.modules.views.ListActivityModule;
+import com.halfplatepoha.jisho.v2.injection.modules.views.SentencesModule;
+import com.halfplatepoha.jisho.v2.kanji.KanjiDetailActivity;
+import com.halfplatepoha.jisho.lists.listactivity.ListsActivity;
+import com.halfplatepoha.jisho.lists.listdetails.ListDetailActivity;
+import com.halfplatepoha.jisho.v2.sentences.SentencesActivity;
+import com.halfplatepoha.jisho.settings.SettingsActivity;
+import com.halfplatepoha.jisho.v2.detail.DetailsActivity;
+
+import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
+
+/**
+ * Created by surjo on 20/12/17.
+ */
+
+@Module
+public abstract class ActivityModule {
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {MainModule.class})
+    abstract MainActivity mainActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {SettingsModule.class})
+    abstract SettingsActivity settingsActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {DetailsModule.class})
+    abstract DetailsActivity detailsActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {ListActivityModule.class})
+    abstract ListsActivity listActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {ListDetailModule.class})
+    abstract ListDetailActivity listDetailActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {KanjiDetailModule.class})
+    abstract KanjiDetailActivity kanjiDetailActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {SentencesModule.class})
+    abstract SentencesActivity sentencesActivity();
+
+}

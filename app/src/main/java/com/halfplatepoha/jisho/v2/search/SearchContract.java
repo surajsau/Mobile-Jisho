@@ -1,5 +1,6 @@
 package com.halfplatepoha.jisho.v2.search;
 
+import com.halfplatepoha.jisho.apimodel.Word;
 import com.halfplatepoha.jisho.base.BaseView;
 import com.halfplatepoha.jisho.base.IPresenter;
 
@@ -23,13 +24,27 @@ public interface SearchContract {
 
         void hideVerticalSpace();
 
+        void openGmailForError(String title);
+
+        void hideZeroOffline();
+
+        void showZeroOffline();
+
+        void showOfflineSwitchConfirmation();
+
     }
 
     interface Presenter extends IPresenter {
 
         void search(String searchString);
 
-        void clickOrientation();
+        void clickOffline(String searchTerm);
+
+        void report(String searchTerm);
+
+        void switchToOffline();
+
+        void onOfflineSwitchConfirm(String searchTerm);
 
     }
 }

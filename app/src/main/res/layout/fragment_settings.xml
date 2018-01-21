@@ -1,0 +1,185 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context="com.halfplatepoha.jisho.v2.settings.SettingsFragment">
+
+    <RelativeLayout android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/colorPrimaryVeryLight"
+        android:padding="16dp"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+        <com.halfplatepoha.jisho.view.CustomTextView
+            android:id="@+id/tvSettingsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/text_settings"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="36sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/header">
+
+        <RelativeLayout android:id="@+id/offlineView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/offlineLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/offline_search" />
+
+            <com.halfplatepoha.jisho.SwitchButton
+                android:id="@+id/swtchOffline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                app:backColor="@color/colorOn"
+                app:backRadius="12dp"
+                android:textSize="12sp"
+                app:textOff="OFF"
+                app:textOn="ON"
+                android:textColor="@color/white"
+                app:thumbColor="@color/white"
+                app:thumbRadius="10dp" />
+
+        </RelativeLayout>
+
+        <com.halfplatepoha.jisho.view.CustomTextView
+            android:text="If you find any issues or information missing with the offline dictionary. Report it to i@surajsau.in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:padding="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            tools:visibility="gone"
+            android:id="@+id/offlineWarning"
+            android:background="@color/colorPrimaryVeryLight"
+            android:layout_below="@id/offlineLabel"/>
+
+        <RelativeLayout android:id="@+id/downloadView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/offlineEnableLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Offline Mode" />
+
+            <com.halfplatepoha.jisho.view.CustomTextView android:text="Offline version has been updated with stroke order, example sentences and lot more. Click 'Update' to enjoy more detailed offline content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_below="@id/offlineEnableLabel"
+                android:id="@+id/tvDownloadCaution"/>
+
+            <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvDownloading"
+                android:text="Downloading..."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="16sp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_below="@id/tvDownloadCaution"/>
+
+            <Button android:id="@+id/btnUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update"
+                android:background="@drawable/rounded_rectangle_primary_light"
+                android:textColor="@color/white"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/tvDownloadCaution"
+                android:textAllCaps="false"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
+        </RelativeLayout>
+
+        <com.halfplatepoha.jisho.view.CustomTextView
+            android:id="@+id/tvAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:textSize="16sp"
+            android:paddingTop="10dp"
+            android:text="About" />
+
+        <com.halfplatepoha.jisho.view.CustomTextView
+            android:id="@+id/tvLicense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:textSize="16sp"
+            android:paddingTop="10dp"
+            android:text="License information" />
+
+        <com.halfplatepoha.jisho.view.CustomTextView
+            android:id="@+id/tvReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:textSize="16sp"
+            android:paddingTop="10dp"
+            android:text="Report issue" />
+
+        <Button android:id="@+id/btnExportDB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:background="@color/colorPrimaryLight"
+            android:text="Export DB"
+            android:textColor="@color/white"/>
+
+        <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="v3.0"
+            android:layout_gravity="center_horizontal"
+            android:padding="16dp"
+            android:textSize="10sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -2,6 +2,8 @@ package com.halfplatepoha.jisho;
 
 import com.halfplatepoha.jisho.jdb.Schema;
 
+import javax.inject.Inject;
+
 import io.realm.DynamicRealm;
 import io.realm.FieldAttribute;
 import io.realm.RealmMigration;
@@ -13,6 +15,9 @@ import io.realm.RealmSchema;
  */
 
 public class JishoMigration implements RealmMigration {
+
+    @Inject
+    public JishoMigration() {}
 
     @Override
     public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {

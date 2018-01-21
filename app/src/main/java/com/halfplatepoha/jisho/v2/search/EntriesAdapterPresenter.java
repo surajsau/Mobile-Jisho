@@ -1,13 +1,10 @@
 package com.halfplatepoha.jisho.v2.search;
 
 import com.halfplatepoha.jisho.base.BaseAdapterPresenter;
-import com.halfplatepoha.jisho.jdb.Entry;
 
 import java.util.List;
 
 import javax.inject.Inject;
-
-import io.realm.RealmResults;
 
 /**
  * Created by surjo on 21/12/17.
@@ -18,11 +15,11 @@ public class EntriesAdapterPresenter extends BaseAdapterPresenter<EntriesAdapter
     public static final int TYPE_VERTICAL = 1;
     public static final int TYPE_HORIZONTAL = 2;
 
-    List<Entry> entries;
+    List<EntryModel> entries;
 
     private Listener listener;
 
-    private int itemViewType = TYPE_HORIZONTAL;
+    private int itemViewType = TYPE_VERTICAL;
 
     @Inject
     public EntriesAdapterPresenter() {
@@ -30,15 +27,15 @@ public class EntriesAdapterPresenter extends BaseAdapterPresenter<EntriesAdapter
     }
 
     @Override
-    public void setResults(List<Entry> entries) {
+    public void setResults(List<EntryModel> entries) {
         this.entries = entries;
         adapterInterface.dataSetChanged();
     }
 
     @Override
-    public void onItemClick(int adapterPosition) {
+    public void onItemClick(String tag) {
         if(listener != null)
-            listener.onItemClick(entries.get(adapterPosition).japanese, entries.get(adapterPosition).furigana);
+            listener.onItemClick(tag);
     }
 
     @Override
@@ -54,8 +51,9 @@ public class EntriesAdapterPresenter extends BaseAdapterPresenter<EntriesAdapter
     @Override
     public void onBind(EntriesAdapterContract.View viewHolder, int position) {
 
-        Entry entry = entries.get(position);
+        EntryModel entry = entries.get(position);
         viewHolder.setJapanese(entry.japanese);
+        viewHolder.setTag(entry.japanese + ":" + entry.furigana);
 
         if(entry.glosses != null && !entry.glosses.isEmpty()) {
 
@@ -104,6 +102,6 @@ public class EntriesAdapterPresenter extends BaseAdapterPresenter<EntriesAdapter
     }
 
     public interface Listener {
-        void onItemClick(String japanese, String furigana);
+        void onItemClick(String tag);
     }
 }

@@ -1,49 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/row_sentence"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/row_sentence"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp">
 
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvOriginalSentence"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            tools:text="ムーリエルは２０歳になりました" />
-
-        <TextView
-            android:id="@+id/tvEnglish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:textColor="@color/colorPrimary"
-            tools:text="Muiriel is 20 now." />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorPrimaryLight" />
-
-    </LinearLayout>
-
-    <ImageButton app:srcCompat="@drawable/forward"
-        android:background="@null"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+    <com.halfplatepoha.jisho.view.CustomTextView
+        android:id="@+id/tvOriginalSentence"
         android:layout_width="wrap_content"
-        android:alpha="0.5"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:textSize="16sp"
+        tools:text="ムーリエルは２０歳になりました" />
 
-</RelativeLayout>
+    <com.halfplatepoha.jisho.view.CustomTextView
+        android:id="@+id/tvEnglish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary"
+        tools:text="Muiriel is 20 now." />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@color/colorPrimaryLight" />
+
+</LinearLayout>

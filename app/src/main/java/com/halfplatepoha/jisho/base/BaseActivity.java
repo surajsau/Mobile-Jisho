@@ -66,6 +66,14 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(presenter != null)
+            presenter.onStart();
+    }
+
+    @Override
     protected void onStop() {
 
         if(presenter != null)

@@ -38,8 +38,6 @@ public interface DetailsContract {
 
     interface Presenter extends IPresenter {
 
-        void clickKanjiPlay();
-
         void clickAddNote();
 
         void onListNameResultReceived(String listName);

@@ -3,7 +3,7 @@ package com.halfplatepoha.jisho.base;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.halfplatepoha.jisho.injection.FragmentScope;
+import com.halfplatepoha.jisho.v2.injection.FragmentScope;
 
 import javax.inject.Named;
 

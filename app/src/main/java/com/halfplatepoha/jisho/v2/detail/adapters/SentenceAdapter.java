@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseAdapter;
 import com.halfplatepoha.jisho.base.BaseViewholder;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import javax.inject.Inject;
 
@@ -33,10 +34,10 @@ public class SentenceAdapter extends BaseAdapter<SentenceAdapterContract.Present
     public static class SentenceViewHolder extends BaseViewholder<SentenceAdapterContract.Presenter> implements SentenceAdapterContract.View {
 
         @BindView(R.id.tvOriginalSentence)
-        TextView tvOriginalSentence;
+        CustomTextView tvOriginalSentence;
 
         @BindView(R.id.tvEnglish)
-        TextView tvEnglish;
+        CustomTextView tvEnglish;
 
         public SentenceViewHolder(View itemView, SentenceAdapterContract.Presenter presenter) {
             super(itemView, presenter);
@@ -44,7 +45,7 @@ public class SentenceAdapter extends BaseAdapter<SentenceAdapterContract.Present
 
         @OnClick(R.id.row_sentence)
         public void clickSentence() {
-            presenter.onItemClick(getAdapterPosition());
+            presenter.onItemClick(tvOriginalSentence.getTag().toString());
         }
 
         @Override
@@ -55,6 +56,11 @@ public class SentenceAdapter extends BaseAdapter<SentenceAdapterContract.Present
         @Override
         public void setOriginal(String sentence) {
             tvOriginalSentence.setText(sentence);
+        }
+
+        @Override
+        public void setTag(String sentence) {
+            tvOriginalSentence.setTag(sentence);
         }
     }
 }

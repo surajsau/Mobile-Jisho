@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -17,7 +18,7 @@ import butterknife.OnClick;
 public class KanjiViewHolder extends BaseViewHolder<String> {
 
     @BindView(R.id.tvKanji)
-    TextView tvKanji;
+    CustomTextView tvKanji;
 
     private OnKanjiClickedListener onKanjiClickedListener;
 

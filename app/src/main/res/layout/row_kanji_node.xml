@@ -41,7 +41,7 @@
         android:layout_toRightOf="@id/verticalDashContainer"
         android:background="@color/colorPrimaryLight"/>
 
-    <TextView android:id="@+id/tvKanjiNode"
+    <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/tvKanjiNode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="タ"

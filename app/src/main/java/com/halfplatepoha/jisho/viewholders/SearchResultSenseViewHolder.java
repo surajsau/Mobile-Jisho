@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.apimodel.Sense;
 import com.halfplatepoha.jisho.utils.Utils;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import butterknife.BindView;
 
@@ -18,10 +19,10 @@ import butterknife.BindView;
 public class SearchResultSenseViewHolder extends BaseViewHolder<Sense> {
 
     @BindView(R.id.tvSensePoS)
-    TextView tvSensePoS;
+    CustomTextView tvSensePoS;
 
     @BindView(R.id.tvSense)
-    TextView tvSense;
+    CustomTextView tvSense;
 
     public SearchResultSenseViewHolder(Context context, ViewGroup parent, Sense sense) {
         super(context, parent, sense);

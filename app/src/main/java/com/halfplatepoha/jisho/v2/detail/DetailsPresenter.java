@@ -2,27 +2,20 @@ package com.halfplatepoha.jisho.v2.detail;
 
 import android.support.annotation.Nullable;
 
+import com.halfplatepoha.jisho.apimodel.Word;
 import com.halfplatepoha.jisho.base.BasePresenter;
-import com.halfplatepoha.jisho.data.DataProvider;
-import com.halfplatepoha.jisho.data.IDataProvider;
+import com.halfplatepoha.jisho.v2.data.IDataProvider;
 import com.halfplatepoha.jisho.jdb.Entry;
-import com.halfplatepoha.jisho.jdb.JishoList;
-import com.halfplatepoha.jisho.jdb.Schema;
-import com.halfplatepoha.jisho.jdb.Sentence;
-import com.halfplatepoha.jisho.utils.Utils;
+import com.halfplatepoha.jisho.jdb.Kanji;
 import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapterContract;
 import com.halfplatepoha.jisho.v2.detail.adapters.KanjiAdapterPresenter;
-import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapterContract;
-import com.halfplatepoha.jisho.v2.detail.adapters.SentenceAdapterPresenter;
+import com.halfplatepoha.jisho.v2.detail.adapters.KanjiModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 /**
  * Created by surjo on 28/12/17.
@@ -40,13 +33,13 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
 
     private KanjiAdapterContract.Presenter kanjiAdapterPresenter;
 
-    private List<String> kanjis;
+    private List<KanjiModel> kanjis;
 
     private StringBuilder pos;
 
     private StringBuilder glosses;
 
-    long sentenceCount;
+    private long sentenceCount;
 
     private IDataProvider dataProvider;
 
@@ -71,9 +64,9 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
 
         entry = dataProvider.getEntry(japanese, furigana);
 
-        if(entry != null) {
+        if (entry != null) {
 
-            if(entry.pos != null) {
+            if (entry.pos != null) {
                 pos = new StringBuilder("");
                 pos.append(entry.pos.get(0));
 
@@ -82,16 +75,24 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
                 }
             }
 
-            if(entry.glosses != null) {
+            if (entry.glosses != null) {
                 glosses = new StringBuilder("");
                 glosses.append(entry.glosses.get(0).english);
 
-                for(int i=0; i<entry.glosses.size(); i++) {
+                for (int i = 0; i < entry.glosses.size(); i++) {
                     glosses.append(", ").append(entry.glosses.get(i).english);
                 }
             }
 
-            kanjis = Utils.kanjiList(entry.japanese);
+            List<Kanji> realmKanjis = dataProvider.getKanjis(entry.japanese);
+
+            if(realmKanjis != null) {
+                kanjis = new ArrayList<>();
+
+                for(Kanji kanji : realmKanjis) {
+                    kanjis.add(KanjiModel.newInstance(kanji));
+                }
+            }
 
             sentenceCount = dataProvider.sentencesCount(entry.japanese, entry.furigana);
 
@@ -124,12 +125,6 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
     }
 
     @Override
-    public void clickKanjiPlay() {
-        List<String> kanjis = Utils.kanjiList(entry.japanese);
-        kanjiAdapterPresenter.setKanjis(kanjis);
-    }
-
-    @Override
     public void clickExamplesContainer() {
         view.openSentencesScreen(entry.japanese, entry.furigana);
     }
@@ -153,6 +148,12 @@ public class DetailsPresenter extends BasePresenter<DetailsContract.View> implem
     public void onStop() {
         super.onStop();
         kanjiAdapterPresenter.removeListener();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        kanjiAdapterPresenter.attachListener(this);
     }
 
     @Override

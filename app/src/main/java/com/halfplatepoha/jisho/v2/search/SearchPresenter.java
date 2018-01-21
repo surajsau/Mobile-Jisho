@@ -1,15 +1,21 @@
 package com.halfplatepoha.jisho.v2.search;
 
+import com.halfplatepoha.jisho.JishoPreference;
+import com.halfplatepoha.jisho.apimodel.SearchApi;
+import com.halfplatepoha.jisho.apimodel.Word;
 import com.halfplatepoha.jisho.base.BasePresenter;
+import com.halfplatepoha.jisho.v2.data.IDataProvider;
 import com.halfplatepoha.jisho.jdb.Entry;
-import com.halfplatepoha.jisho.jdb.Schema;
+import com.halfplatepoha.jisho.utils.IConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import io.realm.Realm;
-import io.realm.RealmChangeListener;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.RealmResults;
-import io.realm.Sort;
 
 /**
  * Created by surjo on 20/12/17.
@@ -17,16 +23,20 @@ import io.realm.Sort;
 
 public class SearchPresenter extends BasePresenter<SearchContract.View> implements SearchContract.Presenter, EntriesAdapterPresenter.Listener{
 
-    private Realm realm;
-
     private EntriesAdapterContract.Presenter adapterPresenter;
 
-    private int currentOrientation = EntriesAdapterPresenter.TYPE_HORIZONTAL;
+    private int currentOrientation = EntriesAdapterPresenter.TYPE_VERTICAL;
+
+    private IDataProvider dataProvider;
+
+    private List<Word> words;
 
     @Inject
-    public SearchPresenter(SearchContract.View view, Realm realm, EntriesAdapterContract.Presenter adapterPresenter) {
+    public SearchPresenter(SearchContract.View view,
+                           IDataProvider dataProvider,
+                           EntriesAdapterContract.Presenter adapterPresenter) {
         super(view);
-        this.realm = realm;
+        this.dataProvider = dataProvider;
         this.adapterPresenter = adapterPresenter;
     }
 
@@ -40,25 +50,58 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     public void search(String searchString) {
         view.showSpinner();
 
-        RealmResults<Entry> entries = realm.where(Entry.class)
-                .equalTo(Schema.Entry.JAPANESE, searchString)
-                .or()
-                .contains(Schema.Entry.JAPANESE, searchString)
-                .or()
-                .contains(Schema.Entry.FURIGANA, searchString)
-                .or()
-                .equalTo(Schema.Entry.FURIGANA, searchString)
-                .findAll();
+        searchOffline(searchString);
+    }
+
+    private void searchOffline(String searchString) {
+        RealmResults<Entry> entries = dataProvider.getEntries(searchString);
 
         view.hideSpinner();
 
-        if(entries != null) {
-            adapterPresenter.setResults(entries);
+        if(entries != null && !entries.isEmpty()) {
+            List<EntryModel> entryModels = new ArrayList<>();
+
+            for(Entry entry : entries) {
+                entryModels.add(EntryModel.newInstance(entry));
+            }
+
+            adapterPresenter.setResults(entryModels);
+        } else {
+            view.showZeroOffline();
         }
     }
 
     @Override
-    public void clickOrientation() {
+    public void clickOffline(String searchTerm) {
+        hideErrorViews();
+        searchOffline(searchTerm);
+    }
+
+    private void hideErrorViews() {
+        view.hideZeroOffline();
+    }
+
+    @Override
+    public void report(String searchTerm) {
+        view.openGmailForError("REPORT: No results for " + searchTerm);
+    }
+
+    @Override
+    public void switchToOffline() {
+        view.showOfflineSwitchConfirmation();
+    }
+
+    @Override
+    public void onOfflineSwitchConfirm(String searchTerm) {
+
+        JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, true);
+
+        hideErrorViews();
+        if(searchTerm != null && searchTerm.length() > 0)
+            searchOffline(searchTerm);
+    }
+
+    private void setOrientation() {
         if(currentOrientation == EntriesAdapterPresenter.TYPE_HORIZONTAL)
             currentOrientation = EntriesAdapterPresenter.TYPE_VERTICAL;
         else
@@ -82,8 +125,9 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     }
 
     @Override
-    public void onItemClick(String japanese, String furigana) {
-        view.openDetails(japanese, furigana);
+    public void onItemClick(String tag) {
+        String[] pieces = tag.split(":");
+        view.openDetails(pieces[0], pieces[1]);
     }
 
 }
