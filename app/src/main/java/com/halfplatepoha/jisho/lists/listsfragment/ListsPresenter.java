@@ -135,7 +135,7 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
 
         dataProvider.createNewList(name);
 
-        listAdapterPresenter.addList(ListObject.fromJishoListName(name));
+        listAdapterPresenter.addList(ListObject.fromJishoListName(name, 0));
 
         onListSelected(name);
     }
@@ -168,7 +168,7 @@ public class ListsPresenter extends BasePresenter<ListContract.View> implements 
         List<ListObject> listObjects = new ArrayList<>();
 
         for(JishoList jishoList : lists) {
-            listObjects.add(ListObject.fromJishoListName(jishoList.name));
+            listObjects.add(ListObject.fromJishoListName(jishoList.name, jishoList.entries.size()));
         }
 
         return listObjects;

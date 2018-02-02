@@ -77,14 +77,14 @@
             android:background="@color/colorPrimaryVeryLight"
             android:layout_below="@id/offlineLabel"/>
 
-        <RelativeLayout android:id="@+id/downloadView"
+        <RelativeLayout android:id="@+id/updateView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingTop="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:visibility="visible">
 
             <com.halfplatepoha.jisho.view.CustomTextView android:id="@+id/offlineEnableLabel"

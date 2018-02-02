@@ -44,7 +44,7 @@ public class SettingsPresenter extends BasePresenter<SettingsContract.View> impl
 
     @Override
     public void clickUpdate() {
-        file.checkStoragePersmissionAndStartDownload();
+//        file.checkStoragePersmissionAndStartDownload();
     }
 
     @Override

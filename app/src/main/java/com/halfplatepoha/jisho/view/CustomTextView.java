@@ -98,4 +98,8 @@ public class CustomTextView extends TextView {
 
     }
 
+    public String text() {
+        return getText() != null ? getText().toString() : null;
+    }
+
 }

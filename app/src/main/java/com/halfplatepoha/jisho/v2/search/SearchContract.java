@@ -1,6 +1,5 @@
 package com.halfplatepoha.jisho.v2.search;
 
-import com.halfplatepoha.jisho.apimodel.Word;
 import com.halfplatepoha.jisho.base.BaseView;
 import com.halfplatepoha.jisho.base.IPresenter;
 
@@ -36,7 +35,7 @@ public interface SearchContract {
 
     interface Presenter extends IPresenter {
 
-        void search(String searchString);
+        void searchOnEditorAction(String searchString);
 
         void clickOffline(String searchTerm);
 
@@ -46,5 +45,8 @@ public interface SearchContract {
 
         void onOfflineSwitchConfirm(String searchTerm);
 
+        void searchError();
+
+        void searchOnTextChange(String s, int before, int count);
     }
 }

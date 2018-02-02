@@ -10,6 +10,6 @@ import retrofit2.http.Query;
 
 public interface SearchApi {
 
-    @GET("search/words")
+    @GET("searchOnSearchClicked/words")
     Observable<SearchResponse> search(@Query("keyword") String searchWord);
 }

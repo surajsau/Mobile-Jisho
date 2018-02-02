@@ -6,11 +6,13 @@ import com.halfplatepoha.jisho.jdb.Kanji;
 import com.halfplatepoha.jisho.jdb.Schema;
 import com.halfplatepoha.jisho.jdb.Sentence;
 import com.halfplatepoha.jisho.utils.Utils;
+import com.halfplatepoha.jisho.v2.injection.modules.DataModule;
 
 import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;
@@ -23,10 +25,13 @@ import io.realm.RealmResults;
 public class DataProvider implements IDataProvider {
 
     private Realm realm;
+    private Realm jdbRealm;
 
     @Inject
-    public DataProvider(Realm realm) {
+    public DataProvider(@Named(DataModule.APP_REALM_CONFIG) Realm realm,
+                        @Named(DataModule.JDB_REALM_CONFIG) Realm jdbRealm) {
         this.realm = realm;
+        this.jdbRealm = jdbRealm;
     }
 
 
@@ -68,8 +73,17 @@ public class DataProvider implements IDataProvider {
     }
 
     @Override
-    public RealmResults<Entry> getEntries(String searchString) {
-        return realm.where(Entry.class)
+    public RealmResults<Entry> getEnglishSearchEntries(String searchString) {
+        return jdbRealm.where(Entry.class)
+                .equalTo(Schema.Entry.GLOSSES + "." + Schema.Gloss.ENGLISH, searchString)
+                .findAll();
+    }
+
+    @Override
+    public RealmResults<Entry> getEntries(String searchString, boolean common) {
+
+        RealmQuery<Entry> stringMatchQuery = jdbRealm.where(Entry.class)
+                .beginGroup()
                 .equalTo(Schema.Entry.JAPANESE, searchString)
                 .or()
                 .contains(Schema.Entry.JAPANESE, searchString)
@@ -77,69 +91,85 @@ public class DataProvider implements IDataProvider {
                 .contains(Schema.Entry.FURIGANA, searchString)
                 .or()
                 .equalTo(Schema.Entry.FURIGANA, searchString)
-                .findAll();
+                .endGroup()
+                .and()
+                .equalTo(Schema.Entry.COMMON, common);
+
+        RealmResults<Entry> relatedEntries = stringMatchQuery
+                    .and()
+                    .isNotEmpty(Schema.Entry.RELATED)
+                    .findAll();
+
+        if(relatedEntries.isEmpty()) {
+            relatedEntries = stringMatchQuery
+                    .and()
+                    .isEmpty(Schema.Entry.RELATED)
+                    .findAll();
+        }
+
+        return relatedEntries;
     }
 
     @Override
     public void changeListName(String originalName, String finalName) {
-        JishoList list = realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, originalName).findFirst();
+        JishoList list = jdbRealm.where(JishoList.class).equalTo(Schema.JishoList.NAME, originalName).findFirst();
 
-        realm.beginTransaction();
+        jdbRealm.beginTransaction();
 
         if(list != null) {
             list.name = finalName;
         } else {
-            list = realm.createObject(JishoList.class);
+            list = jdbRealm.createObject(JishoList.class);
             list.name = finalName;
         }
 
-        realm.insertOrUpdate(list);
+        jdbRealm.insertOrUpdate(list);
 
-        realm.commitTransaction();
+        jdbRealm.commitTransaction();
     }
 
     @Override
     public void deleteList(String name) {
-        realm.beginTransaction();
+        jdbRealm.beginTransaction();
 
-        realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, name).findAll().deleteAllFromRealm();
+        jdbRealm.where(JishoList.class).equalTo(Schema.JishoList.NAME, name).findAll().deleteAllFromRealm();
 
-        realm.commitTransaction();
+        jdbRealm.commitTransaction();
     }
 
     @Override
     public void createNewList(String name) {
-        realm.beginTransaction();
+        jdbRealm.beginTransaction();
 
         JishoList newList = new JishoList();
         newList.name = name;
 
-        realm.copyToRealmOrUpdate(newList);
+        jdbRealm.copyToRealmOrUpdate(newList);
 
-        realm.commitTransaction();
+        jdbRealm.commitTransaction();
     }
 
     @Override
     public long getNewJishoListEntryCount() {
-        return realm.where(JishoList.class).contains(Schema.JishoList.NAME, "New List #").count();
+        return jdbRealm.where(JishoList.class).contains(Schema.JishoList.NAME, "New List #").count();
     }
 
     @Override
     public RealmResults<JishoList> getAllJishoLists() {
-        return realm.where(JishoList.class).findAll();
+        return jdbRealm.where(JishoList.class).findAll();
     }
 
     @Override
     public JishoList getJishoList(String listName) {
-        return realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, listName).findFirst();
+        return jdbRealm.where(JishoList.class).equalTo(Schema.JishoList.NAME, listName).findFirst();
     }
 
     private RealmQuery<JishoList> getJishoListQuery(String listName) {
-        return realm.where(JishoList.class).equalTo(Schema.JishoList.NAME, listName);
+        return jdbRealm.where(JishoList.class).equalTo(Schema.JishoList.NAME, listName);
     }
 
     private RealmQuery<Entry> getEntryQuery(String japanese, String furigana) {
-        RealmQuery<Entry> detailQuery = realm.where(Entry.class)
+        RealmQuery<Entry> detailQuery = jdbRealm.where(Entry.class)
                 .equalTo(Schema.Entry.JAPANESE, japanese);
 
         if(furigana != null) {
@@ -151,7 +181,7 @@ public class DataProvider implements IDataProvider {
     }
 
     private RealmQuery<Sentence> getEntrySentencesQuery(String japanese, String furigana) {
-        return realm.where(Sentence.class)
+        return jdbRealm.where(Sentence.class)
                 .contains(Schema.Sentence.SENTENCE, japanese)
                 .or()
                 .contains(Schema.Sentence.SENTENCE, furigana)

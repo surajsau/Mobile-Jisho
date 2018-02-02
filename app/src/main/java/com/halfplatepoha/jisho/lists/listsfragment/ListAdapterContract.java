@@ -13,7 +13,7 @@ public interface ListAdapterContract {
 
     interface View extends BaseViewholderView {
 
-        void setListName(String name);
+        void setListNameCount(String name, int count);
 
         void removeBackground();
 
@@ -21,21 +21,7 @@ public interface ListAdapterContract {
 
         void setSelectedBackground(int bg);
 
-        void hideCheckListView();
-
-        void showChecklistView();
-
-        void unselectList();
-
-        void selectList();
-
-        void setTextEditable();
-
-        void setTextUnEditable();
-
-        void showDoneButton();
-
-        void hideDoneButton();
+        void setListName(String name);
 
     }
 

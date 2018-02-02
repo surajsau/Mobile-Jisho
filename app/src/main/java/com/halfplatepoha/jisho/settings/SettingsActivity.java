@@ -5,16 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import com.halfplatepoha.jisho.BuildConfig;
 import com.halfplatepoha.jisho.Download;
@@ -51,7 +48,7 @@ public class SettingsActivity extends BaseFragmentActivity<SettingsContract.Pres
     @BindView(R.id.offlineView)
     View offlineView;
 
-    @BindView(R.id.downloadView)
+    @BindView(R.id.updateView)
     View downloadView;
 
     @BindView(R.id.offlineWarning)

@@ -55,10 +55,10 @@
 //        super.onCreate();
 //
 //        view.setSearchString(searchString);
-//        search();
+//        searchOnSearchClicked();
 //    }
 //
-//    private void search() {
+//    private void searchOnSearchClicked() {
 //        if(!TextUtils.isEmpty(searchString)) {
 //            view.hideKeyboard();
 //            view.hideError();
@@ -73,7 +73,7 @@
 //
 //            if(isOffline) {
 //
-//                offlineTask.search(searchString, new SearchTask.SearchResultListener() {
+//                offlineTask.searchOnSearchClicked(searchString, new SearchTask.SearchResultListener() {
 //                    @Override
 //                    public void onResult(JishoList<ListEntry> entries) {
 //                        if(entries != null && !entries.isEmpty()) {
@@ -91,7 +91,7 @@
 //                });
 //
 //            } else {
-//                api.search(searchString)
+//                api.searchOnSearchClicked(searchString)
 //                        .observeOn(AndroidSchedulers.mainThread())
 //                        .subscribeOn(Schedulers.newThread())
 //                        .subscribe(new Consumer<SearchResponse>() {
@@ -124,8 +124,8 @@
 //    }
 //
 //    @Override
-//    public void search(String searchString) {
+//    public void searchOnSearchClicked(String searchString) {
 //        this.searchString = searchString;
-//        search();
+//        searchOnSearchClicked();
 //    }
 //}

@@ -76,11 +76,17 @@
             tools:listitem="@layout/row_word_vertical"
             tools:visibility="gone"/>
 
-        <com.airbnb.lottie.LottieAnimationView
+        <com.halfplatepoha.jisho.view.AVLoadingIndicatorView
             android:id="@+id/loader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
+            app:indicatorName="BallScaleIndicator"/>
+
+        <!--<com.airbnb.lottie.LottieAnimationView-->
+            <!--android:id="@+id/loader"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"/>-->
 
         <LinearLayout android:id="@+id/network_error"
             android:layout_width="wrap_content"

@@ -35,7 +35,7 @@
             android:value="73c1a606b8ec6031c5b79954bcc0ca282bc666aa" />
 
         <activity
-            android:name=".details.DetailsAcitivity"
+            android:name=".v2.detail.DetailsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".lists.listactivity.ListsActivity"
@@ -44,7 +44,7 @@
             android:name=".SingleFragmentActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name=".UpdateDBService" />
+        <!--<service android:name=".UpdateDBService" />-->
 
         <!-- <service android:name=".DownloadService" /> -->
         <!-- <service android:name=".KanjiStrokesService" /> -->
@@ -52,10 +52,9 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".v2.detail.DetailsActivity" />
         <activity android:name=".lists.listdetails.ListDetailActivity" />
         <activity android:name=".v2.kanji.KanjiDetailActivity" />
-        <activity android:name=".v2.sentences.SentencesActivity"></activity>
+        <activity android:name=".v2.sentences.SentencesActivity"/>
     </application>
 
 </manifest>

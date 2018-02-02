@@ -37,4 +37,7 @@
     <string name="report">Report</string>
     <string name="switch_to_offline">Switch to Offline</string>
 
+    <string name="row_list_text" formatted="false">%s (%d)</string>
+    <string name="row_list_0_entries_text" formatted="false">%s</string>
+
 </resources>

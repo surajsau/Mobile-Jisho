@@ -37,6 +37,6 @@ public class KanjiModel {
 
             kanjiModel.meanings = meanings;
         }
-        return null;
+        return kanjiModel;
     }
 }

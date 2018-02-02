@@ -170,7 +170,7 @@
 //    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 //        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 //            Analytics.getInstance().recordSearch(etSearch.getText().toString());
-//            presenter.search(etSearch.getText().toString());
+//            presenter.searchOnSearchClicked(etSearch.getText().toString());
 //            return true;
 //        }
 //        return false;

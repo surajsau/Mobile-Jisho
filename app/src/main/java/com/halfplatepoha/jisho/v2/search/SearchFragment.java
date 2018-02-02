@@ -1,6 +1,7 @@
 package com.halfplatepoha.jisho.v2.search;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,20 +11,19 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieDrawable;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.analytics.Analytics;
-import com.halfplatepoha.jisho.apimodel.Word;
 import com.halfplatepoha.jisho.base.BaseFragment;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.v2.detail.DetailsActivity;
+import com.halfplatepoha.jisho.view.AVLoadingIndicatorView;
 import com.halfplatepoha.jisho.view.CustomEditText;
+
+import java.util.Timer;
 
 import javax.inject.Inject;
 
@@ -34,7 +34,7 @@ import butterknife.OnClick;
  * Created by surjo on 20/12/17.
  */
 
-public class SearchFragment extends BaseFragment<SearchContract.Presenter> implements SearchContract.View, TextView.OnEditorActionListener, TextWatcher, SwitchToOfflineDialog.Listener {
+public class SearchFragment extends BaseFragment<SearchContract.Presenter> implements SearchContract.View, TextView.OnEditorActionListener, SwitchToOfflineDialog.Listener, TextWatcher {
 
     public static final String EXTRA_SEARCH_STRING = "extra_search_string";
     public static final String EXTRA_SOURCE = "extra_source";
@@ -55,10 +55,12 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     View zeroOfflineSearch;
 
     @BindView(R.id.loader)
-    LottieAnimationView loader;
+    AVLoadingIndicatorView loader;
 
     @Inject
     EntriesAdapter searchAdapter;
+
+    private Timer timer;
 
     @Override
     protected int getLayoutRes() {
@@ -69,8 +71,8 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        loader.setRepeatMode(LottieDrawable.INFINITE);
-        loader.setAnimation("loader.json");
+//        loader.setRepeatMode(LottieDrawable.INFINITE);
+//        loader.setAnimation("loader.json");
 
         etSearch.setOnEditorActionListener(this);
         etSearch.addTextChangedListener(this);
@@ -84,23 +86,12 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             Analytics.getInstance().recordSearch(etSearch.getText().toString());
 
-            presenter.search(v.getText().toString());
+            presenter.searchOnEditorAction(v.getText().toString());
             hideKeyboard();
             return true;
         }
         return false;
     }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        presenter.search(s.toString());
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {}
 
     @Override
     public void openDetails(String japanese, String furigana) {
@@ -109,13 +100,12 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
 
     @Override
     public void showSpinner() {
-        loader.setVisibility(View.VISIBLE);
-        loader.playAnimation();
+        loader.show();
     }
 
     @Override
     public void hideSpinner() {
-        loader.setVisibility(View.GONE);
+        loader.hide();
     }
 
     @Override
@@ -143,9 +133,9 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
 
     @Override
     public void openGmailForError(String title) {
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.putExtra(Intent.EXTRA_EMAIL, IConstants.DEVELOPER_EMAIL);
-        intent.putExtra(Intent.EXTRA_SUBJECT, title);
+        Intent intent = new Intent(Intent.ACTION_SENDTO)
+                .setData(Uri.parse("mailto:" + IConstants.DEVELOPER_EMAIL))
+                .putExtra(Intent.EXTRA_SUBJECT, title);
         startActivity(intent);
     }
 
@@ -170,4 +160,15 @@ public class SearchFragment extends BaseFragment<SearchContract.Presenter> imple
     public void onConfirm() {
         presenter.onOfflineSwitchConfirm(etSearch.text());
     }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        presenter.searchOnTextChange(s.toString(), before, count);
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {}
 }

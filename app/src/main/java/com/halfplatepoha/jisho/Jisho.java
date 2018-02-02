@@ -27,10 +27,15 @@ import io.realm.RealmConfiguration;
 public class Jisho extends DaggerApplication {
 
     public static final int APP_REALM_VERSION = 4;
+    public static final int JDB_REALM_VERSION = 4;
+
+    private RealmConfiguration jishoConfig;
+    private RealmConfiguration jdbConfig;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
         initRealm();
 
         Fabric.with(this, new Crashlytics());
@@ -51,11 +56,26 @@ public class Jisho extends DaggerApplication {
     private void initRealm() {
         Realm.init(this);
 
-        RealmConfiguration config = new RealmConfiguration.Builder()
+        jishoConfig = new RealmConfiguration.Builder()
                 .schemaVersion(Jisho.APP_REALM_VERSION)
                 .migration(new JishoMigration())
                 .build();
-        Realm.setDefaultConfiguration(config);
+
+        jdbConfig = new RealmConfiguration.Builder()
+                .schemaVersion(Jisho.JDB_REALM_VERSION)
+                .name("jdb.realm")
+                .assetFile("jdb.realm")
+                .modules(new JdbRealmModule())
+                .migration(new JdbMigration())
+                .build();
+    }
+
+    public RealmConfiguration getJdbConfig() {
+        return jdbConfig;
+    }
+
+    public RealmConfiguration getJishoConfig() {
+        return jishoConfig;
     }
 
     private void checkAppUpdate() {

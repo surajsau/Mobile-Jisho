@@ -41,7 +41,7 @@ public interface EntriesAdapterContract {
 
     interface Presenter extends IAdapterPresenter<View> {
 
-        void setResults(List<EntryModel> entries);
+        void addResults(List<EntryModel> entries);
 
         void onItemClick(String tag);
 
@@ -50,5 +50,10 @@ public interface EntriesAdapterContract {
         void removeListener();
 
         void setItemViewType(int itemViewType);
+
+        void setResults(List<EntryModel> entryModels);
+
+        void clear();
+
     }
 }

@@ -1,7 +1,6 @@
 package com.halfplatepoha.jisho.lists.newlistdialog;
 
 import android.os.Bundle;
-import android.widget.EditText;
 
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseDialog;
@@ -22,7 +21,7 @@ public class ListNameDialog extends BaseDialog<NewListDialogContract.Presenter> 
 
     private static final String KEY_LIST_NAME = "list_name";
 
-    @BindView(R.id.etListName)
+    @BindView(R.id.tvListName)
     CustomEditText etListName;
 
     public static ListNameDialog getInstance(String listName) {

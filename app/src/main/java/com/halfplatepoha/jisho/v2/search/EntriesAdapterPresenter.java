@@ -2,6 +2,7 @@ package com.halfplatepoha.jisho.v2.search;
 
 import com.halfplatepoha.jisho.base.BaseAdapterPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,9 +28,31 @@ public class EntriesAdapterPresenter extends BaseAdapterPresenter<EntriesAdapter
     }
 
     @Override
+    public void addResults(List<EntryModel> entries) {
+        if(this.entries == null)
+            this.entries = new ArrayList<>();
+
+        int size = this.entries.size();
+
+        this.entries.addAll(entries);
+
+        adapterInterface.itemRangeInserted(size, entries.size());
+    }
+
+    @Override
     public void setResults(List<EntryModel> entries) {
         this.entries = entries;
         adapterInterface.dataSetChanged();
+    }
+
+    @Override
+    public void clear() {
+        if(entries != null) {
+            int size = entries.size();
+            entries.clear();
+
+            adapterInterface.itemRangeRemoved(0, size);
+        }
     }
 
     @Override

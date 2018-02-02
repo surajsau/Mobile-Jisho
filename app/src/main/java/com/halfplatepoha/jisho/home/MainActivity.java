@@ -108,17 +108,17 @@ public class MainActivity extends BaseFragmentActivity<MainContract.Presenter> i
 //        openFragment(searchFragment);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        registerReceiver(downloadBroadcastReceiver, new IntentFilter(IConstants.DOWNLOAD_BROADCAST_FILTER));
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(downloadBroadcastReceiver);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        registerReceiver(downloadBroadcastReceiver, new IntentFilter(IConstants.DOWNLOAD_BROADCAST_FILTER));
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        LocalBroadcastManager.getInstance(this).unregisterReceiver(downloadBroadcastReceiver);
+//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

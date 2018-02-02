@@ -11,11 +11,13 @@ public class ListObject {
     public String name;
     public boolean isSelected;
     public boolean isNameChange;
+    public int count;
 
-    public static ListObject fromJishoListName(String name) {
+    public static ListObject fromJishoListName(String name, int count) {
         if(name != null) {
             ListObject listObject = new ListObject();
             listObject.name = name;
+            listObject.count = count;
             return listObject;
         }
         return null;

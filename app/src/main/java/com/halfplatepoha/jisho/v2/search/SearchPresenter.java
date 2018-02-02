@@ -1,7 +1,6 @@
 package com.halfplatepoha.jisho.v2.search;
 
 import com.halfplatepoha.jisho.JishoPreference;
-import com.halfplatepoha.jisho.apimodel.SearchApi;
 import com.halfplatepoha.jisho.apimodel.Word;
 import com.halfplatepoha.jisho.base.BasePresenter;
 import com.halfplatepoha.jisho.v2.data.IDataProvider;
@@ -13,8 +12,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import io.realm.RealmResults;
 
 /**
@@ -47,14 +44,32 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     }
 
     @Override
-    public void search(String searchString) {
+    public void searchOnEditorAction(String searchString) {
         view.showSpinner();
 
-        searchOffline(searchString);
+        RealmResults<Entry> entries = dataProvider.getEntries(searchString, false);
+
+        view.hideSpinner();
+        view.hideZeroOffline();
+
+        if(entries != null && !entries.isEmpty()) {
+            List<EntryModel> entryModels = new ArrayList<>();
+
+            for(Entry entry : entries) {
+                entryModels.add(EntryModel.newInstance(entry));
+            }
+
+            adapterPresenter.addResults(entryModels);
+
+        } else {
+
+            adapterPresenter.clear();
+            view.showZeroOffline();
+        }
     }
 
     private void searchOffline(String searchString) {
-        RealmResults<Entry> entries = dataProvider.getEntries(searchString);
+        RealmResults<Entry> entries = dataProvider.getEntries(searchString, false);
 
         view.hideSpinner();
 
@@ -99,6 +114,29 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         hideErrorViews();
         if(searchTerm != null && searchTerm.length() > 0)
             searchOffline(searchTerm);
+    }
+
+    @Override
+    public void searchError() {
+        view.showZeroOffline();
+        adapterPresenter.clear();
+    }
+
+    @Override
+    public void searchOnTextChange(String searchString, int before, int count) {
+        if(count > before) {
+            RealmResults<Entry> entries = dataProvider.getEntries(searchString, true);
+
+            if (entries != null && !entries.isEmpty()) {
+                List<EntryModel> entryModels = new ArrayList<>();
+
+                for (Entry entry : entries) {
+                    entryModels.add(EntryModel.newInstance(entry));
+                }
+
+                adapterPresenter.setResults(entryModels);
+            }
+        }
     }
 
     private void setOrientation() {

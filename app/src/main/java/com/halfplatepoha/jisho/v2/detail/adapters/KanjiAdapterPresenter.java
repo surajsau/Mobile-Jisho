@@ -62,7 +62,7 @@ public class KanjiAdapterPresenter extends BaseAdapterPresenter<KanjiAdapterCont
     @Override
     public void setKanjis(List<KanjiModel> kanjis) {
         this.kanjis = kanjis;
-        adapterInterface.itemRangeInserted(0, this.kanjis.size());
+        adapterInterface.itemRangeChanged(0, this.kanjis.size());
     }
 
     public interface Listener {

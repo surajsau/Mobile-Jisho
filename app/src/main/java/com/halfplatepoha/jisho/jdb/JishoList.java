@@ -12,7 +12,6 @@ import io.realm.annotations.Required;
 public class JishoList extends RealmObject {
 
     @Required
-    @PrimaryKey
     public String name;
 
     public RealmList<Entry> entries;

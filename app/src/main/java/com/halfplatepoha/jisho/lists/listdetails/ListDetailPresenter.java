@@ -55,6 +55,8 @@ public class ListDetailPresenter extends BasePresenter<ListDetailContract.View> 
                 for(Entry entry : list.entries) {
                     entries.add(EntryModel.newInstance(entry));
                 }
+
+                entriesAdapterPresenter.addResults(entries);
             }
         }
     }

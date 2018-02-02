@@ -19,6 +19,7 @@ public interface Schema {
         String KANJI_TAGS = "kanjiTags";
         String DIALECTS = "dialects";
         String KANA_TAGS = "kanaTags";
+        String RELATED = "related";
         String NOTE = "note";
     }
 
@@ -57,5 +58,13 @@ public interface Schema {
         String STROKE_COUNT = "strokeCount";
         String STROKES = "strokes";
         String ELEMENTS = "elements";
+    }
+
+    interface Gloss {
+        String TABLE_NAME = "Gloss";
+        String FIELD = "field";
+        String TAGS = "tags";
+        String ENGLISH = "english";
+        String RELATED = "related";
     }
 }

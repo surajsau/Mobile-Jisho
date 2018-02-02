@@ -100,4 +100,8 @@ public class Utils {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
     }
+
+    public static boolean isEnglish(String searchString) {
+        return searchString != null ? searchString.matches("^[a-zA-Z0-9.]+$") : false;
+    }
 }

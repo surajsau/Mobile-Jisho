@@ -6,58 +6,22 @@
     android:layout_height="48dp"
     android:id="@+id/row_list"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp"
+    android:background="@color/colorPrimaryVeryLight">
 
-    <View
-        android:layout_width="2dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="4dp"
-        android:alpha="0.5"
-        android:background="@color/colorPrimaryLight"/>
-
-    <ImageView android:id="@+id/ivListIcon"
-        app:srcCompat="@drawable/ic_list_bullet"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_centerVertical="true"/>
-
-    <android.support.v7.widget.AppCompatCheckBox
-        android:id="@+id/chkList"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerVertical="true"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_toRightOf="@id/ivListIcon"/>
-
-    <com.halfplatepoha.jisho.view.CustomEditText
-        android:id="@+id/etListName"
+    <com.halfplatepoha.jisho.view.CustomTextView
+        android:id="@+id/tvListName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:drawablePadding="10dp"
         android:textSize="16sp"
         android:background="@null"
-        android:layout_toRightOf="@id/chkList"
+        app:drawableLeftCompat="@drawable/ic_more_filled_list"
         android:layout_centerVertical="true"
         android:textColor="@color/colorPrimary"
-        android:hint="Enter List Name"
         tools:text="Favorites"/>
-
-    <Button android:id="@+id/btnDone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="Done"
-        android:background="@color/colorPrimaryLight"
-        android:textColor="@color/white"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:layout_centerVertical="true"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:visibility="gone"
-        tools:visibility="visible"/>
 
 </RelativeLayout>

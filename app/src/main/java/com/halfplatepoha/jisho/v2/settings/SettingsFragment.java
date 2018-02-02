@@ -3,19 +3,13 @@ package com.halfplatepoha.jisho.v2.settings;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.SingleFragmentActivity;
-import com.halfplatepoha.jisho.SwitchButton;
 import com.halfplatepoha.jisho.UpdateDBService;
 import com.halfplatepoha.jisho.base.BaseFragment;
 import com.halfplatepoha.jisho.utils.IConstants;
@@ -40,8 +34,8 @@ public class SettingsFragment extends BaseFragment<SettingsContract.Presenter> i
     @BindView(R.id.offlineView)
     View offlineView;
 
-    @BindView(R.id.downloadView)
-    View downloadView;
+    @BindView(R.id.updateView)
+    View updateView;
 
     @BindView(R.id.offlineWarning)
     View offlineWarning;
@@ -161,5 +155,10 @@ public class SettingsFragment extends BaseFragment<SettingsContract.Presenter> i
     @Override
     public void setVersion(String version) {
         tvVersion.setText(version);
+    }
+
+    @Override
+    public void hideUpdate() {
+        updateView.setVisibility(View.GONE);
     }
 }

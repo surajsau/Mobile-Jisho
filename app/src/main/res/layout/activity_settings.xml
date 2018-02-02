@@ -35,7 +35,7 @@
             android:alpha="0.5"
             android:background="@color/colorPrimaryLight" />
 
-        <RelativeLayout android:id="@+id/downloadView"
+        <RelativeLayout android:id="@+id/updateView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"

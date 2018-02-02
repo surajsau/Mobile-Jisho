@@ -31,36 +31,15 @@ public class ListAdapterPresenter extends BaseAdapterPresenter<ListAdapterContra
     @Override
     public void onBind(ListAdapterContract.View viewHolder, int position) {
         ListObject listObject = lists.get(position);
-        viewHolder.setListName(listObject.name);
+        if(listObject.count != 0)
+            viewHolder.setListNameCount(listObject.name, listObject.count);
+        else
+            viewHolder.setListName(listObject.name);
 
         if(listObject.isSelected) {
             viewHolder.setSelectedBackground(viewHolder.bgSelected());
         } else {
             viewHolder.removeBackground();
-        }
-
-        if(listObject.isNameChange) {
-            viewHolder.setTextEditable();
-            viewHolder.showDoneButton();
-        } else {
-            viewHolder.setTextUnEditable();
-            viewHolder.hideDoneButton();
-        }
-
-        switch (currentMode) {
-
-            case MODE_NORMAL:
-                viewHolder.hideCheckListView();
-                viewHolder.unselectList();
-                break;
-
-            case MODE_SELECTION:
-                viewHolder.showChecklistView();
-                if(listObject.isSelected)
-                    viewHolder.selectList();
-                else
-                    viewHolder.unselectList();
-                break;
         }
 
     }
@@ -86,7 +65,7 @@ public class ListAdapterPresenter extends BaseAdapterPresenter<ListAdapterContra
     @Override
     public void addLists(List<ListObject> lists) {
         this.lists = lists;
-        adapterInterface.itemRangeInserted(0, lists.size());
+        adapterInterface.itemRangeChanged(0, lists.size());
     }
 
     @Override

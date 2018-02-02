@@ -28,7 +28,9 @@ public interface IDataProvider {
 
     void writeCopyTo(File realmFile);
 
-    RealmResults<Entry> getEntries(String searchString);
+    RealmResults<Entry> getEnglishSearchEntries(String searchString);
+
+    RealmResults<Entry> getEntries(String searchString, boolean common);
 
     void changeListName(String originalName, String finalName);
 

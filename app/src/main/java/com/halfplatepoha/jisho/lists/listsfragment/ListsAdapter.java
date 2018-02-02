@@ -6,13 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.halfplatepoha.jisho.R;
 import com.halfplatepoha.jisho.base.BaseAdapter;
 import com.halfplatepoha.jisho.base.BaseViewholder;
-import com.halfplatepoha.jisho.view.CustomEditText;
+import com.halfplatepoha.jisho.view.CustomTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,25 +34,19 @@ public class ListsAdapter extends BaseAdapter<ListAdapterContract.Presenter,List
 
     public static class ListViewHolder extends BaseViewholder<ListAdapterContract.Presenter> implements ListAdapterContract.View {
 
-        @BindView(R.id.etListName)
-        CustomEditText etListName;
+        @BindView(R.id.tvListName)
+        CustomTextView tvListName;
 
         @BindView(R.id.row_list)
         View row;
-
-        @BindView(R.id.chkList)
-        AppCompatCheckBox chkList;
-
-        @BindView(R.id.btnDone)
-        Button btnDone;
 
         public ListViewHolder(View itemView, ListAdapterContract.Presenter presenter) {
             super(itemView, presenter);
         }
 
         @Override
-        public void setListName(String name) {
-            etListName.setText(name);
+        public void setListNameCount(String name, int count) {
+            tvListName.setText(row.getContext().getString(R.string.row_list_text, name, count));
         }
 
         @Override
@@ -73,45 +65,8 @@ public class ListsAdapter extends BaseAdapter<ListAdapterContract.Presenter,List
         }
 
         @Override
-        public void hideCheckListView() {
-            chkList.setVisibility(View.GONE);
-        }
-
-        @Override
-        public void showChecklistView() {
-            chkList.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void unselectList() {
-            chkList.setChecked(false);
-        }
-
-        @Override
-        public void selectList() {
-            chkList.setChecked(true);
-        }
-
-        @Override
-        public void setTextEditable() {
-            etListName.setClickable(true);
-            etListName.setFocusable(true);
-        }
-
-        @Override
-        public void setTextUnEditable() {
-            etListName.setClickable(false);
-            etListName.setFocusable(false);
-        }
-
-        @Override
-        public void showDoneButton() {
-            btnDone.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void hideDoneButton() {
-            btnDone.setVisibility(View.GONE);
+        public void setListName(String name) {
+            tvListName.setText(row.getContext().getString(R.string.row_list_0_entries_text, name));
         }
 
         @OnClick(R.id.row_list)
@@ -125,21 +80,5 @@ public class ListsAdapter extends BaseAdapter<ListAdapterContract.Presenter,List
             return true;
         }
 
-        @OnClick(R.id.chkList)
-        public void clickCheckList() {
-            presenter.onListChecked(getAdapterPosition(), chkList.isChecked());
-        }
-
-        @OnClick(R.id.btnDone)
-        public void clickDone() {
-            presenter.onListNameChanged(etListName.text(), getAdapterPosition());
-        }
-
-        @OnFocusChange(R.id.etListName)
-        public void onEtNameFocus(boolean focused) {
-            if(focused) {
-                etListName.setSelection(etListName.getText() != null ? etListName.getText().length() : 0);
-            }
-        }
     }
 }

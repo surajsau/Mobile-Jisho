@@ -30,6 +30,9 @@ public interface SettingsContract {
         void openGmail(String title);
 
         void setVersion(String version);
+
+        void hideUpdate();
+
     }
 
     interface Presenter extends IPresenter {

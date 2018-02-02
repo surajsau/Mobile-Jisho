@@ -14,7 +14,7 @@
         android:layout_height="wrap_content" />
 
     <com.halfplatepoha.jisho.view.CustomEditText
-        android:id="@+id/etListName"
+        android:id="@+id/tvListName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="e.g., JLPT Revision"
@@ -35,7 +35,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/etListName"
+        android:layout_below="@id/tvListName"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content" />
 
