@@ -6,6 +6,8 @@ Jisho is the best companion one can ever ask for when it comes to learning Japan
 
 ### Features:
  * Jisho at the convenience of your Handheld device anytime, anywhere.
+ * Get the meaning and related words.
+ * For verbs get to know the inflection forms in each of the tenses.
  * Save your favorites and check them anytime for reference.
  * Check your search history too!
  
