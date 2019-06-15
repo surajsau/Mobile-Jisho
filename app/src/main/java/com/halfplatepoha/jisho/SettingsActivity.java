@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -47,6 +48,9 @@ public class SettingsActivity extends BaseActivity {
     @BindView(R.id.btnStartDownload)
     View downloadButton;
 
+    @BindView(R.id.tvVersion)
+    TextView tvVersion;
+
     private Snackbar downloadSnackbar;
 
     @Override
@@ -58,6 +62,10 @@ public class SettingsActivity extends BaseActivity {
         swtchOffline.setChecked(isOffline);
         swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
 
+        /*
+
+        not doing offline support currently
+
         if(Utils.isFileDowloaded()) {
             downloadView.setVisibility(View.GONE);
             offlineView.setVisibility(View.VISIBLE);
@@ -67,6 +75,9 @@ public class SettingsActivity extends BaseActivity {
             offlineView.setVisibility(View.GONE);
             offlineWarning.setVisibility(View.GONE);
         }
+        */
+
+        tvVersion.setText(String.format("v%s", BuildConfig.VERSION_NAME));
 
         downloadSnackbar = Snackbar.make(background, "Beginning download...", Snackbar.LENGTH_INDEFINITE);
 
@@ -171,8 +182,8 @@ public class SettingsActivity extends BaseActivity {
 
     @OnClick(R.id.tvAbout)
     public void openAbout() {
-        showDownloadFileDialog();
-//        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_ABOUT, "About"));
+//        showDownloadFileDialog();
+        startActivity(SingleFragmentActivity.getLaunchIntent(this, SingleFragmentActivity.FRAG_ABOUT, "About"));
     }
 
     @OnClick(R.id.tvLicense)

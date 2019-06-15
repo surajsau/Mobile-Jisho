@@ -7,14 +7,14 @@ repositories {
 }
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.halfplatepoha.jisho"
         minSdkVersion 18
-        targetSdkVersion 25
-        versionCode 7
-        versionName "2.0.1"
+        targetSdkVersion 26
+        versionCode 8
+        versionName "2.0.2"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

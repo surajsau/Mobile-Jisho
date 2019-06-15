@@ -43,6 +43,10 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /*
+
+        Offline mode removed in v2.0.2 (8) temporarily
+
         if(Utils.isFileDowloaded()) {
             checkForStorageReadWritePermissions();
         } else if(!JishoPreference.getBooleanFromPref(IConstants.PREF_SHOW_NEW, false)) {
@@ -58,6 +62,7 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
                     });
             JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, true);
         }
+        */
 
         bottomBar.setOnTabSelectListener(this);
         bottomBar.setOnTabReselectListener(this);
