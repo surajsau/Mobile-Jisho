@@ -2,6 +2,9 @@ package com.halfplatepoha.jisho.v2;
 
 import android.app.Application;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 public class ExperimentApp extends Application {
 
     private static RelineDB relineDB;
@@ -12,6 +15,7 @@ public class ExperimentApp extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        Realm.init(this);
     }
 
     public static ExperimentApp getInstance() {
@@ -22,6 +26,15 @@ public class ExperimentApp extends Application {
         if(relineDB == null)
             relineDB = new RelineDB(getInstance());
         return relineDB;
+    }
+
+    public RealmConfiguration getRelineRealmConfiguration() {
+        return new RealmConfiguration.Builder()
+                .name("offline.realm")
+                .modules(new OfflineModule())
+                .migration(new RelineMigrator())
+                .schemaVersion(RelineMigrator.VERSION)
+                .build();
     }
 
 }
