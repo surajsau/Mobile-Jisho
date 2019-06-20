@@ -1,7 +1,8 @@
 package com.halfplatepoha.jisho.utils;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
+
+import androidx.annotation.LayoutRes;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.halfplatepoha.jisho.R;

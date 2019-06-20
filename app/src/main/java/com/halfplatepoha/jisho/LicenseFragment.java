@@ -2,9 +2,10 @@ package com.halfplatepoha.jisho;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.thefinestartist.finestwebview.FinestWebView;

@@ -1,10 +1,11 @@
 package com.halfplatepoha.jisho;
 
-import android.support.annotation.Nullable;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.halfplatepoha.jisho.db.History;
 import com.halfplatepoha.jisho.db.RealmString;
@@ -29,7 +30,7 @@ public class HistoryFragment extends BaseFragment implements HistoryAdapter.OnSe
         adapter = new HistoryAdapter(getActivity());
         adapter.setSearchClickedListener(this);
         rlHistory.setAdapter(adapter);
-        rlHistory.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
+        rlHistory.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, true));
 
         refreshUI();
     }

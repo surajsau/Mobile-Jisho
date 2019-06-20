@@ -1,11 +1,11 @@
 package com.halfplatepoha.jisho.viewholders;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.LayoutRes;
 
 import butterknife.ButterKnife;
 
@@ -38,7 +38,8 @@ public abstract class BaseViewHolder<Model> {
 
     protected abstract void bindView(Model model);
 
-    public abstract @LayoutRes int getLayoutRes();
+    public abstract @LayoutRes
+    int getLayoutRes();
 
     public View getView() {
         if(!isBound)
