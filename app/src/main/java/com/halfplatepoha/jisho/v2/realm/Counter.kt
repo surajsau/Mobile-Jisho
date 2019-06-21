@@ -6,7 +6,7 @@ import io.realm.annotations.PrimaryKey
 open class Counter : RealmObject() {
 
     @PrimaryKey
-    var _id: String = ""
+    var _id: Int = 0
 
     var count1: String? = null
     var count2: String? = null

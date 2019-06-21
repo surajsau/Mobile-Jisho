@@ -6,7 +6,7 @@ import io.realm.annotations.PrimaryKey
 open class Kanji: RealmObject() {
 
     @PrimaryKey
-    var _id: String = ""
+    var _id: Int = 0
 
     var onyomi: String? = null
     var kunyomi: String? = null
