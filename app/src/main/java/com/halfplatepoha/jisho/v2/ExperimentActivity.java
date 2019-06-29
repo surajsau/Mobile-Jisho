@@ -62,23 +62,21 @@ public class ExperimentActivity extends BaseActivity {
 
     @OnClick(R.id.btnRun)
     public void run() {
-//        Realm realm = Realm.getInstance(ExperimentApp.getInstance().getRelineRealmConfiguration());
+        Realm realm = Realm.getInstance(ExperimentApp.getInstance().getRelineRealmConfiguration());
         SQLiteDatabase db = ExperimentApp.getDBInstance().getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT Antonyms FROM entry_antonyms WHERE ROWID = 35131", null);
-        cursor.moveToFirst();
-
-        byte[] content = cursor.getBlob(0);
-
-        for(byte contentByte: content)
-            Log.e("BYTE", "" + contentByte);
 
 //        extractCounters(db, realm);
 //        extractKanji(db, realm);
 //        extractExamples(db, realm);
+        realm.beginTransaction();
+        realm.delete(Radicals.class);
+        realm.commitTransaction();
 //        extractEntries(db, realm);
+//        extractEntryReadings(db, realm);
+//        extractKanas(db, realm);
+        extractRadicals(db, realm);
 
-//        realm.close();
+        realm.close();
     }
 
     private void extractKanji(SQLiteDatabase db, Realm realm) {
@@ -166,7 +164,6 @@ public class ExperimentActivity extends BaseActivity {
                 Entry entry = realm.createObject(Entry.class, cursor.getInt(0));
                 entry.setEntry(cursor.getString(1));
                 entry.setFurigana(cursor.getString(2));
-                entry.setTypes(cursor.getString(4));
                 entry.setSummary(cursor.getString(3));
                 entry.setFrequency(cursor.getDouble(5));
 
@@ -186,7 +183,8 @@ public class ExperimentActivity extends BaseActivity {
             do {
                 realm.beginTransaction();
 
-                EntryReadings entry = realm.createObject(EntryReadings.class, cursor.getInt(0));
+                EntryReadings entry = realm.createObject(EntryReadings.class);
+                entry.set_id(cursor.getInt(0));
                 entry.setFurigana(cursor.getString(3));
                 entry.setKanji(cursor.getString(2));
                 entry.setPosition(cursor.getInt(1));
