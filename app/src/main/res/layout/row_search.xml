@@ -36,17 +36,8 @@
             android:textSize="24sp"
             tools:text="気をつけて"/>
 
-        <LinearLayout
-            android:id="@+id/sensesContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:visibility="visible"
-            tools:visibility="visible" />
-
         <TextView
-            android:id="@+id/tvOtherForms"
+            android:id="@+id/tvMeaning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

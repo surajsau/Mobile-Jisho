@@ -16,6 +16,7 @@ import com.halfplatepoha.jisho.model.Japanese;
 import com.halfplatepoha.jisho.model.Sense;
 import com.halfplatepoha.jisho.model.Word;
 import com.halfplatepoha.jisho.utils.IConstants;
+import com.halfplatepoha.jisho.v2.JishoPreference;
 import com.halfplatepoha.jisho.viewholders.SearchResultSenseViewHolder;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
     private Context mContext;
     private LayoutInflater inflater;
 
-    private MainAdapterActionListener listener;
+    private Listener listener;
 
     private boolean isOffline;
 
@@ -42,14 +43,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
         this.mContext = mContext;
         inflater = LayoutInflater.from(mContext);
 
-        isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
+//        isOffline = JishoPreference.Companion.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
     }
 
     public void setOffline(boolean offline) {
         isOffline = offline;
     }
 
-    public void setMainAdapterActionListener(MainAdapterActionListener listener) {
+    public void setListener(Listener listener) {
         this.listener = listener;
     }
 
@@ -146,7 +147,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MainViewHo
         }
     }
 
-    public interface MainAdapterActionListener {
+    public interface Listener {
         void onSearchResultClicked(Word word);
         void onOfflineSearchResultClicked(int entryId);
     }

@@ -36,6 +36,7 @@ import com.halfplatepoha.jisho.offline.OfflineDbHelper;
 import com.halfplatepoha.jisho.offline.OfflineTask;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
+import com.halfplatepoha.jisho.v2.JishoPreference;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
@@ -44,7 +45,7 @@ import io.realm.Realm;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class SearchFragment extends BaseFragment implements MainView, TextView.OnEditorActionListener,
-        TextWatcher, SearchAdapter.MainAdapterActionListener {
+        TextWatcher, SearchAdapter.Listener {
 
     private static final String EXTRA_SEARCH_STRING = "extra_search_string";
     private static final String EXTRA_SOURCE = "extra_source";
@@ -98,7 +99,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
         super.onViewCreated(view, savedInstanceState);
 
         adapter = new SearchAdapter(getActivity());
-        adapter.setMainAdapterActionListener(this);
+        adapter.setListener(this);
 
         etSearch.setOnEditorActionListener(this);
         etSearch.addTextChangedListener(this);
@@ -115,10 +116,10 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
         if (Utils.isFileDowloaded()) {
             offlineView.setVisibility(View.VISIBLE);
 
-            boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
-            swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
-            swtchOffline.setChecked(isOffline);
-            adapter.setOffline(isOffline);
+//            boolean isOffline = JishoPreference.Companion.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
+//            swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
+//            swtchOffline.setChecked(isOffline);
+//            adapter.setOffline(isOffline);
         }
     }
 
@@ -281,7 +282,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
             swtchOffline.setCheckedNoEvent(false);
 
         } else {
-            JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, checked);
+//            JishoPreference.Companion.setInPref(IConstants.PREF_OFFLINE_MODE, checked);
 
             adapter.setOffline(checked);
             swtchOffline.setBackColorRes(checked ? R.color.colorOn : R.color.colorOff);

@@ -24,7 +24,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
     private static final int TYPE_ROW_ITEM = 2;
 
     public enum DrawerItem{
-        HOME("Home"), HISTORY("History"), FAVORITE("Favorite"), ABOUT("About");
+        HOME("Home"), HISTORY("HistoryV2"), FAVORITE("Favorite"), ABOUT("About");
 
         private String title;
         DrawerItem(String title) {

@@ -10,6 +10,7 @@ import com.halfplatepoha.jisho.offline.OfflineTask;
 import com.halfplatepoha.jisho.offline.model.ListEntry;
 import com.halfplatepoha.jisho.offline.utils.SearchTask;
 import com.halfplatepoha.jisho.utils.IConstants;
+import com.halfplatepoha.jisho.v2.JishoPreference;
 
 import java.util.List;
 
@@ -49,28 +50,28 @@ public class SearchPresenter extends BasePresenter {
             if(!SearchFragment.SOURCE_HISTORY.equalsIgnoreCase(source))
                 view.saveInHistory(searchString);
 
-            boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
+//            boolean isOffline = JishoPreference.Companion.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
 
-            if(isOffline) {
-
-                offlineTask.search(searchString, new SearchTask.SearchResultListener() {
-                    @Override
-                    public void onResult(List<ListEntry> entries) {
-                        if(entries != null && !entries.isEmpty()) {
-                            for(ListEntry entry : entries) {
-                                Word word = Word.fromOfflineListEntry(entry);
-                                view.addWordToAdapter(word);
-                            }
-                        } else {
-                            view.showEmptyResultError();
-                        }
-
-                        view.hideLoader();
-                        view.showClearButton();
-                    }
-                });
-
-            } else {
+//            if(isOffline) {
+//
+//                offlineTask.search(searchString, new SearchTask.SearchResultListener() {
+//                    @Override
+//                    public void onResult(List<ListEntry> entries) {
+//                        if(entries != null && !entries.isEmpty()) {
+//                            for(ListEntry entry : entries) {
+//                                Word word = Word.fromOfflineListEntry(entry);
+//                                view.addWordToAdapter(word);
+//                            }
+//                        } else {
+//                            view.showEmptyResultError();
+//                        }
+//
+//                        view.hideLoader();
+//                        view.showClearButton();
+//                    }
+//                });
+//
+//            } else {
                 api.search(searchString)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.newThread())
@@ -99,7 +100,7 @@ public class SearchPresenter extends BasePresenter {
                                 Crashlytics.logException(throwable);
                             }
                         });
-            }
+//            }
         }
     }
 

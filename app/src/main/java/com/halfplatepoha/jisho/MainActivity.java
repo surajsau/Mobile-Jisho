@@ -16,8 +16,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.halfplatepoha.jisho.utils.IConstants;
-import com.halfplatepoha.jisho.utils.UIUtils;
-import com.halfplatepoha.jisho.utils.Utils;
+import com.halfplatepoha.jisho.v2.JishoPreference;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -143,11 +142,11 @@ public class MainActivity extends BaseActivity implements HistoryFragment.Histor
     @Override
     protected void onResume() {
         super.onResume();
-        boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
-
-        Intent offlineStatusIntent = new Intent(IConstants.OFFLINE_STATUS_BROADCAST_FILTER);
-        offlineStatusIntent.putExtra(IConstants.EXTRA_OFFLINE_STATUS, isOffline);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(offlineStatusIntent);
+//        boolean isOffline = JishoPreference.Companion.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
+//
+//        Intent offlineStatusIntent = new Intent(IConstants.OFFLINE_STATUS_BROADCAST_FILTER);
+//        offlineStatusIntent.putExtra(IConstants.EXTRA_OFFLINE_STATUS, isOffline);
+//        LocalBroadcastManager.getInstance(this).sendBroadcast(offlineStatusIntent);
     }
 
     private void openFragment(BaseFragment fragment) {

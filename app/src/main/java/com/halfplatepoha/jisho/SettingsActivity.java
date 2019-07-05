@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
+import com.halfplatepoha.jisho.v2.JishoPreference;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
@@ -58,10 +59,10 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean isOffline = JishoPreference.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
-
-        swtchOffline.setChecked(isOffline);
-        swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
+//        boolean isOffline = JishoPreference.Companion.getBooleanFromPref(IConstants.PREF_OFFLINE_MODE, false);
+//
+//        swtchOffline.setChecked(isOffline);
+//        swtchOffline.setBackColorRes(isOffline ? R.color.colorOn : R.color.colorOff);
 
         /*
 
@@ -102,7 +103,7 @@ public class SettingsActivity extends BaseActivity {
             case R.id.swtchOffline:
                 Analytics.getInstance().recordOfflineSwitch(isChecked);
 
-                JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, isChecked);
+//                JishoPreference.Companion.setInPref(IConstants.PREF_OFFLINE_MODE, isChecked);
 
                 swtchOffline.setBackColorRes(isChecked ? R.color.colorOn : R.color.colorOff);
                 break;

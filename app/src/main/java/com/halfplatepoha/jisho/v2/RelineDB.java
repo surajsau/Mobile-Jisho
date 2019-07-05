@@ -6,7 +6,7 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 public class RelineDB extends SQLiteAssetHelper {
 
-    private static final String DATABASE_NAME = "Japanese4.db";
+    private static final String DATABASE_NAME = "databases/Japanese4.db";
     private static final int DATABASE_VERSION = 1548319745;
 
     public RelineDB(Context context) {

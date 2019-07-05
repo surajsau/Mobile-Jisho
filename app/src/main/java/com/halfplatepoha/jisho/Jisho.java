@@ -10,6 +10,8 @@ import com.halfplatepoha.jisho.analytics.Analytics;
 import com.halfplatepoha.jisho.offline.OfflineDbHelper;
 import com.halfplatepoha.jisho.utils.IConstants;
 import com.halfplatepoha.jisho.utils.Utils;
+import com.halfplatepoha.jisho.v2.JishoPreference;
+import com.halfplatepoha.jisho.v2.realm.JishoMigration;
 
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
@@ -30,11 +32,11 @@ public class Jisho extends Application {
         Fabric.with(this, new Crashlytics());
         Fabric.with(this, new Answers());
         Analytics.init(this);
-        JishoPreference.init(this, "JishoPref");
+//        JishoPreference.Companion.init(this, "JishoPref");
         OfflineDbHelper.init(this);
 
-        if(!Utils.isFileDowloaded())
-            JishoPreference.setInPref(IConstants.PREF_OFFLINE_MODE, false);
+//        if(!Utils.isFileDowloaded())
+//            JishoPreference.Companion.setInPref(IConstants.PREF_OFFLINE_MODE, false);
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
@@ -43,12 +45,12 @@ public class Jisho extends Application {
 
     private void checkAppUpdate() {
         int version = BuildConfig.VERSION_CODE;
-        int prevVersion = JishoPreference.getIntFromPref(IConstants.PREF_VERSION_CODE, -1);
-
-        if(version > prevVersion) {
-            JishoPreference.setInPref(IConstants.PREF_VERSION_CODE, version);
-            JishoPreference.setInPref(IConstants.PREF_SHOW_NEW, false);
-        }
+//        int prevVersion = JishoPreference.Companion.getIntFromPref(IConstants.PREF_VERSION_CODE, -1);
+//
+//        if(version > prevVersion) {
+//            JishoPreference.Companion.setInPref(IConstants.PREF_VERSION_CODE, version);
+//            JishoPreference.Companion.setInPref(IConstants.PREF_SHOW_NEW, false);
+//        }
     }
 
     private RealmConfiguration getConfig() {
