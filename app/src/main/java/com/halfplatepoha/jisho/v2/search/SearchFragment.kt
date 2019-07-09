@@ -2,6 +2,7 @@ package com.halfplatepoha.jisho.v2.search
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,12 +35,16 @@ class SearchFragment : BaseFragment(), CoroutineScope {
         get() = R.layout.fragment_search
 
     override fun initUi() {
-        rlWords.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        searchAdapter.isVerticalScroll = true
+
+        rlWords.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         rlWords.adapter = searchAdapter
     }
 
     override fun setListeners() {
         searchAdapter.listener = {searchFragmentViewModel.onSearchResultSelected(it)}
+
+        btnClear.setOnClickListener { searchFragmentViewModel.clearClicked() }
 
         etSearch.addTextChangedListener(object : TextWatcher {
 
@@ -65,12 +70,13 @@ class SearchFragment : BaseFragment(), CoroutineScope {
 
                         launch {
                             /*
-                            debounce timeout
-                         */
+                                debounce timeout
+                             */
                             delay(300)
                             if (!currentSearch.equals(previousSearch))
                                 return@launch
 
+                            searchFragmentViewModel.onSearched(currentSearch)
                             searchViewModel.onSearched(currentSearch)
                         }
                     }
@@ -81,6 +87,9 @@ class SearchFragment : BaseFragment(), CoroutineScope {
     }
 
     override fun setViewModelObservers() {
+
+        searchFragmentViewModel.searchText.observe(this, Observer { etSearch.setText(it) })
+
         searchFragmentViewModel.selectedSearchResult.observe(this, Observer {
             startActivity(DetailActivity.getLaunchIntent(context!!, it))
         })
@@ -88,6 +97,8 @@ class SearchFragment : BaseFragment(), CoroutineScope {
         searchFragmentViewModel.searchResults.observe(this, Observer { searchAdapter.searchResults = it })
 
         searchViewModel.searchResult.observe(this, Observer { searchFragmentViewModel.onSearchResultsReceived(it) })
+
+        searchFragmentViewModel.crossIconVisibility.observe(this, Observer { btnClear.visibility = if(it) View.VISIBLE else View.GONE })
     }
 
 }

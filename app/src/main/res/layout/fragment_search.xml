@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="16dp"
-    tools:background="@drawable/dark_background"
     tools:context="com.halfplatepoha.jisho.SearchFragment">
 
     <LinearLayout android:id="@+id/offlineView"
@@ -41,74 +40,48 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/searchContainer"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="?android:actionBarSize"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp">
 
-        <ImageView
-            android:id="@+id/ivSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:alpha="0.5"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            app:srcCompat="@drawable/search" />
-
         <EditText
             android:id="@+id/etSearch"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/ivSearch"
             android:alpha="0.5"
             android:background="@null"
             android:hint="Search jisho"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="28sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/searchTextColor"
+            android:textColorHint="@color/searchTextColor"
+            android:textSize="32sp"
             android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/btnClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:background="@null"
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:padding="5dp"
+            android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/cross"
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-            android:id="@+id/progress"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:alpha="0.5"
-            android:foregroundGravity="center"
-            android:visibility="gone"
-            app:mpb_progressTint="@color/white"
-            tools:visibility="visible" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

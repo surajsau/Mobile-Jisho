@@ -16,12 +16,16 @@ class SearchViewModel(entryDao: EntryDao) : ViewModel() {
 
     private val searchWord = MutableLiveData<String>()
 
+    val crossIconVisibility = MutableLiveData<Boolean>()
+
     val searchResult = Transformations.switchMap(searchWord) {
-        entryDao.searchWithFurigana("%$it%")
+        entryDao.searchWithFurigana("$it%")
     }
 
     fun onSearched(currentSearch: String?) {
-        currentSearch?.run { searchWord.value = this }
+        currentSearch?.run {
+            searchWord.value = this
+        }
     }
 
 }

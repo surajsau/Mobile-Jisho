@@ -13,12 +13,24 @@ class SearchFragmentViewModel(): ViewModel() {
 
     val searchResults = MutableLiveData<List<Word>>()
 
+    val crossIconVisibility = MutableLiveData<Boolean>()
+
+    val searchText = MutableLiveData<String>()
+
     fun onSearchResultSelected(entryId: String?) {
         entryId?.run { selectedSearchResult.value = this }
     }
 
     fun onSearchResultsReceived(result: List<Entry>) {
         searchResults.value = result.map { Word(it._id.toString(), it.furigana, it.entry, it.summary) }
+    }
+
+    fun onSearched(currentSearch: String?) {
+        crossIconVisibility.value = currentSearch?.isNotEmpty()?:false
+    }
+
+    fun clearClicked() {
+        searchText.value = ""
     }
 
 }

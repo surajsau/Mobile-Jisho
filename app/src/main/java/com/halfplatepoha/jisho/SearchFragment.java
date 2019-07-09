@@ -62,8 +62,8 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     @BindView(R.id.btnClear)
     ImageButton btnClear;
 
-    @BindView(R.id.ivSearch)
-    ImageView ivSearch;
+//    @BindView(R.id.ivSearch)
+//    ImageView ivSearch;
 
     @BindView(R.id.progress)
     MaterialProgressBar progress;
@@ -194,7 +194,7 @@ public class SearchFragment extends BaseFragment implements MainView, TextView.O
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         float alpha = TextUtils.isEmpty(s) ? 0.5f : 1.0f;
-        ivSearch.setAlpha(alpha);
+//        ivSearch.setAlpha(alpha);
         etSearch.setAlpha(alpha);
         btnClear.setVisibility(TextUtils.isEmpty(s) ? View.GONE : View.VISIBLE);
     }
